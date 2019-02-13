@@ -13,5 +13,5 @@ import javax.microedition.khronos.opengles.GL11Ext;
 public class Texture
 {
     private int texture[] = new int[1];
-    
+
 }
