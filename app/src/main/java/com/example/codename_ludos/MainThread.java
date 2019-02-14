@@ -35,7 +35,7 @@ public class MainThread extends Thread {
             startTime = System.nanoTime();
             canvas = null;
             try {
-                canvas = this.surfaceHolder.lockCanvas();
+                canvas = this.surfaceHolder.lockHardwareCanvas();
                 synchronized (surfaceHolder) {
                     this.gamePanel.update();
                     this.gamePanel.draw(canvas);

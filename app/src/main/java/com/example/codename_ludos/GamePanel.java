@@ -41,6 +41,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         arcadeImage = BitmapHelper.decodeResource(getResources(), R.drawable.maskin);
         arcadeImage = BitmapHelper.resizeBitmap(arcadeImage, 1080, 1920);
+
     }
 
     @Override
@@ -93,6 +94,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawColor(Color.BLACK); //Background
         player.draw(canvas);
         canvas.drawBitmap(arcadeImage, 0, 0, paint);
+        canvas.drawBitmap(arcadeImage, 100, 100, paint);
         if (i < 1) {
             i++;
             String msgC = "" + canvas.isHardwareAccelerated();
