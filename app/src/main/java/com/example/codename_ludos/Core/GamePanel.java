@@ -1,6 +1,7 @@
-package com.example.codename_ludos;
+package com.example.codename_ludos.Core;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,15 +13,18 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
+import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.LibraryTools.BitmapHelper;
 import com.example.codename_ludos.LibraryTools.Constants;
+import com.example.codename_ludos.R;
+import com.example.codename_ludos.RectPlayer;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // Class that handles all rendering in the app
     private RectPlayer player;
     private Point playerPoint;
-    private Paint paint;
-    private Bitmap arcadeImage;
+    public static Paint paint;
+    private SpriteMap arcadeImage;
     private MainThread thread;
 
     public GamePanel(Context context) {
@@ -31,16 +35,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
         setLayerType(LAYER_TYPE_HARDWARE, paint);
         Constants.CURRENT_CONTEXT = context;
-
-        // TESTS:
-        playerPoint = new Point(150, 150);
-        player = new RectPlayer(new Rect(100, 100, 200, 200),
-                Color.rgb(0, 250, 0));
-
         paint = new Paint();
 
-        arcadeImage = BitmapHelper.decodeResource(getResources(), R.drawable.maskin);
-        arcadeImage = BitmapHelper.resizeBitmap(arcadeImage, 1080, 1920);
 
     }
 
@@ -55,7 +51,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread = new MainThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
+        // TESTS:
+        playerPoint = new Point(150, 150);
+        player = new RectPlayer(new Rect(100, 100, 200, 200),
+                Color.rgb(0, 250, 0));
 
+        arcadeImage = new SpriteMap(R.drawable.maskin, 1080, 1920);
     }
 
 
@@ -86,21 +87,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         player.update(playerPoint);
     }
 
-    private int i = 0;
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawColor(Color.BLACK); //Background
+        canvas.drawColor(Color.WHITE); //Background
         player.draw(canvas);
-        canvas.drawBitmap(arcadeImage, 0, 0, paint);
-        canvas.drawBitmap(arcadeImage, 100, 100, paint);
-        if (i < 1) {
-            i++;
-            String msgC = "" + canvas.isHardwareAccelerated();
-            String msgV = "" + isHardwareAccelerated();
-            Log.i("Canvas", msgC);
-            Log.i("View", msgV);
+        if (arcadeImage != null) {
+            arcadeImage.drawFull(0, 0);
         }
     }
 }

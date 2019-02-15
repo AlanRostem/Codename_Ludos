@@ -1,16 +1,19 @@
-package com.example.codename_ludos;
+package com.example.codename_ludos.Core;
 
 
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
+import com.example.codename_ludos.Core.GamePanel;
+
 public class MainThread extends Thread {
-    public static final int MIN_FPS = 60;
+    public static int MAX_FPS = 60;
     private double averageFPS;
     private SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;
     private boolean running;
     public static Canvas canvas;
+
 
     public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel) {
         super();
@@ -25,17 +28,17 @@ public class MainThread extends Thread {
     @Override
     public void run() {
         long startTime;
-        long timeMillis = 1000/MIN_FPS;
+        long timeMillis = 1000/MAX_FPS;
         long waitTime;
         int frameCount = 0;
         long totalTime = 0;
-        long targetTime = 1000/MIN_FPS;
+        long targetTime = 1000/MAX_FPS;
 
        while (running) {
             startTime = System.nanoTime();
             canvas = null;
             try {
-                canvas = this.surfaceHolder.lockHardwareCanvas();
+                canvas = this.surfaceHolder.lockHardwareCanvas(); // Locks a new canvas with hardware acceleration!
                 synchronized (surfaceHolder) {
                     this.gamePanel.update();
                     this.gamePanel.draw(canvas);
@@ -57,7 +60,7 @@ public class MainThread extends Thread {
            } catch (Exception e) { e.printStackTrace();}
            totalTime += System.nanoTime() - startTime;
            frameCount++;
-           if (frameCount == MIN_FPS) {
+           if (frameCount == MAX_FPS) {
                 averageFPS = 1000 / ((totalTime/frameCount)/1000000);
                 frameCount = 0;
                 totalTime = 0;

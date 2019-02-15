@@ -14,7 +14,7 @@ public class BitmapHelper extends BitmapFactory {
         Matrix matrix = new Matrix();
         // RESIZE THE BIT MAP
         matrix.postScale(scaleWidth, scaleHeight);
-
+        
         // "RECREATE" THE NEW BITMAP
         Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
         bm.recycle();
