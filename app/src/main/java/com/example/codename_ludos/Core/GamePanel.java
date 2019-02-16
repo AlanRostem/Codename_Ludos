@@ -54,7 +54,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         // TESTS:
         playerPoint = new Point(150, 150);
         player = new RectPlayer(new Rect(100, 100, 200, 200),
-                Color.rgb(0, 250, 0));
+                Color.rgb(0, 250, 255));
 
         arcadeImage = new SpriteMap(R.drawable.maskin, 1080, 1920);
     }
@@ -77,7 +77,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_MOVE:
-                    playerPoint.set((int)event.getX(), (int)event.getY());
+                    playerPoint.set((int)event.getX() + 100, (int)event.getY() - 50);
                     break;
         }
         return true;
