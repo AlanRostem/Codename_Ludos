@@ -7,5 +7,4 @@ public interface GameObject {
     boolean toRemove = false;
     public void draw(Canvas canvas);
     public void update();
-
 }

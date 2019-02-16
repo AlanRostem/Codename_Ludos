@@ -2,7 +2,9 @@ package com.example.codename_ludos.Core;
 
 import android.content.Context;
 import android.content.res.Resources;
+
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -21,23 +23,25 @@ import com.example.codename_ludos.RectPlayer;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // Class that handles all rendering in the app
+    public static Paint paint;
+    private MainThread thread;
+
     private RectPlayer player;
     private Point playerPoint;
-    public static Paint paint;
+
     private SpriteMap arcadeImage;
-    private MainThread thread;
+    private Bitmap arcadeImage2;
+    private SpriteMap playerImage;
+
 
     public GamePanel(Context context) {
         super(context);
         getHolder().addCallback(this);
-
         thread = new MainThread(getHolder(), this);
         setFocusable(true);
         setLayerType(LAYER_TYPE_HARDWARE, paint);
         Constants.CURRENT_CONTEXT = context;
         paint = new Paint();
-
-
     }
 
     @Override
@@ -56,7 +60,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         player = new RectPlayer(new Rect(100, 100, 200, 200),
                 Color.rgb(0, 250, 255));
 
+        playerImage = new SpriteMap(R.drawable.rubigo, 384, 96);
+        playerImage.bindSprite("a1", 0, 0, 48, 48);
         arcadeImage = new SpriteMap(R.drawable.maskin, 1080, 1920);
+
+        arcadeImage2 = BitmapFactory.decodeResource(getResources(), R.drawable.rubigo);
+        //arcadeImage2 = BitmapHelper.resizeBitmap(arcadeImage2, 384, 96);
     }
 
 
@@ -87,12 +96,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         player.update(playerPoint);
     }
 
-
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawColor(Color.WHITE); //Background
-        player.draw(canvas);
+        canvas.drawColor(Color.BLACK); //Background
+        playerImage.drawAt("a1", playerPoint.x - 48*2, playerPoint.y - 48*2, 48*4, 48*4);
         if (arcadeImage != null) {
             arcadeImage.drawFull(0, 0);
         }
