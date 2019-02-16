@@ -21,4 +21,3 @@ public class BitmapHelper extends BitmapFactory {
         return resizedBitmap;
     }
 }
-
