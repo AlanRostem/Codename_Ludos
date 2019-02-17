@@ -25,6 +25,12 @@ public class MainThread extends Thread {
         this.running = running;
     }
 
+    public static float getDeltaTime() {
+        return deltaTime;
+    }
+
+    private static float deltaTime;
+
     @Override
     public void run() {
         long startTime;
@@ -54,6 +60,7 @@ public class MainThread extends Thread {
 
            timeMillis = (System.nanoTime() - startTime)/1000000;
            waitTime = targetTime - timeMillis;
+           deltaTime = waitTime / 1000.f;
            try {
                 if (waitTime > 0)
                     this.sleep(waitTime);
@@ -67,5 +74,4 @@ public class MainThread extends Thread {
            }
        }
     }
-
 }

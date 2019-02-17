@@ -15,7 +15,31 @@ import com.example.codename_ludos.LibraryTools.BitmapHelper;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 public class SpriteMap {
+
+    public static class Animation {
+        //Initializable values
+        private int start_col; //Start of row
+        private int end_col; //End of row
+        private int frames_per_row; //Amount of frames per row
+        private float frame_speed; //Frame speed in seconds
+
+        //Non-init values
+        private int current_col = start_col;
+        private int current_row = 0;
+        private float passed_time = 0;
+        private boolean reverse = false;
+        private boolean stop = false;
+
+        public Animation(int startColumn, int endColumn,int framesPerRow, float frameSpeedInSeconds) {
+            this.start_col = startColumn;
+            this.end_col = endColumn;
+            this.frames_per_row = framesPerRow;
+            this.frame_speed = frameSpeedInSeconds;
+        }
+    }
 
     private int resourceID;
     private Bitmap bitmap;
@@ -31,11 +55,35 @@ public class SpriteMap {
         // ass nigger fuckery ass fucktardian cock of a sun bucker nugget fag suck fuck!
         bitmap = BitmapHelper.resizeBitmap(bitmap, width, height);
         positionRect = new Rect(0, 0, width, height);
+        offsetRects.put("full", new Rect(0, 0, width, height));
     }
 
     // Bind a location on the sprite sheet to a name
     public void bindSprite(String name, int offsetX, int offsetY, int frameWidth, int frameHeight) {
         offsetRects.put(name, new Rect(offsetX, offsetY, frameWidth + offsetX, frameHeight + offsetY));
+    }
+
+    public void Animate(String name, Animation anim) {
+        if ((anim.passed_time += MainThread.getDeltaTime()) >= anim.frame_speed)
+        {
+            if (anim.current_col < anim.end_col)
+            {
+                anim.current_col++;
+            }
+            else
+            {
+                anim.current_col = anim.start_col;
+            }
+            anim.passed_time = 0;
+        }
+        int width = offsetRects.get(name).right - offsetRects.get(name).left;
+        int height = offsetRects.get(name).bottom - offsetRects.get(name).top;
+
+        offsetRects.get(name).left = (width * (anim.current_col % anim.frames_per_row));
+        offsetRects.get(name).top = (height * (anim.current_col / anim.frames_per_row));
+
+        offsetRects.get(name).right = offsetRects.get(name).left + width;
+        offsetRects.get(name).bottom = offsetRects.get(name).top + height;
     }
 
     public void drawAt(String name, int x, int y, int width, int height) {

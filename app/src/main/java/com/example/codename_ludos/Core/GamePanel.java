@@ -28,10 +28,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private RectPlayer player;
     private Point playerPoint;
+    private SpriteMap playerImage;
+    private SpriteMap.Animation playerAnim;
 
     private SpriteMap arcadeImage;
-    private Bitmap arcadeImage2;
-    private SpriteMap playerImage;
 
 
     public GamePanel(Context context) {
@@ -62,10 +62,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         playerImage = new SpriteMap(R.drawable.rubigo, 384, 96);
         playerImage.bindSprite("a1", 0, 0, 48, 48);
-        arcadeImage = new SpriteMap(R.drawable.maskin, 1080, 1920);
+        playerAnim = new SpriteMap.
+                Animation(0, 7, 8, 0.1f);
 
-        arcadeImage2 = BitmapFactory.decodeResource(getResources(), R.drawable.rubigo);
-        //arcadeImage2 = BitmapHelper.resizeBitmap(arcadeImage2, 384, 96);
+        arcadeImage = new SpriteMap(R.drawable.maskin, 1080, 1920);
     }
 
 
@@ -100,6 +100,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawColor(Color.BLACK); //Background
+        Log.i("DeltaTime", "" + MainThread.getDeltaTime());
+        playerImage.Animate("a1", playerAnim);
         playerImage.drawAt("a1", playerPoint.x - 48*2, playerPoint.y - 48*2, 48*4, 48*4);
         if (arcadeImage != null) {
             arcadeImage.drawFull(0, 0);
