@@ -20,7 +20,9 @@ import java.util.Map;
 public class SpriteMap {
 
     public static class Animation {
-        //Initializable values
+        // Object used as an instruction set for animating a sprite sheet
+
+        //Init values
         private int start_col; //Start of row
         private int end_col; //End of row
         private int frames_per_row; //Amount of frames per row
@@ -39,6 +41,22 @@ public class SpriteMap {
 
         public void setPaused(boolean on) {
             paused = on;
+        }
+
+        public void setStartFrame(int frame) {
+            start_col = frame;
+        }
+
+        public void setEndFrame(int frame) {
+            end_col = frame;
+        }
+
+        public void setFramesPerRow(int frames) {
+            frames_per_row = frames;
+        }
+
+        public void setFrameSpeed(float frameSpeedInSeconds) {
+            frame_speed = frameSpeedInSeconds;
         }
 
         public Animation(int startFrame, int endFrame,int framesPerRow, float frameSpeedInSeconds) {
