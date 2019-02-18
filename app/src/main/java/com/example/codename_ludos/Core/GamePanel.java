@@ -32,6 +32,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private SpriteMap playerImage;
     private SpriteMap.Animation playerAnim;
 
+    private SpriteMap explodeSprt;
+    private SpriteMap.Animation explodeAnim;
+
     private SpriteMap arcadeImage;
 
 
@@ -68,6 +71,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         playerAnim = new SpriteMap.
                 Animation(0, 7, 8, 0.1f);
 
+        explodeAnim = new SpriteMap.Animation(0, 80, 9, 0.01f);
+        explodeAnim.setReversed(true);
+        explodeSprt = new SpriteMap(R.drawable.exp, 900, 900);
+        explodeSprt.bindSprite("anim", 0, 0, 100, 100);
+
         arcadeImage = new SpriteMap(R.drawable.maskin, 1080, 1920);
     }
 
@@ -103,8 +111,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawColor(Color.BLACK); //Background
+
+        explodeSprt.Animate("anim", explodeAnim);
+        explodeSprt.drawAt("anim", 320, 320, 90, 90);
+
         playerImage.Animate("a1", playerAnim);
         playerImage.drawAt("a1", playerPoint.x - 48*2, playerPoint.y - 48*2, 48*4, 48*4);
+
         arcadeImage.drawFull(0, 0);
 
         Logger.draw();

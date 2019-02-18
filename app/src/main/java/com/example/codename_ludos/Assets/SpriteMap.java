@@ -31,11 +31,19 @@ public class SpriteMap {
         private int current_row = 0;
         private float passed_time = 0;
         private boolean reverse = false;
-        private boolean stop = false;
+        private boolean paused = false;
 
-        public Animation(int startColumn, int endColumn,int framesPerRow, float frameSpeedInSeconds) {
-            this.start_col = startColumn;
-            this.end_col = endColumn;
+        public void setReversed(boolean on) {
+            reverse = on;
+        }
+
+        public void setPaused(boolean on) {
+            paused = on;
+        }
+
+        public Animation(int startFrame, int endFrame,int framesPerRow, float frameSpeedInSeconds) {
+            this.start_col = startFrame;
+            this.end_col = endFrame;
             this.frames_per_row = framesPerRow;
             this.frame_speed = frameSpeedInSeconds;
         }
@@ -64,18 +72,36 @@ public class SpriteMap {
     }
 
     public void Animate(String name, Animation anim) {
-        if ((anim.passed_time += MainThread.getAverageDeltaTime()) >= anim.frame_speed)
-        {
-            if (anim.current_col < anim.end_col)
-            {
-                anim.current_col++;
+        if (!anim.paused) {
+            if (!anim.reverse) {
+                if ((anim.passed_time += MainThread.getAverageDeltaTime()) >= anim.frame_speed)
+                {
+                    if (anim.current_col < anim.end_col)
+                    {
+                        anim.current_col++;
+                    }
+                    else
+                    {
+                        anim.current_col = anim.start_col;
+                    }
+                    anim.passed_time = 0;
+                }
+            } else {
+                if ((anim.passed_time += MainThread.getAverageDeltaTime()) >= anim.frame_speed)
+                {
+                    if (anim.current_col > anim.start_col)
+                    {
+                        anim.current_col--;
+                    }
+                    else
+                    {
+                        anim.current_col = anim.end_col;
+                    }
+                    anim.passed_time = 0;
+                }
             }
-            else
-            {
-                anim.current_col = anim.start_col;
-            }
-            anim.passed_time = 0;
         }
+
         int width = offsetRects.get(name).right - offsetRects.get(name).left;
         int height = offsetRects.get(name).bottom - offsetRects.get(name).top;
 
