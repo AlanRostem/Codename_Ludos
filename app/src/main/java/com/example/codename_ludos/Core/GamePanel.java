@@ -50,8 +50,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(SurfaceHolder sHolder, int format, int width, int height) {
-        Constants.SCREEN_HEIGHT = height;
         Constants.SCREEN_WIDTH = width;
+        Constants.SCREEN_HEIGHT = height;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         explodeSprt = new SpriteMap(R.drawable.exp, 900, 900);
         explodeSprt.bindSprite("anim", 0, 0, 100, 100);
 
-        arcadeImage = new SpriteMap(R.drawable.maskin, 1080, 1920);
+        arcadeImage = new SpriteMap(R.drawable.maskin, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
     }
 
 
@@ -113,7 +113,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawColor(Color.BLACK); //Background
 
         explodeSprt.Animate("anim", explodeAnim);
-        explodeSprt.drawAt("anim", 320, 320, 90, 90);
+        explodeSprt.drawAt("anim", 320, 320, 90*3, 90*3);
 
         playerImage.Animate("a1", playerAnim);
         playerImage.drawAt("a1", playerPoint.x - 48*2, playerPoint.y - 48*2, 48*4, 48*4);
