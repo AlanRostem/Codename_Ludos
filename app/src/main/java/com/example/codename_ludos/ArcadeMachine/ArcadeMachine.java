@@ -9,14 +9,23 @@ import com.example.codename_ludos.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ArcadeMachine {
     // Static class that holds all ArcadeGame instances
 
-    private static Map<String, ArcadeGame> games;
+    private static HashMap<String, ArcadeGame> games;
     private static String currentGameID = "TestGame";
     private static SpriteMap arcadeImage;
+
+    private static void runGame(String gameID) {
+        currentGameID = gameID;
+        games.get(currentGameID).start();
+        // TODO: Add user friendly ways to stop a game
+    }
+
+    private static void stopGame() {
+        // TODO: Add a way to stop a game and save its changes
+    }
 
     // Works like a constructor for this static class
     public static void initialize() {
