@@ -64,7 +64,7 @@ public class SpriteMap {
     }
 
     public void Animate(String name, Animation anim) {
-        if ((anim.passed_time += MainThread.getDeltaTime()) >= anim.frame_speed)
+        if ((anim.passed_time += MainThread.getAverageDeltaTime()) >= anim.frame_speed)
         {
             if (anim.current_col < anim.end_col)
             {

@@ -18,6 +18,7 @@ import android.view.SurfaceHolder;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.LibraryTools.BitmapHelper;
 import com.example.codename_ludos.LibraryTools.Constants;
+import com.example.codename_ludos.LibraryTools.Logger;
 import com.example.codename_ludos.R;
 import com.example.codename_ludos.RectPlayer;
 
@@ -56,6 +57,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread.setRunning(true);
         thread.start();
         // TESTS:
+        Logger.enableDebugStats(true);
+
         playerPoint = new Point(150, 150);
         player = new RectPlayer(new Rect(100, 100, 200, 200),
                 Color.rgb(0, 250, 255));
@@ -100,11 +103,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawColor(Color.BLACK); //Background
-        Log.i("DeltaTime", "" + MainThread.getDeltaTime());
         playerImage.Animate("a1", playerAnim);
         playerImage.drawAt("a1", playerPoint.x - 48*2, playerPoint.y - 48*2, 48*4, 48*4);
-        if (arcadeImage != null) {
-            arcadeImage.drawFull(0, 0);
-        }
+        arcadeImage.drawFull(0, 0);
+
+        Logger.draw();
     }
 }

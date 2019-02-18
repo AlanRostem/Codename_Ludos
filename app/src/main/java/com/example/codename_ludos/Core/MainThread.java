@@ -4,11 +4,10 @@ package com.example.codename_ludos.Core;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
-import com.example.codename_ludos.Core.GamePanel;
-
 public class MainThread extends Thread {
     public static int MAX_FPS = 60;
-    private double averageFPS;
+    private static double averageFPS;
+    private static int currentFPS;
     private SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;
     private boolean running;
@@ -25,9 +24,22 @@ public class MainThread extends Thread {
         this.running = running;
     }
 
-    public static float getDeltaTime() {
+    public static float getCurrentDeltaTime() {
         return deltaTime;
     }
+
+    public static double getCurrentFPS() {
+        return currentFPS;
+    }
+
+    public static float getAverageDeltaTime() {
+        return 1.f/(float)averageFPS;
+    }
+
+    public static double getAverageFPS() {
+        return averageFPS;
+    }
+
 
     private static float deltaTime;
 
@@ -72,6 +84,7 @@ public class MainThread extends Thread {
                 frameCount = 0;
                 totalTime = 0;
            }
+           currentFPS = (int)(1/deltaTime);
        }
     }
 }
