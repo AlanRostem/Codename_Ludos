@@ -72,35 +72,21 @@ public class SpriteMap {
     }
 
     public void Animate(String name, Animation anim) {
-        if (!anim.paused) {
-            if (!anim.reverse) {
-                if ((anim.passed_time += MainThread.getAverageDeltaTime()) >= anim.frame_speed)
-                {
+        if (!anim.paused)
+            if ((anim.passed_time += MainThread.getAverageDeltaTime()) >= anim.frame_speed) {
+                if (!anim.reverse) {
                     if (anim.current_col < anim.end_col)
-                    {
                         anim.current_col++;
-                    }
                     else
-                    {
                         anim.current_col = anim.start_col;
-                    }
-                    anim.passed_time = 0;
-                }
-            } else {
-                if ((anim.passed_time += MainThread.getAverageDeltaTime()) >= anim.frame_speed)
-                {
+                } else {
                     if (anim.current_col > anim.start_col)
-                    {
                         anim.current_col--;
-                    }
                     else
-                    {
                         anim.current_col = anim.end_col;
-                    }
-                    anim.passed_time = 0;
                 }
+                anim.passed_time = 0;
             }
-        }
 
         int width = offsetRects.get(name).right - offsetRects.get(name).left;
         int height = offsetRects.get(name).bottom - offsetRects.get(name).top;
