@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.LibraryTools.BitmapHelper;
 import com.example.codename_ludos.LibraryTools.Constants;
@@ -26,17 +27,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // Class that handles all rendering in the app
     public static Paint paint;
     private MainThread thread;
-
-    private RectPlayer player;
-    private Point playerPoint;
-    private SpriteMap playerImage;
-    private SpriteMap.Animation playerAnim;
-
-    private SpriteMap explodeSprt;
-    private SpriteMap.Animation explodeAnim;
-
-    private SpriteMap arcadeImage;
-
 
     public GamePanel(Context context) {
         super(context);
@@ -59,24 +49,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread = new MainThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
+        ArcadeMachine.initialize();
         // TESTS:
         Logger.enableDebugStats(true);
-
-        playerPoint = new Point(550, 150);
-        player = new RectPlayer(new Rect(100, 100, 200, 200),
-                Color.rgb(0, 250, 255));
-
-        playerImage = new SpriteMap(R.drawable.rubigo, 384, 96);
-        playerImage.bindSprite("a1", 0, 0, 48, 48);
-        playerAnim = new SpriteMap.
-                Animation(0, 7, 8, 0.1f);
-
-        explodeAnim = new SpriteMap.Animation(0, 80, 9, 0.01f);
-        explodeAnim.setReversed(true);
-        explodeSprt = new SpriteMap(R.drawable.exp, 900, 900);
-        explodeSprt.bindSprite("anim", 0, 0, 100, 100);
-
-        arcadeImage = new SpriteMap(R.drawable.maskin, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
     }
 
 
@@ -94,32 +69,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                case MotionEvent.ACTION_MOVE:
-                    playerPoint.set((int)event.getX() + 100, (int)event.getY() - 50);
-                    break;
-        }
+        ArcadeMachine.touchEventHandle(event);
         return true;
     }
 
     public void update() {
-        player.update(playerPoint);
+
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         canvas.drawColor(Color.BLACK); //Background
-
-        explodeSprt.Animate("anim", explodeAnim);
-        explodeSprt.drawAt("anim", 320, 320, 90*3, 90*3);
-
-        playerImage.Animate("a1", playerAnim);
-        playerImage.drawAt("a1", playerPoint.x - 48*2, playerPoint.y - 48*2, 48*4, 48*4);
-
-        arcadeImage.drawFull(0, 0);
-
+        ArcadeMachine.draw();
         Logger.draw();
     }
 }

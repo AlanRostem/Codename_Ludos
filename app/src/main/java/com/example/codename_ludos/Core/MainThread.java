@@ -13,7 +13,6 @@ public class MainThread extends Thread {
     private boolean running;
     public static Canvas canvas;
 
-
     public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel) {
         super();
         this.surfaceHolder = surfaceHolder;
