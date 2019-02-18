@@ -62,7 +62,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         // TESTS:
         Logger.enableDebugStats(true);
 
-        playerPoint = new Point(150, 150);
+        playerPoint = new Point(550, 150);
         player = new RectPlayer(new Rect(100, 100, 200, 200),
                 Color.rgb(0, 250, 255));
 
