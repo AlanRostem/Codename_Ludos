@@ -17,6 +17,22 @@ public class Vector2D {
         return y;
     }
 
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void addX(float offsetX) {
+        this.x += offsetX;
+    }
+
+    public void addY(float offsetY) {
+        this.y += offsetY;
+    }
+
     public Vector2D set(float  x, float y) {
         this.x = x;
         this.y = y;

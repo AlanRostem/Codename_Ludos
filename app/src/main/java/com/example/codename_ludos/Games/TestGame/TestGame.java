@@ -16,11 +16,7 @@ import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.R;
 
 public class TestGame extends ArcadeGame {
-    private SpriteMap playerImage;
-    private SpriteMap.Animation playerAnim;
-
-    private SpriteMap explodeSprt;
-    private SpriteMap.Animation explodeAnim;
+    private Dude dude;
 
     public TestGame() {
         super("TestGame");
@@ -29,28 +25,39 @@ public class TestGame extends ArcadeGame {
     @Override
     public void setup() {
 
-        playerImage = new SpriteMap(R.drawable.rubigo, 384, 96);
-        playerImage.bindSprite("a1", 0, 0, 48, 48);
-        playerAnim = new SpriteMap.
-                Animation(0, 7, 8, 0.1f);
+        dude = new Dude();
 
-        explodeAnim = new SpriteMap.Animation(0, 80, 9, 0.01f);
-        explodeAnim.setReversed(true);
-        explodeSprt = new SpriteMap(R.drawable.exp, 900, 900);
-        explodeSprt.bindSprite("anim", 0, 0, 100, 100);
+        controls.createController(new Button( 10 + 10*80, 1920 - 350, 170, 170) {
+            private int color = Color.GREEN;
 
-        controls.createController(new Controller(320, 320, 90*3 ,90*3) {
-            public void onTouch(float eX, float eY) {
-                explodeAnim.setReversed(false);
+            public void onPressed(float x, float y) {
+                color = Color.BLUE;
+                dude.jumpNow = true;
+            }
+
+            public void onReleased(float x, float y) {
+                color = Color.GREEN;
+                dude.jumpNow = false;
+            }
+
+            public void draw() {
+                GamePanel.paint.setColor(this.color);
+                MainThread.canvas.drawRect(
+                        this.getX(), this.getY(),
+                        this.getX() + this.getWidth(),
+                        this.getY() + this.getHeight(),
+                        GamePanel.paint);
             }
         });
+
+        final int speed = 5;
 
         controls.createController(new Button( 10 + 3*80, 1920 - 350, 120, 120) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
-                Log.i("Works?", "I mean I guess...");
+                dude.addX(speed);
             }
 
             public void onReleased(float x, float y) {
@@ -71,7 +78,7 @@ public class TestGame extends ArcadeGame {
 
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
-                Log.i("Works?", "I mean I guess...");
+                dude.addX(-speed);
             }
 
             public void onReleased(float x, float y) {
@@ -93,15 +100,12 @@ public class TestGame extends ArcadeGame {
     @Override
     public void update() {
         controls.update();
+        dude.update();
     }
 
     @Override
     public void draw() {
-        explodeSprt.Animate("anim", explodeAnim);
-        explodeSprt.drawAt("anim", 320, 320, 90*3, 90*3);
-
-        //playerImage.Animate("a1", playerAnim);
-        //playerImage.drawAt("a1", playerPoint.x - 48*2, playerPoint.y - 48*2, 48*4, 48*4);
+        dude.draw();
     }
 
     @Override
