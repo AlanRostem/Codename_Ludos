@@ -58,6 +58,9 @@ public class TestGame extends ArcadeGame {
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
                 dude.addX(speed);
+                dude.right = true;
+                dude.left = false;
+                dude.walk = true;
             }
 
             public void onReleased(float x, float y) {
@@ -79,6 +82,9 @@ public class TestGame extends ArcadeGame {
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
                 dude.addX(-speed);
+                dude.left = true;
+                dude.right = false;
+                dude.walk = true;
             }
 
             public void onReleased(float x, float y) {

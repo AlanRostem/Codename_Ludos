@@ -7,7 +7,8 @@ import com.example.codename_ludos.R;
 public class Dude extends Vector2D {
 
     private SpriteMap sprite;
-    private SpriteMap.Animation anim;
+    private SpriteMap.Animation walkL;
+    private SpriteMap.Animation walkR;
 
     int width = 100;
     int height = 100;
@@ -16,14 +17,21 @@ public class Dude extends Vector2D {
     public float velY = 0;
     public boolean jumping = false;
     public boolean jumpNow = false;
+
+    public boolean right = true;
+    public boolean left = true;
+    public boolean walk = false;
     float gravity = 0.3f;
 
    public Dude() {
         super(320, 0);
         sprite = new SpriteMap(R.drawable.rubigo, 384, 96);
         sprite.bindSprite("a1", 0, 0, 48, 48);
-        anim = new SpriteMap.
+
+        walkL = new SpriteMap.
                 Animation(0, 7, 8, 0.1f);
+        walkR = new SpriteMap.
+                Animation(8, 15, 8, 0.1f);
     }
 
     public void update() {
@@ -32,7 +40,7 @@ public class Dude extends Vector2D {
         if (jumpNow)
         if (!jumping) {
             jumping = true;
-            velY = -14;
+            velY = -10;
         }
 
         addX(velX);
@@ -42,11 +50,16 @@ public class Dude extends Vector2D {
             setY(H - height);
             jumping = false;
         }
-
     }
 
     public void draw() {
-       sprite.Animate("a1", anim);
+       if (left) {
+           if (walk)
+               sprite.Animate("a1", walkR);
+       } else if (right) {
+           if (walk)
+               sprite.Animate("a1", walkL);
+       }
        sprite.drawAt("a1", (int)getX(), (int)getY(), width, height);
     }
 }
