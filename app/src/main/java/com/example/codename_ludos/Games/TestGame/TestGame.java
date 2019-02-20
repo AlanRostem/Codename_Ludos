@@ -3,6 +3,7 @@ package com.example.codename_ludos.Games.TestGame;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
@@ -49,6 +50,7 @@ public class TestGame extends ArcadeGame {
 
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
+                Log.i("Works?", "I mean I guess...");
             }
 
             public void onReleased(float x, float y) {
@@ -69,6 +71,7 @@ public class TestGame extends ArcadeGame {
 
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
+                Log.i("Works?", "I mean I guess...");
             }
 
             public void onReleased(float x, float y) {
@@ -84,7 +87,6 @@ public class TestGame extends ArcadeGame {
                         GamePanel.paint);
             }
         });
-
 
     }
 

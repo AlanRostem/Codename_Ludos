@@ -3,6 +3,7 @@ package com.example.codename_ludos.Controllers;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Core.MainActivity;
+import com.example.codename_ludos.Input.Finger;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
 public class Controller extends Vector2D {
@@ -33,21 +34,19 @@ public class Controller extends Vector2D {
         return MainActivity.gamePanel.getTouchPosition();
     }
 
-    public boolean isTouched() {
-        Vector2D pos = getTouchPosition();
+    public boolean isTouched(Finger pos) {
         return pos.getY() > this.getY()
                 &&  pos.getY() < (this.getY() + this.height)
                 && pos.getX() > this.getX()
                 &&  pos.getX() < (this.getX() + this.width)
-                &&
-                (MainActivity.gamePanel.getCurrentActionEvent() == MotionEvent.ACTION_DOWN
-                || MainActivity.gamePanel.getCurrentActionEvent() == MotionEvent.ACTION_MOVE);
+                && pos.isDown();
     }
 
     public void update() {
-        Vector2D pos = getTouchPosition();
-        if (isTouched()) {
-            onTouch(pos.getX(), pos.getY());
+        for (Finger pos : MainActivity.gamePanel.getFingers()) {
+            if (isTouched(pos)) {
+                onTouch(pos.getX(), pos.getY());
+            }
         }
     }
 
