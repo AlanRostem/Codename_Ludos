@@ -20,6 +20,7 @@ import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.LibraryTools.BitmapHelper;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Logger;
+import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 import com.example.codename_ludos.RectPlayer;
 
@@ -27,6 +28,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // Class that handles all rendering in the app
     public static Paint paint;
     private MainThread thread;
+    private Vector2D touchPosition;
+
+    int currentActionEvent;
 
     public GamePanel(Context context) {
         super(context);
@@ -36,6 +40,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         setLayerType(LAYER_TYPE_HARDWARE, paint);
         Constants.CURRENT_CONTEXT = context;
         paint = new Paint();
+        touchPosition = new Vector2D(0, 0);
     }
 
     @Override
@@ -54,7 +59,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         Logger.enableDebugStats(true);
     }
 
-
     @Override
     public void surfaceDestroyed(SurfaceHolder sHolder) {
         boolean retry = true;
@@ -70,11 +74,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         ArcadeMachine.touchEventHandle(event);
+        touchPosition.set(event.getX(), event.getY());
+        currentActionEvent = event.getAction();
         return true;
     }
 
-    public void update() {
+    public int getCurrentActionEvent() {
+        return currentActionEvent;
+    }
 
+    public Vector2D getTouchPosition() {
+        return touchPosition;
+    }
+
+    public void update() {
+        ArcadeMachine.update();
     }
 
     @Override

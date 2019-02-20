@@ -2,7 +2,7 @@ package com.example.codename_ludos.ArcadeMachine;
 
 import android.view.MotionEvent;
 
-import com.example.codename_ludos.Controls;
+import com.example.codename_ludos.Controllers.Controls;
 import com.example.codename_ludos.GameObjectManager;
 
 public class ArcadeGame extends GameObjectManager {
@@ -16,6 +16,7 @@ public class ArcadeGame extends GameObjectManager {
     // static variable for the id
     public ArcadeGame(String ID) {
         this.id = ID;
+        controls = new Controls();
     }
 
     public String getID() {
@@ -35,6 +36,11 @@ public class ArcadeGame extends GameObjectManager {
         return mStarted;
     }
 
+    /**
+     * Upon starting a game, this function is called. Use this to set up the game.
+     * This includes member initializations and calling other methods for things
+     * like animations or intros the game may or may not have.
+     */
     public void setup() {
 
     }

@@ -7,7 +7,6 @@ import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ArcadeMachine {
@@ -17,13 +16,13 @@ public class ArcadeMachine {
     private static String currentGameID = "TestGame";
     private static SpriteMap arcadeImage;
 
-    private static void runGame(String gameID) {
+    private static void enterGame(String gameID) {
         currentGameID = gameID;
         games.get(currentGameID).start();
         // TODO: Add user friendly ways to stop a game
     }
 
-    private static void stopGame() {
+    private static void exitGame() {
         // TODO: Add a way to stop a game and save its changes
     }
 
@@ -40,6 +39,7 @@ public class ArcadeMachine {
     public static void draw() {
         games.get(currentGameID).draw();
         arcadeImage.drawFull(0, 0);
+        games.get(currentGameID).controls.draw();
     }
 
     public static void update() {
