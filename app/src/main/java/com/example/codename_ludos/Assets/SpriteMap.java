@@ -1,5 +1,6 @@
 package com.example.codename_ludos.Assets;
 
+import android.app.VoiceInteractor;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -71,15 +72,15 @@ public class SpriteMap {
     private Bitmap bitmap;
     private Map<String, Rect> offsetRects;
     private Rect positionRect;
+    private BitmapFactory.Options options = new BitmapFactory.Options();
 
     public SpriteMap(int resourceID, int width, int height) {
         this.resourceID = resourceID;
         offsetRects = new HashMap<>();
-        bitmap = BitmapHelper.decodeResource(MainActivity.gamePanel.getResources(), this.resourceID);
-        // For some stupid reason we gotta do this in order to make the sprite work but hey who cares
-        // Java fucking sucks anyway and we prolly wont ever make no cash from this waste of stupid
-        // ass nigger fuckery ass fucktardian cock of a sun bucker nugget fag suck fuck!
-        bitmap = BitmapHelper.resizeBitmap(bitmap, width, height);
+        options.inScaled = false;
+
+        bitmap = BitmapHelper.decodeResource(MainActivity.gamePanel.getResources(), this.resourceID, options);
+        //bitmap = BitmapHelper.resizeBitmap(bitmap, width, height);
         positionRect = new Rect(0, 0, width, height);
         offsetRects.put("full", new Rect(0, 0, width, height));
     }

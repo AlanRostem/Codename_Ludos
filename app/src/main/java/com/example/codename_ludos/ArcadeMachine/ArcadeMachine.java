@@ -30,7 +30,7 @@ public class ArcadeMachine {
     public static void initialize() {
         games = new HashMap<>();
         arcadeImage = new SpriteMap(R.drawable.maskin, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
-
+        arcadeImage.bindSprite("all", 0, 0, 108, 192);
         games.put("TestGame", new TestGame());
         games.get("TestGame").start();
         //games.get(currentGameIndex).setup();
@@ -38,7 +38,7 @@ public class ArcadeMachine {
 
     public static void draw() {
         games.get(currentGameID).draw();
-        arcadeImage.drawFull(0, 0);
+        arcadeImage.drawAt("all", 0, 0, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
         games.get(currentGameID).controls.draw();
     }
 
