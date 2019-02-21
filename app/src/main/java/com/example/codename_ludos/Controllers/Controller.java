@@ -30,10 +30,6 @@ public class Controller extends Vector2D {
 
     }
 
-    public Vector2D getTouchPosition() {
-        return MainActivity.gamePanel.getTouchPosition();
-    }
-
     public boolean isTouched(Finger pos) {
         return pos.getY() > this.getY()
                 &&  pos.getY() < (this.getY() + this.height)
@@ -46,6 +42,7 @@ public class Controller extends Vector2D {
         for (Finger pos : MainActivity.gamePanel.getFingers()) {
             if (isTouched(pos)) {
                 onTouch(pos.getX(), pos.getY());
+                break;
             }
         }
     }
