@@ -1,5 +1,6 @@
 package com.example.codename_ludos.Games.TestGame;
 
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
@@ -45,7 +46,7 @@ public class Dude extends Vector2D {
 
         addX(velX);
         addY(velY);
-        int H = 1315;
+        int H = ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT;
         if (getY() + height > H) {
             setY(H - height);
             jumping = false;

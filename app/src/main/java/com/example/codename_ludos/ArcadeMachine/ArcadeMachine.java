@@ -1,5 +1,6 @@
 package com.example.codename_ludos.ArcadeMachine;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.SpriteMap;
@@ -15,6 +16,38 @@ public class ArcadeMachine {
     private static HashMap<String, ArcadeGame> games;
     private static String currentGameID = "TestGame";
     private static SpriteMap arcadeImage;
+
+    public static int SCREEN_WIDTH;
+    public static int SCREEN_HEIGHT;
+
+    public static int SCREEN_OFFSET_X;
+    public static int SCREEN_OFFSET_Y;
+
+    private static int rawScreenOffsetX = 9;
+    private static int rawScreenOffsetY = 16;
+
+    private static int rawScreenWidth = 90;
+    private static int rawScreenHeight = 105;
+
+    private static float relativeWidthFactor = 90.f / 108.f;
+    private static float relativeHeightFactor = 105.f / 192.f;
+
+    public static void calibrateScreen() {
+       // relativeWidthFactor = 1 + (float)rawScreenWidth / (float)Constants.SCREEN_WIDTH ;
+       // relativeHeightFactor = 1 + (float)rawScreenHeight / (float)Constants.SCREEN_HEIGHT;
+
+        SCREEN_WIDTH = (int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
+        SCREEN_HEIGHT = (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
+
+        SCREEN_OFFSET_X = (int)((float)rawScreenOffsetX * (1 + relativeWidthFactor));
+        SCREEN_OFFSET_Y = (int)((float)rawScreenOffsetY * (1 + relativeHeightFactor));
+
+        Log.i("W meh", "" + SCREEN_WIDTH);
+        Log.i("H meh", "" + SCREEN_HEIGHT);
+
+        Log.i("X meh", "" + SCREEN_OFFSET_X);
+        Log.i("Y meh", "" + SCREEN_OFFSET_Y);
+    }
 
     private static void enterGame(String gameID) {
         currentGameID = gameID;

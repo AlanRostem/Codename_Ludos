@@ -57,6 +57,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceChanged(SurfaceHolder sHolder, int format, int width, int height) {
         Constants.SCREEN_WIDTH = width;
         Constants.SCREEN_HEIGHT = height;
+        Log.i("RW meh", "" + width);
+        Log.i("RH meh", "" + height);
+        ArcadeMachine.calibrateScreen();
     }
 
     @Override
