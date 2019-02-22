@@ -1,27 +1,27 @@
-package com.example.codename_ludos.Entity;
+package com.example.codename_ludos;
 
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
-public class EntityManager {
+public class GameObjectManager {
     // Class that handles update and draw methods for GameObjects and
     // decides its existence
-    private ArrayList<GameEntity> objects;
+    private ArrayList<GameObject> objects;
 
-    public EntityManager() {
+    public GameObjectManager() {
         this.objects = new ArrayList<>();
     }
 
-    // Append a new GameEntity to the manager
-    public void spawnEntity(GameEntity object) {
+    // Append a new GameObject to the manager
+    public void addObject(GameObject object) {
         objects.add(object);
     }
 
     // Calls the 'update' methods of all GameObjects
-    public void updateEntities() {
-        for (GameEntity o : objects) {
-            if (o.isRemoved()) {
+    public void updateObjects() {
+        for (GameObject o : objects) {
+            if (o.toRemove) {
                 objects.remove(o);
             }
             o.update();
@@ -29,9 +29,9 @@ public class EntityManager {
     }
 
     // Calls the 'draw' methods of all GameObjects
-    public void drawEntities(Canvas canvas) {
-        for (GameEntity o : objects) {
-            o.draw();
+    public void drawObjects(Canvas canvas) {
+        for (GameObject o : objects) {
+            o.draw(canvas);
         }
     }
 }

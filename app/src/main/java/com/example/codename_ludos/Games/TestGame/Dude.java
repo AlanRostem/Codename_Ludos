@@ -54,11 +54,13 @@ public class Dude extends Vector2D {
     }
 
     public void draw() {
-        if (walk)
-            if (left)
-                sprite.Animate("a1", walkR);
-            else if (right)
-                sprite.Animate("a1", walkL);
+       if (left) {
+           if (walk)
+               sprite.Animate("a1", walkR);
+       } else if (right) {
+           if (walk)
+               sprite.Animate("a1", walkL);
+       }
        sprite.drawAt("a1", (int)getX(), (int)getY(), width, height);
     }
 }
