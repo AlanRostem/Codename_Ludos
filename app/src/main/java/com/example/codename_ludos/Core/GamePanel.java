@@ -119,7 +119,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        canvas.drawColor(Color.BLACK); //Background
+        canvas.drawColor(Color.DKGRAY); //Background
         ArcadeMachine.draw();
         Logger.draw();
     }

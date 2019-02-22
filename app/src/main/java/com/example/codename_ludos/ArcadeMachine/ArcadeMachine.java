@@ -1,9 +1,13 @@
 package com.example.codename_ludos.ArcadeMachine;
 
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Core.GamePanel;
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.LibraryTools.Constants;
@@ -34,14 +38,12 @@ public class ArcadeMachine {
     private static float relativeHeightFactor = 105.f / 192.f;
 
     public static void calibrateScreen() {
-       // relativeWidthFactor = 1 + (float)rawScreenWidth / (float)Constants.SCREEN_WIDTH ;
-       // relativeHeightFactor = 1 + (float)rawScreenHeight / (float)Constants.SCREEN_HEIGHT;
-
         SCREEN_WIDTH = (int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
         SCREEN_HEIGHT = (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
 
-        SCREEN_OFFSET_X = (int)((float)rawScreenOffsetX * (1 + relativeWidthFactor));
-        SCREEN_OFFSET_Y = (int)((float)rawScreenOffsetY * (1 + relativeHeightFactor));
+        // Asså eg vet da faen
+        SCREEN_OFFSET_X = (int)((float)rawScreenOffsetX * (SCREEN_WIDTH / rawScreenWidth));
+        SCREEN_OFFSET_Y = (int)((float)rawScreenOffsetY * (SCREEN_HEIGHT / rawScreenHeight));
     }
 
     private static void enterGame(String gameID) {
@@ -62,7 +64,7 @@ public class ArcadeMachine {
 
         games.put("TestGame", new TestGame());
         games.put("Eggrun", new Eggrun());
-        enterGame("Eggrun");
+        enterGame("TestGame");
         //games.get(currentGameIndex).setup();
     }
 
@@ -70,6 +72,9 @@ public class ArcadeMachine {
         games.get(currentGameID).draw();
         arcadeImage.drawAt("all", 0, 0, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
         games.get(currentGameID).controls.draw();
+
+       // GamePanel.paint.setColor(Color.argb(0.5f, 1f, 1f, 1f));
+       // MainThread.canvas.drawRect(new Rect(SCREEN_OFFSET_X, SCREEN_OFFSET_Y, SCREEN_OFFSET_X + SCREEN_WIDTH, SCREEN_OFFSET_Y + SCREEN_HEIGHT), GamePanel.paint);
     }
 
     public static void update() {
