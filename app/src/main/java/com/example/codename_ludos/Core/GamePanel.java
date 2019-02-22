@@ -23,7 +23,6 @@ import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Logger;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
-import com.example.codename_ludos.RectPlayer;
 
 import java.util.ArrayList;
 

@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
@@ -39,14 +40,8 @@ public class ArcadeMachine {
         SCREEN_WIDTH = (int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
         SCREEN_HEIGHT = (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
 
-        SCREEN_OFFSET_X = (int)((float)rawScreenOffsetX * (1 + relativeWidthFactor));
-        SCREEN_OFFSET_Y = (int)((float)rawScreenOffsetY * (1 + relativeHeightFactor));
-
-        Log.i("W meh", "" + SCREEN_WIDTH);
-        Log.i("H meh", "" + SCREEN_HEIGHT);
-
-        Log.i("X meh", "" + SCREEN_OFFSET_X);
-        Log.i("Y meh", "" + SCREEN_OFFSET_Y);
+        SCREEN_OFFSET_X = (int)((float)rawScreenOffsetX * (108.f / 90.f));
+        SCREEN_OFFSET_Y = (int)((float)rawScreenOffsetY * (192.f / 105.f));
     }
 
     private static void enterGame(String gameID) {
@@ -64,20 +59,22 @@ public class ArcadeMachine {
         games = new HashMap<>();
         arcadeImage = new SpriteMap(R.drawable.maskin, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
         arcadeImage.bindSprite("all", 0, 0, 108, 192);
+
         games.put("TestGame", new TestGame());
+
         games.get("TestGame").start();
         //games.get(currentGameIndex).setup();
     }
 
     public static void draw() {
-        games.get(currentGameID).draw();
+        games.get(currentGameID).coreDraw();
         arcadeImage.drawAt("all", 0, 0, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
         games.get(currentGameID).controls.draw();
     }
 
     public static void update() {
         if (games.get(currentGameID).isStarted())
-            games.get(currentGameID).update();
+            games.get(currentGameID).coreUpdate();
     }
 
     public static void touchEventHandle(MotionEvent event) {

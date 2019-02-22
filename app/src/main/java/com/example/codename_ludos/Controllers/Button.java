@@ -7,7 +7,7 @@ import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import java.util.Iterator;
 
 public class Button extends Controller {
-    private int holding = 0;
+    private boolean holding = false;
 
     public Button(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -17,16 +17,16 @@ public class Button extends Controller {
     public void update() {
         for (Finger pos : MainActivity.gamePanel.getFingers()) {
             if (isTouched(pos)) {
-                if (holding < 1) {
+                if (!holding) {
                     onPressed(pos.getX(), pos.getY());
                 }
                 onTouch(pos.getX(), pos.getY());
                 onHolding(pos.getX(), pos.getY());
-                holding++;
+                holding = true;
                 break;
             } else {
                 onReleased(pos.getX(), pos.getY());
-                holding = 0;
+                holding = false;
             }
         }
     }
