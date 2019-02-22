@@ -7,9 +7,9 @@ public class GameEntity {
 
     private boolean toRemove = false;
 
-    private Vector2D mVel;
-    private Vector2D mPos;
-    private Vector2D mAcc;
+    protected Vector2D mVel;
+    protected Vector2D mPos;
+    protected Vector2D mAcc;
 
     public GameEntity(float x, float y) {
         mPos = new Vector2D(x, y);

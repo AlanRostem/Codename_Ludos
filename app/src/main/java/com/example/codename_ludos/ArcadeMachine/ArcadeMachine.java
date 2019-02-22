@@ -41,12 +41,6 @@ public class ArcadeMachine {
 
         SCREEN_OFFSET_X = (int)((float)rawScreenOffsetX * (1 + relativeWidthFactor));
         SCREEN_OFFSET_Y = (int)((float)rawScreenOffsetY * (1 + relativeHeightFactor));
-
-        Log.i("W meh", "" + SCREEN_WIDTH);
-        Log.i("H meh", "" + SCREEN_HEIGHT);
-
-        Log.i("X meh", "" + SCREEN_OFFSET_X);
-        Log.i("Y meh", "" + SCREEN_OFFSET_Y);
     }
 
     private static void enterGame(String gameID) {
@@ -65,11 +59,7 @@ public class ArcadeMachine {
         arcadeImage = new SpriteMap(R.drawable.maskin, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
         arcadeImage.bindSprite("all", 0, 0, 108, 192);
         games.put("TestGame", new TestGame());
-<<<<<<< HEAD
-        games.put("Eggrun", new Eggrun());
 
-=======
->>>>>>> fe84f1d13d17de117d1b00df92c9569b1c3cb979
         games.get("TestGame").start();
         //games.get(currentGameIndex).setup();
     }

@@ -1,31 +1,20 @@
 package com.example.codename_ludos.Core;
 
 import android.content.Context;
-import android.content.res.Resources;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Input.Finger;
-import com.example.codename_ludos.LibraryTools.BitmapHelper;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Logger;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
-import com.example.codename_ludos.R;
-import com.example.codename_ludos.RectPlayer;
-
-import java.util.ArrayList;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     // Class that handles all rendering in the app

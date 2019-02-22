@@ -10,7 +10,7 @@ public class Ali extends BasePlayer {
     private SpriteMap.Animation run;
 
     public Ali() {
-        super();
+        super(0 ,0);
         mPos = new Vector2D(320,100);
         sprite = new SpriteMap(R.drawable.rubigo, 80, 40);
         sprite.bindSprite("Ali",0,0,40,40);
