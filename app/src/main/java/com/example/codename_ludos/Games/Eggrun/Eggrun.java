@@ -7,7 +7,6 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.Controllers.Button;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainThread;
-import com.example.codename_ludos.Games.TestGame.Dude;
 
 public class Eggrun extends ArcadeGame {
     private Ali ali;

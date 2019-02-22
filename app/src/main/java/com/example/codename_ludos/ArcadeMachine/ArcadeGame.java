@@ -3,9 +3,9 @@ package com.example.codename_ludos.ArcadeMachine;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Controllers.Controls;
-import com.example.codename_ludos.GameObjectManager;
+import com.example.codename_ludos.EntityManager;
 
-public class ArcadeGame extends GameObjectManager {
+public class ArcadeGame extends EntityManager {
     // Subclass for each arcade game that we develop
 
     private boolean mStarted = false;

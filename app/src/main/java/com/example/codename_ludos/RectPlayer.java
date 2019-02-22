@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-public class RectPlayer implements GameObject {
+public class RectPlayer implements GameEntity {
     private Rect rectangle;
     private int color;
     private Paint paint = new Paint();
