@@ -34,8 +34,11 @@ public class ArcadeMachine {
     private static int rawScreenWidth = 90;
     private static int rawScreenHeight = 105;
 
-    private static float relativeWidthFactor = 90.f / 108.f;
-    private static float relativeHeightFactor = 105.f / 192.f;
+    private static int rawImageWidth;
+    private static int rawImageHeight;
+
+    private static float relativeWidthFactor;
+    private static float relativeHeightFactor;
 
     public static void calibrateScreen() {
         SCREEN_WIDTH = (int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
@@ -65,6 +68,12 @@ public class ArcadeMachine {
         games.put("TestGame", new TestGame());
         games.put("Eggrun", new Eggrun());
         enterGame("TestGame");
+
+        rawImageWidth = arcadeImage.getImageWidth();
+        rawImageHeight = arcadeImage.getImageHeight();
+        relativeWidthFactor = (float)rawScreenWidth / (float)rawImageWidth;
+        relativeHeightFactor = (float)rawScreenHeight / (float)rawImageHeight;
+
         //games.get(currentGameIndex).setup();
     }
 
