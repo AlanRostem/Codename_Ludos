@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.LibraryTools.Constants;
@@ -15,7 +16,7 @@ public class ArcadeMachine {
     // Static class that holds all ArcadeGame instances
 
     private static HashMap<String, ArcadeGame> games;
-    private static String currentGameID = "TestGame";
+    private static String currentGameID = "Eggrun";
     private static SpriteMap arcadeImage;
 
     public static int SCREEN_WIDTH;
@@ -61,6 +62,7 @@ public class ArcadeMachine {
         arcadeImage.bindSprite("all", 0, 0, 108, 192);
 
         games.put("TestGame", new TestGame());
+        games.put("Eggrun", new Eggrun());
 
         games.get("TestGame").start();
         //games.get(currentGameIndex).setup();
