@@ -18,6 +18,7 @@ public class Eggrun extends ArcadeGame {
 
         ali = new Ali();
 
+        /*
         controls.createController(new Button( 10 + 10*80, 1920 - 350, 170, 170) {
             private int color = Color.GREEN;
 
@@ -38,7 +39,6 @@ public class Eggrun extends ArcadeGame {
                         GamePanel.paint);
             }
         });
-
         controls.createController(new Button( 10 + 3*80, 1920 - 350, 120, 120) {
             private int color = Color.GREEN;
 
@@ -79,7 +79,7 @@ public class Eggrun extends ArcadeGame {
                         GamePanel.paint);
             }
         });
-
+        */
     }
 
     @Override

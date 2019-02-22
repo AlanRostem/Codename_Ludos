@@ -10,9 +10,9 @@ public class Ali extends BasePlayer {
     private SpriteMap.Animation run;
 
     public Ali() {
-        super(0 ,0);
-        mPos = new Vector2D(320,100);
-        sprite = new SpriteMap(R.drawable.rubigo, 80, 40);
+        super(320 ,100);
+
+        sprite = new SpriteMap(R.drawable.alirun2); // Dimensions of the raw image
         sprite.bindSprite("Ali",0,0,40,40);
         run = new SpriteMap.Animation(0,2,2,0.13f);
     }
@@ -25,7 +25,7 @@ public class Ali extends BasePlayer {
 
     }
 
-    public void draw(){
-
+    public void draw() {
+        sprite.drawAt("Ali", (int)mPos.x, (int)mPos.x, 100, 50);
     }
 }

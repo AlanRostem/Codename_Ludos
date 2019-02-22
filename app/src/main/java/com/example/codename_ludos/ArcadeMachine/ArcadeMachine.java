@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
@@ -56,11 +57,12 @@ public class ArcadeMachine {
     // Works like a constructor for this static class
     public static void initialize() {
         games = new HashMap<>();
-        arcadeImage = new SpriteMap(R.drawable.maskin, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
+        arcadeImage = new SpriteMap(R.drawable.maskin);
         arcadeImage.bindSprite("all", 0, 0, 108, 192);
-        games.put("TestGame", new TestGame());
 
-        games.get("TestGame").start();
+        games.put("TestGame", new TestGame());
+        games.put("Eggrun", new Eggrun());
+        enterGame("Eggrun");
         //games.get(currentGameIndex).setup();
     }
 

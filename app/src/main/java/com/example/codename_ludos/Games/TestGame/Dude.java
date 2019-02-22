@@ -26,7 +26,7 @@ public class Dude extends Vector2D {
 
    public Dude() {
         super(320, 0);
-        sprite = new SpriteMap(R.drawable.rubigo, 384, 96);
+        sprite = new SpriteMap(R.drawable.rubigo);
         sprite.bindSprite("a1", 0, 0, 48, 48);
 
         walkL = new SpriteMap.

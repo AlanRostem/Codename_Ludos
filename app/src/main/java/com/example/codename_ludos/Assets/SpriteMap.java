@@ -74,15 +74,15 @@ public class SpriteMap {
     private Rect positionRect;
     private BitmapFactory.Options options = new BitmapFactory.Options();
 
-    public SpriteMap(int resourceID, int width, int height) {
+    public SpriteMap(int resourceID) {
         this.resourceID = resourceID;
         offsetRects = new HashMap<>();
         options.inScaled = false;
 
         bitmap = BitmapHelper.decodeResource(MainActivity.gamePanel.getResources(), this.resourceID, options);
         //bitmap = BitmapHelper.resizeBitmap(bitmap, width, height);
-        positionRect = new Rect(0, 0, width, height);
-        offsetRects.put("full", new Rect(0, 0, width, height));
+        positionRect = new Rect(0, 0, 0, 0);
+        offsetRects.put("full", new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
     }
 
     // Bind a location on the sprite sheet to a name
