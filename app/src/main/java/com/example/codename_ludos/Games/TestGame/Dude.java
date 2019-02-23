@@ -26,7 +26,7 @@ public class Dude extends Vector2D {
 
    public Dude() {
         super(320, 0);
-        sprite = new SpriteMap(R.drawable.rubigo, 384, 96);
+        sprite = new SpriteMap(R.drawable.rubigo);
         sprite.bindSprite("a1", 0, 0, 48, 48);
 
         walkL = new SpriteMap.
@@ -54,11 +54,13 @@ public class Dude extends Vector2D {
     }
 
     public void draw() {
-        if (walk)
-            if (left)
-                sprite.Animate("a1", walkR);
-            else if (right)
-                sprite.Animate("a1", walkL);
+       if (left) {
+           if (walk)
+               sprite.Animate("a1", walkR);
+       } else if (right) {
+           if (walk)
+               sprite.Animate("a1", walkL);
+       }
        sprite.drawAt("a1", (int)getX(), (int)getY(), width, height);
     }
 }

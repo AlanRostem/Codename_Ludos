@@ -1,19 +1,12 @@
 package com.example.codename_ludos.Games.TestGame;
 
 import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
-import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Controllers.Button;
-import com.example.codename_ludos.Controllers.Controller;
 import com.example.codename_ludos.Core.GamePanel;
-import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Core.MainThread;
-import com.example.codename_ludos.R;
 
 public class TestGame extends ArcadeGame {
     private Dude dude;

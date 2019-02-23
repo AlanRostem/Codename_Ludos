@@ -1,8 +1,8 @@
 package com.example.codename_ludos.LibraryTools.Math;
 
 public class Vector2D {
-    private float x;
-    private float y;
+    public float x;
+    public float y;
 
     public Vector2D(float x, float y) {
         this.x = x;

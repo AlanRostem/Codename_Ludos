@@ -3,15 +3,13 @@ package com.example.codename_ludos.ArcadeMachine;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Controllers.Controls;
-import com.example.codename_ludos.Core.MainThread;
-import com.example.codename_ludos.Entity.EntityManager;
+import com.example.codename_ludos.EntityManager;
 
 public class ArcadeGame extends EntityManager {
     // Subclass for each arcade game that we develop
 
     private boolean mStarted = false;
     private String id;
-    private String displayName;
     protected Controls controls;
 
     // Upon extending this class make sure to create a public
@@ -43,21 +41,12 @@ public class ArcadeGame extends EntityManager {
      * This includes member initializations and calling other methods for things
      * like animations or intros the game may or may not have.
      */
-
-    public void coreUpdate() {
-        updateEntities();
-        update();
-    }
-
-    public void coreDraw() {
-        drawEntities(MainThread.canvas);
-        draw();
-    }
     public void setup() {
 
     }
 
     public void draw() {
+
     }
 
     public void update() {

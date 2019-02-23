@@ -16,6 +16,8 @@ import com.example.codename_ludos.LibraryTools.BitmapHelper;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 public class SpriteMap {
 
     public static class Animation {
@@ -72,15 +74,20 @@ public class SpriteMap {
     private Rect positionRect;
     private BitmapFactory.Options options = new BitmapFactory.Options();
 
-    public SpriteMap(int resourceID, int width, int height) {
+    private int imageWidth;
+    private int imageHeight;
+
+    public SpriteMap(int resourceID) {
         this.resourceID = resourceID;
         offsetRects = new HashMap<>();
         options.inScaled = false;
 
         bitmap = BitmapHelper.decodeResource(MainActivity.gamePanel.getResources(), this.resourceID, options);
+        imageWidth = bitmap.getWidth();
+        imageHeight = bitmap.getHeight();
         //bitmap = BitmapHelper.resizeBitmap(bitmap, width, height);
-        positionRect = new Rect(0, 0, width, height);
-        offsetRects.put("full", new Rect(0, 0, width, height));
+        positionRect = new Rect(0, 0, 0, 0);
+        offsetRects.put("full", new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
     }
 
     // Bind a location on the sprite sheet to a name
@@ -124,5 +131,13 @@ public class SpriteMap {
         if (MainThread.canvas == null)
             return;
         MainThread.canvas.drawBitmap(this.bitmap, (int)x, (int)y, GamePanel.paint);
+    }
+
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    public int getImageWidth() {
+        return imageWidth;
     }
 }

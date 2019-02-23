@@ -7,12 +7,18 @@ public class GameEntity {
 
     private boolean toRemove = false;
 
-    protected Vector2D mPos;
     protected Vector2D mVel;
+    protected Vector2D mPos;
     protected Vector2D mAcc;
 
-    public GameEntity() {
+    public GameEntity(float x, float y) {
+        mPos = new Vector2D(x, y);
+        mVel = new Vector2D(0, 0);
+        mAcc = new Vector2D(0, 0);
+    }
 
+    public void remove() {
+        toRemove = true;
     }
 
     public boolean isRemoved() {

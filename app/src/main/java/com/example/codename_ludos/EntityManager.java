@@ -1,6 +1,6 @@
-package com.example.codename_ludos.Entity;
+package com.example.codename_ludos;
 
-import android.graphics.Canvas;
+import com.example.codename_ludos.Entity.GameEntity;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class EntityManager {
     }
 
     // Calls the 'draw' methods of all GameObjects
-    public void drawEntities(Canvas canvas) {
+    public void drawEntities() {
         for (GameEntity o : objects) {
             o.draw();
         }
