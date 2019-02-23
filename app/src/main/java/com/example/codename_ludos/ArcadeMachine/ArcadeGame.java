@@ -56,4 +56,8 @@ public class ArcadeGame extends EntityManager {
     public void onTouchEvent(MotionEvent event) {
 
     }
+
+    public Controls getControls() {
+        return controls;
+    }
 }

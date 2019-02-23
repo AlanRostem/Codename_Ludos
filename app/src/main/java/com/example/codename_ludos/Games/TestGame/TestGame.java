@@ -20,17 +20,17 @@ public class TestGame extends ArcadeGame {
 
         dude = new Dude();
 
-        controls.createController(new Button( 10 + 10*80, 1920 - 350, 170, 170) {
+        controls.createController("jump", new Button( 10 + 10*80, 1920 - 350, 170, 170) {
             private int color = Color.GREEN;
 
             public void onPressed(float x, float y) {
                 color = Color.BLUE;
-                dude.jumpNow = true;
+                //dude.jumpNow = true;
             }
 
             public void onReleased(float x, float y) {
                 color = Color.GREEN;
-                dude.jumpNow = false;
+                //dude.jumpNow = false;
             }
 
             public void draw() {
@@ -45,15 +45,15 @@ public class TestGame extends ArcadeGame {
 
         final int speed = 5;
 
-        controls.createController(new Button( 10 + 3*80, 1920 - 350, 120, 120) {
+        controls.createController("right", new Button( 10 + 3*80, 1920 - 350, 120, 120) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
-                dude.addX(speed);
-                dude.right = true;
-                dude.left = false;
-                dude.walk = true;
+                //dude.addX(speed);
+                //dude.right = true;
+                //dude.left = false;
+                //dude.walk = true;
             }
 
             public void onReleased(float x, float y) {
@@ -69,15 +69,15 @@ public class TestGame extends ArcadeGame {
                         GamePanel.paint);
             }
         });
-        controls.createController(new Button(80, 1920 - 350, 120, 120) {
+        controls.createController("left", new Button(80, 1920 - 350, 120, 120) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
-                dude.addX(-speed);
-                dude.left = true;
-                dude.right = false;
-                dude.walk = true;
+                //dude.addX(-speed);
+                //dude.left = true;
+                //dude.right = false;
+                //dude.walk = true;
             }
 
             public void onReleased(float x, float y) {

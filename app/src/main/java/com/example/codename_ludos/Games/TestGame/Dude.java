@@ -36,13 +36,19 @@ public class Dude extends Vector2D {
     }
 
     public void update() {
-        //velX = 0;
+        velX = 0;
         velY += gravity;
-        if (jumpNow)
-        if (!jumping) {
-            jumping = true;
-            velY = -10;
-        }
+        if (ArcadeMachine.getCurrentGame().getControls().isTouched("jump"))
+            if (!jumping) {
+                jumping = true;
+                velY = -10;
+            }
+
+        if (ArcadeMachine.getCurrentGame().getControls().isTouched("right"))
+            velX = 5;
+
+        if (ArcadeMachine.getCurrentGame().getControls().isTouched("left"))
+            velX = -5;
 
         addX(velX);
         addY(velY);
