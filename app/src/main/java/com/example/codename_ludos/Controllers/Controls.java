@@ -39,7 +39,6 @@ public class Controls {
     }
 
     public void update() {
-        Log.i("oisk", "" + container);
         for (Controller c : container) {
             c.update();
         }
