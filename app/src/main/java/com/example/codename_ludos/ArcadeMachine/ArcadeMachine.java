@@ -70,7 +70,7 @@ public class ArcadeMachine {
 
         games.put("TestGame", new TestGame());
         games.put("Eggrun", new Eggrun());
-        enterGame("TestGame");
+        enterGame("Eggrun");
 
         rawImageWidth = arcadeImage.getImageWidth();
         rawImageHeight = arcadeImage.getImageHeight();
