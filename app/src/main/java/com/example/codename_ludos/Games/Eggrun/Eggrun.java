@@ -17,11 +17,8 @@ public class Eggrun extends ArcadeGame {
     @Override
     public void setup() {
         ali = new Ali();
-<<<<<<< HEAD
         map = new Map();
-=======
         spawnEntity(ali);
->>>>>>> 179bd9a0044d38b59b7d8756832548c86f199f95
 
         controls.createController("Jump", new Button(1000,1000,170,170){
             private int color = Color.GRAY;
@@ -48,22 +45,16 @@ public class Eggrun extends ArcadeGame {
     @Override
     public void update() {
         controls.update();
-<<<<<<< HEAD
         map.update();
         ali.update();
-=======
         updateEntities();
->>>>>>> 179bd9a0044d38b59b7d8756832548c86f199f95
     }
 
     @Override
     public void draw() {
-<<<<<<< HEAD
         map.draw();
         ali.draw();
-=======
         drawEntities();
->>>>>>> 179bd9a0044d38b59b7d8756832548c86f199f95
     }
 
     @Override
