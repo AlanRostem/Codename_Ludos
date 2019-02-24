@@ -1,5 +1,6 @@
 package com.example.codename_ludos.Entity;
 
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
 public class GameEntity {
@@ -23,6 +24,42 @@ public class GameEntity {
 
     public boolean isRemoved() {
         return toRemove;
+    }
+
+    public void move() {
+        mPos.x += mVel.x * MainThread.getAverageDeltaTime();
+        mPos.y += mVel.y * MainThread.getAverageDeltaTime();
+    }
+
+    public void move(float x, float y) {
+        mPos.x += x * MainThread.getAverageDeltaTime();
+        mPos.y += y * MainThread.getAverageDeltaTime();
+    }
+
+    public void moveX(float x) {
+        mPos.x += x * MainThread.getAverageDeltaTime();
+    }
+
+    public void moveY(float y) {
+        mPos.y += y * MainThread.getAverageDeltaTime();
+    }
+
+    public void accelerate() {
+        mVel.x += mAcc.x;
+        mVel.y += mAcc.y;
+    }
+
+    public void accelerate(float x, float y) {
+        mVel.x += x;
+        mVel.y += y;
+    }
+
+    public void accelerateX(float x) {
+        mVel.x += x;
+    }
+
+    public void accelerateY(float y) {
+        mVel.y += y;
     }
 
     public void draw() {
