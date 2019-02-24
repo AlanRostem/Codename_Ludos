@@ -18,6 +18,9 @@ public class EntityManager {
         objects.add(object);
     }
 
+    // Returns GameEntity in objects arraylist
+    public GameEntity getEntity(int index){ return objects.get(index); }
+
     // Calls the 'update' methods of all GameObjects
     public void updateEntities() {
         for (GameEntity o : objects) {

@@ -12,6 +12,7 @@ import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.LibraryTools.BitmapHelper;
+import com.example.codename_ludos.LibraryTools.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -123,14 +124,21 @@ public class SpriteMap {
     }
 
     public void drawAt(String name, int x, int y, int width, int height) {
-        positionRect.set(x, y, width + x, height + y);
+        positionRect.set(
+                (int)(x * Constants.SCREEN_SCALE_X),
+                (int)(y * Constants.SCREEN_SCALE_Y),
+                (int)((width + x) * Constants.SCREEN_SCALE_X),
+                (int)((height + y) * Constants.SCREEN_SCALE_Y));
         MainThread.canvas.drawBitmap(bitmap, offsetRects.get(name), positionRect, GamePanel.paint);
     }
 
     public void drawFull(float x, float y) {
         if (MainThread.canvas == null)
             return;
-        MainThread.canvas.drawBitmap(this.bitmap, (int)x, (int)y, GamePanel.paint);
+        MainThread.canvas.drawBitmap(this.bitmap,
+                (int)x * Constants.SCREEN_SCALE_X,
+                (int)y * Constants.SCREEN_SCALE_Y,
+                GamePanel.paint);
     }
 
     public int getImageHeight() {

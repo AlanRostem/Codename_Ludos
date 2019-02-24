@@ -8,5 +8,8 @@ public class Constants {
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
 
+    public static float SCREEN_SCALE_X;
+    public static float SCREEN_SCALE_Y;
+
     public static Context CURRENT_CONTEXT;
 }
