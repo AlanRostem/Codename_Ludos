@@ -16,19 +16,22 @@ public class Eggrun extends ArcadeGame {
 
     @Override
     public void setup() {
-
         ali = new Ali();
+<<<<<<< HEAD
         map = new Map();
+=======
+        spawnEntity(ali);
+>>>>>>> 179bd9a0044d38b59b7d8756832548c86f199f95
 
-        controls.createController("meh1", new Button( 10 + 10*80, 1920 - 350, 170, 170) {
-            private int color = Color.GREEN;
+        controls.createController("Jump", new Button(1000,1000,170,170){
+            private int color = Color.GRAY;
 
             public void onPressed(float x, float y) {
-                color = Color.BLUE;
+                color = Color.rgb(190,190,190);
             }
 
             public void onReleased(float x, float y) {
-                color = Color.GREEN;
+                color = Color.GRAY;
             }
 
             public void draw() {
@@ -40,60 +43,27 @@ public class Eggrun extends ArcadeGame {
                         GamePanel.paint);
             }
         });
-        controls.createController("meh2", new Button( 10 + 3*80, 1920 - 350, 120, 120) {
-            private int color = Color.GREEN;
-
-            public void onHolding(float x, float y) {
-                color = Color.BLUE;
-            }
-
-            public void onReleased(float x, float y) {
-                color = Color.GREEN;
-            }
-
-            public void draw() {
-                GamePanel.paint.setColor(this.color);
-                MainThread.canvas.drawRect(
-                        this.getX(), this.getY(),
-                        this.getX() + this.getWidth(),
-                        this.getY() + this.getHeight(),
-                        GamePanel.paint);
-            }
-        });
-        controls.createController("meh3", new Button(80, 1920 - 350, 120, 120) {
-            private int color = Color.GREEN;
-
-            public void onHolding(float x, float y) {
-                color = Color.BLUE;
-            }
-
-            public void onReleased(float x, float y) {
-                color = Color.GREEN;
-            }
-
-            public void draw() {
-                GamePanel.paint.setColor(this.color);
-                MainThread.canvas.drawRect(
-                        this.getX(), this.getY(),
-                        this.getX() + this.getWidth(),
-                        this.getY() + this.getHeight(),
-                        GamePanel.paint);
-            }
-        });
-
     }
 
     @Override
     public void update() {
         controls.update();
+<<<<<<< HEAD
         map.update();
         ali.update();
+=======
+        updateEntities();
+>>>>>>> 179bd9a0044d38b59b7d8756832548c86f199f95
     }
 
     @Override
     public void draw() {
+<<<<<<< HEAD
         map.draw();
         ali.draw();
+=======
+        drawEntities();
+>>>>>>> 179bd9a0044d38b59b7d8756832548c86f199f95
     }
 
     @Override
