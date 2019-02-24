@@ -9,16 +9,19 @@ import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
+import com.example.codename_ludos.Games.GameSelect.GameSelect;
 import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ArcadeMachine {
     // Static class that holds all ArcadeGame instances
 
     private static HashMap<String, ArcadeGame> games;
+    private static ArrayList<String> gameIDList;
     private static String currentGameID = "Eggrun";
     private static SpriteMap arcadeImage;
 
@@ -52,7 +55,12 @@ public class ArcadeMachine {
         Constants.SCREEN_SCALE_Y = (float)Constants.SCREEN_HEIGHT / (float)rawImageHeight;
     }
 
-    private static void enterGame(String gameID) {
+    private static void createGame(String name, ArcadeGame game) {
+        games.put(name, game);
+        gameIDList.add(name);
+    }
+
+    public static void enterGame(String gameID) {
         currentGameID = gameID;
         games.get(currentGameID).start();
         // TODO: Add user friendly ways to stop a game
@@ -65,12 +73,14 @@ public class ArcadeMachine {
     // Works like a constructor for this static class
     public static void initialize() {
         games = new HashMap<>();
+        gameIDList = new ArrayList<>();
         arcadeImage = new SpriteMap(R.drawable.maskin);
         arcadeImage.bindSprite("all", 0, 0, 1080, 1920);
 
-        games.put("TestGame", new TestGame());
-        games.put("Eggrun", new Eggrun());
-        enterGame("Eggrun");
+        createGame("TestGame", new TestGame());
+        createGame("Eggrun", new Eggrun());
+        createGame("GameSelect", new GameSelect());
+        enterGame("GameSelect");
 
         rawImageWidth = arcadeImage.getImageWidth();
         rawImageHeight = arcadeImage.getImageHeight();
@@ -90,8 +100,14 @@ public class ArcadeMachine {
     }
 
     public static void update() {
-        if (games.get(currentGameID).isStarted())
+        if (games.get(currentGameID).isStarted()) {
+            games.get(currentGameID).controls.update();
             games.get(currentGameID).update();
+        }
+    }
+
+    public static ArrayList<String> getGameIDList() {
+        return gameIDList;
     }
 
     public static ArcadeGame getCurrentGame() {

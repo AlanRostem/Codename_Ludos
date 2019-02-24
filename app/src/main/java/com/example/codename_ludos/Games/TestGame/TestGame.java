@@ -39,7 +39,7 @@ public class TestGame extends ArcadeGame {
                 Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("left", new Button( 150 , 1450, 150, 150) {
+        controls.createController("left", new Button( 140 , 1500, 100, 100) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
