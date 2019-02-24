@@ -43,7 +43,7 @@ public class Eggrun extends ArcadeGame {
     @Override
     public void update() {
         controls.update();
-        ali.update();
+        updateEntities();
     }
 
     @Override

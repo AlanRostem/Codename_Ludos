@@ -26,8 +26,6 @@ public class Ali extends BasePlayer {
         mVel.addY(gravity);
         mPos.addVec(mVel);
 
-
-
         if (mPos.y >= 400){
             mVel.setY(0);
             mPos.setY(400);
