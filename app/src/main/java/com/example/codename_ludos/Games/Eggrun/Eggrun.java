@@ -10,6 +10,7 @@ import com.example.codename_ludos.Core.MainThread;
 
 public class Eggrun extends ArcadeGame {
     private Ali ali;
+    private Map map;
 
     public Eggrun(){ super("Eggrun"); }
 
@@ -17,6 +18,7 @@ public class Eggrun extends ArcadeGame {
     public void setup() {
 
         ali = new Ali();
+        map = new Map();
 
         controls.createController("meh1", new Button( 10 + 10*80, 1920 - 350, 170, 170) {
             private int color = Color.GREEN;
@@ -84,11 +86,13 @@ public class Eggrun extends ArcadeGame {
     @Override
     public void update() {
         controls.update();
+        map.update();
         ali.update();
     }
 
     @Override
     public void draw() {
+        map.draw();
         ali.draw();
     }
 
