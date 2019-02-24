@@ -1,31 +1,32 @@
 package com.example.codename_ludos.Games.TestGame;
 
+import android.util.Log;
+
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Core.MainThread;
+import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 
-public class Dude extends Vector2D {
+public class Dude extends BasePlayer {
 
     private SpriteMap sprite;
     private SpriteMap.Animation walkL;
     private SpriteMap.Animation walkR;
 
-    int width = 16;
-    int height = 16;
+    int width = 48*3;
+    int height = 48*3;
 
-    public float velX = 0;
-    public float velY = 0;
     public boolean jumping = false;
-    public boolean jumpNow = false;
 
     public boolean right = true;
     public boolean left = true;
     public boolean walk = false;
-    float gravity = 0.03f;
+    float gravity = 25f;
 
    public Dude() {
-        super(0, 50);
+        super(600, 0);
         sprite = new SpriteMap(R.drawable.rubigo);
         sprite.bindSprite("a1", 0, 0, 48, 48);
 
@@ -36,25 +37,24 @@ public class Dude extends Vector2D {
     }
 
     public void update() {
-        velX = 0;
-        velY += gravity;
+        mVel.x = 0;
+        mVel.y += gravity;
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("jump"))
             if (!jumping) {
                 jumping = true;
-                velY = -1;
+                mVel.y = -500.f;
             }
 
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("right"))
-            velX = 1;
+            mVel.x = 400.f;
 
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("left"))
-            velX = -1;
+            mVel.x = -400.f;
 
-        addX(velX);
-        addY(velY);
+        move();
         int H = ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT;
-        if (getY() + height > H) {
-            setY(H - height);
+        if (mPos.y + height > H) {
+            mPos.y = H - height;
             jumping = false;
         }
     }
@@ -67,6 +67,6 @@ public class Dude extends Vector2D {
            if (walk)
                sprite.Animate("a1", walkL);
        }
-       sprite.drawAt("a1", (int)getX(), (int)getY(), width, height);
+       sprite.drawAt("a1", (int)mPos.x, (int)mPos.y, width, height);
     }
 }

@@ -21,7 +21,7 @@ public class TestGame extends ArcadeGame {
 
         dude = new Dude();
 
-        controls.createController("jump", new Button( 10, 170, 10, 10) {
+        controls.createController("jump", new Button( 800, 1500, 200, 200) {
             private int color = Color.GREEN;
 
             public void onPressed(float x, float y) {
@@ -39,7 +39,7 @@ public class TestGame extends ArcadeGame {
                 Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("right", new Button( 30 , 170, 10, 10) {
+        controls.createController("left", new Button( 150 , 1450, 150, 150) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -59,7 +59,7 @@ public class TestGame extends ArcadeGame {
                 Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("left", new Button(80, 150, 20, 20) {
+        controls.createController("right", new Button(250, 1500, 100, 100) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {

@@ -4,9 +4,8 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
+import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Controllers.Button;
-import com.example.codename_ludos.Core.GamePanel;
-import com.example.codename_ludos.Core.MainThread;
 
 public class Eggrun extends ArcadeGame {
     private Ali ali;
@@ -20,7 +19,7 @@ public class Eggrun extends ArcadeGame {
         map = new Map();
         spawnEntity(ali);
 
-        controls.createController("Jump", new Button(1000,1000,170,170){
+        controls.createController("Jump", new Button(800, 1500, 100, 100){
             private int color = Color.GRAY;
 
             public void onPressed(float x, float y) {
@@ -32,12 +31,8 @@ public class Eggrun extends ArcadeGame {
             }
 
             public void draw() {
-                GamePanel.paint.setColor(this.color);
-                MainThread.canvas.drawRect(
-                        this.getX(), this.getY(),
-                        this.getX() + this.getWidth(),
-                        this.getY() + this.getHeight(),
-                        GamePanel.paint);
+                Shapes.setColor(color);
+                Shapes.drawRect(x, y, getWidth(), getHeight());
             }
         });
     }
@@ -47,14 +42,12 @@ public class Eggrun extends ArcadeGame {
         controls.update();
         map.update();
         ali.update();
-        updateEntities();
     }
 
     @Override
     public void draw() {
         map.draw();
         ali.draw();
-        drawEntities();
     }
 
     @Override

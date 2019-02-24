@@ -2,6 +2,7 @@ package com.example.codename_ludos.Core;
 
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class MainThread extends Thread {
@@ -32,6 +33,9 @@ public class MainThread extends Thread {
     }
 
     public static float getAverageDeltaTime() {
+        if (averageFPS == 0) {
+            return 0;
+        }
         return 1.f/(float)averageFPS;
     }
 

@@ -8,33 +8,39 @@ import com.example.codename_ludos.R;
 public class Ali extends BasePlayer {
     private SpriteMap sprite;
     private SpriteMap.Animation run;
-    float gravity = 0.3f;
+    private float gravity = 0.3f;
+    private int width = 80;
+    private int height = 80;
+    private boolean jumping = false;
 
     public Ali() {
-        super(320 ,100);
+        super(500 ,10);
         sprite = new SpriteMap(R.drawable.alirun); // Dimensions of the raw image
         sprite.bindSprite("Ali",0,0,40,40);
         run = new SpriteMap.Animation(0,1,2,0.13f);
     }
 
     private void jump(){
-        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")) mVel.setY(-5);
+        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")
+                && !jumping) {
+            mVel.setY(-5);
+            jumping = true;
+        }
     }
 
     public void update() {
         jump();
         mVel.addY(gravity);
         mPos.addVec(mVel);
-
-        if (mPos.y >= 400){
+        if (mPos.y + height >= 600){
             mVel.setY(0);
-            mPos.setY(400);
+            mPos.setY(600 - height);
+            jumping = false;
         }
     }
 
-
     public void draw() {
         sprite.Animate("Ali", run);
-        sprite.drawAt("Ali", (int)mPos.x, (int)mPos.y, 100, 50);
+        sprite.drawAt("Ali", (int)mPos.x, (int)mPos.y, width, height);
     }
 }
