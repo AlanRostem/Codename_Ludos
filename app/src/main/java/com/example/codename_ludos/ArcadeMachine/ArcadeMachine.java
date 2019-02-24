@@ -42,7 +42,7 @@ public class ArcadeMachine {
 
     public static void calibrateScreen() {
         SCREEN_WIDTH = rawScreenWidth;//(int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
-        SCREEN_HEIGHT =rawScreenHeight;// (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
+        SCREEN_HEIGHT = rawScreenHeight;// (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
 
         // Asså eg vet da faen
         SCREEN_OFFSET_X = rawScreenOffsetX;//(int)((float)rawScreenOffsetX * (SCREEN_WIDTH / rawScreenWidth));
@@ -82,7 +82,7 @@ public class ArcadeMachine {
 
     public static void draw() {
         games.get(currentGameID).draw();
-        arcadeImage.drawAt("all", 0, 0, 108, 192);
+        arcadeImage.drawAt("all", 0, 0, rawImageWidth, rawImageHeight);
         games.get(currentGameID).controls.draw();
 
        // GamePanel.paint.setColor(Color.argb(0.5f, 1f, 1f, 1f));

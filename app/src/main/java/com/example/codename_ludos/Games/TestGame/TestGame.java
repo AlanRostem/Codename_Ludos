@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
+import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Controllers.Button;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainThread;
@@ -20,7 +21,7 @@ public class TestGame extends ArcadeGame {
 
         dude = new Dude();
 
-        controls.createController("jump", new Button( 10 + 10*80, 1920 - 350, 170, 170) {
+        controls.createController("jump", new Button( 10, 170, 10, 10) {
             private int color = Color.GREEN;
 
             public void onPressed(float x, float y) {
@@ -34,18 +35,11 @@ public class TestGame extends ArcadeGame {
             }
 
             public void draw() {
-                GamePanel.paint.setColor(this.color);
-                MainThread.canvas.drawRect(
-                        this.getX(), this.getY(),
-                        this.getX() + this.getWidth(),
-                        this.getY() + this.getHeight(),
-                        GamePanel.paint);
+                Shapes.setColor(color);
+                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
             }
         });
-
-        final int speed = 5;
-
-        controls.createController("right", new Button( 10 + 3*80, 1920 - 350, 120, 120) {
+        controls.createController("right", new Button( 30 , 170, 10, 10) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -61,15 +55,11 @@ public class TestGame extends ArcadeGame {
             }
 
             public void draw() {
-                GamePanel.paint.setColor(this.color);
-                MainThread.canvas.drawRect(
-                        this.getX(), this.getY(),
-                        this.getX() + this.getWidth(),
-                        this.getY() + this.getHeight(),
-                        GamePanel.paint);
+                Shapes.setColor(color);
+                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("left", new Button(80, 1920 - 350, 120, 120) {
+        controls.createController("left", new Button(80, 150, 20, 20) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -85,12 +75,8 @@ public class TestGame extends ArcadeGame {
             }
 
             public void draw() {
-                GamePanel.paint.setColor(this.color);
-                MainThread.canvas.drawRect(
-                        this.getX(), this.getY(),
-                        this.getX() + this.getWidth(),
-                        this.getY() + this.getHeight(),
-                        GamePanel.paint);
+                Shapes.setColor(color);
+                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
             }
         });
 
