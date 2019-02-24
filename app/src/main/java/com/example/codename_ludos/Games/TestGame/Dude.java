@@ -11,8 +11,8 @@ public class Dude extends Vector2D {
     private SpriteMap.Animation walkL;
     private SpriteMap.Animation walkR;
 
-    int width = 16;
-    int height = 16;
+    int width = 48*3;
+    int height = 48*3;
 
     public float velX = 0;
     public float velY = 0;
@@ -22,7 +22,7 @@ public class Dude extends Vector2D {
     public boolean right = true;
     public boolean left = true;
     public boolean walk = false;
-    float gravity = 0.03f;
+    float gravity = 0.3f;
 
    public Dude() {
         super(0, 50);
@@ -41,14 +41,14 @@ public class Dude extends Vector2D {
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("jump"))
             if (!jumping) {
                 jumping = true;
-                velY = -1;
+                velY = -10;
             }
 
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("right"))
-            velX = 1;
+            velX = 5;
 
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("left"))
-            velX = -1;
+            velX = -5;
 
         addX(velX);
         addY(velY);

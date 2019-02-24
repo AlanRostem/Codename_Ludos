@@ -28,11 +28,11 @@ public class ArcadeMachine {
     public static int SCREEN_OFFSET_X;
     public static int SCREEN_OFFSET_Y;
 
-    private static int rawScreenOffsetX = 9;
-    private static int rawScreenOffsetY = 16;
+    private static int rawScreenOffsetX = 90;
+    private static int rawScreenOffsetY = 160;
 
-    private static int rawScreenWidth = 90;
-    private static int rawScreenHeight = 105;
+    private static int rawScreenWidth = 900;
+    private static int rawScreenHeight = 1050;
 
     private static int rawImageWidth;
     private static int rawImageHeight;
@@ -66,7 +66,7 @@ public class ArcadeMachine {
     public static void initialize() {
         games = new HashMap<>();
         arcadeImage = new SpriteMap(R.drawable.maskin);
-        arcadeImage.bindSprite("all", 0, 0, 108, 192);
+        arcadeImage.bindSprite("all", 0, 0, 1080, 1920);
 
         games.put("TestGame", new TestGame());
         games.put("Eggrun", new Eggrun());
