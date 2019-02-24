@@ -11,8 +11,8 @@ public class Dude extends Vector2D {
     private SpriteMap.Animation walkL;
     private SpriteMap.Animation walkR;
 
-    int width = 100;
-    int height = 100;
+    int width = 16;
+    int height = 16;
 
     public float velX = 0;
     public float velY = 0;
@@ -22,10 +22,10 @@ public class Dude extends Vector2D {
     public boolean right = true;
     public boolean left = true;
     public boolean walk = false;
-    float gravity = 0.3f;
+    float gravity = 0.03f;
 
    public Dude() {
-        super(320, 0);
+        super(0, 50);
         sprite = new SpriteMap(R.drawable.rubigo);
         sprite.bindSprite("a1", 0, 0, 48, 48);
 
@@ -41,14 +41,14 @@ public class Dude extends Vector2D {
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("jump"))
             if (!jumping) {
                 jumping = true;
-                velY = -10;
+                velY = -1;
             }
 
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("right"))
-            velX = 5;
+            velX = 1;
 
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("left"))
-            velX = -5;
+            velX = -1;
 
         addX(velX);
         addY(velY);

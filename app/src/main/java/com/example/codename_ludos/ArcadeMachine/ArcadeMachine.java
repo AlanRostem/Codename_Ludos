@@ -41,12 +41,15 @@ public class ArcadeMachine {
     private static float relativeHeightFactor;
 
     public static void calibrateScreen() {
-        SCREEN_WIDTH = (int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
-        SCREEN_HEIGHT = (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
+        SCREEN_WIDTH = rawScreenWidth;//(int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
+        SCREEN_HEIGHT =rawScreenHeight;// (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
 
         // Asså eg vet da faen
-        SCREEN_OFFSET_X = (int)((float)rawScreenOffsetX * (SCREEN_WIDTH / rawScreenWidth));
-        SCREEN_OFFSET_Y = (int)((float)rawScreenOffsetY * (SCREEN_HEIGHT / rawScreenHeight));
+        SCREEN_OFFSET_X = rawScreenOffsetX;//(int)((float)rawScreenOffsetX * (SCREEN_WIDTH / rawScreenWidth));
+        SCREEN_OFFSET_Y = rawScreenOffsetY;//(int)((float)rawScreenOffsetY * (SCREEN_HEIGHT / rawScreenHeight));
+
+        Constants.SCREEN_SCALE_X = (float)Constants.SCREEN_WIDTH / (float)rawImageWidth;
+        Constants.SCREEN_SCALE_Y = (float)Constants.SCREEN_HEIGHT / (float)rawImageHeight;
     }
 
     private static void enterGame(String gameID) {
@@ -67,7 +70,7 @@ public class ArcadeMachine {
 
         games.put("TestGame", new TestGame());
         games.put("Eggrun", new Eggrun());
-        enterGame("Eggrun");
+        enterGame("TestGame");
 
         rawImageWidth = arcadeImage.getImageWidth();
         rawImageHeight = arcadeImage.getImageHeight();
@@ -79,7 +82,7 @@ public class ArcadeMachine {
 
     public static void draw() {
         games.get(currentGameID).draw();
-        arcadeImage.drawAt("all", 0, 0, Constants.SCREEN_WIDTH , Constants.SCREEN_HEIGHT);
+        arcadeImage.drawAt("all", 0, 0, 108, 192);
         games.get(currentGameID).controls.draw();
 
        // GamePanel.paint.setColor(Color.argb(0.5f, 1f, 1f, 1f));
