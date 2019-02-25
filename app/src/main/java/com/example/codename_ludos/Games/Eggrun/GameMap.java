@@ -2,6 +2,7 @@ package com.example.codename_ludos.Games.Eggrun;
 
 import android.graphics.Color;
 
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.R;
@@ -24,9 +25,17 @@ public class GameMap {
     }
 
     SpriteMap sky = new SpriteMap(R.drawable.sky);
+    SpriteMap sky2 = new SpriteMap(R.drawable.sky2);
 
     int tileSize = 40;
     public int offSet = 0;
+
+    int map1offset = 0;
+    int map2offset = 0;
+
+    int parallaxW = 2160;
+    int parallaxH = 1920;
+
     int speed = 4;
 
     int height = 30;
@@ -42,7 +51,7 @@ public class GameMap {
     Random rnd = new Random();
 
     public void initialize() {
-        for (int i = 0; i < level.size(); i++)
+        for (int i = maxTop; i < level.size(); i++)
             for (int j = 0; j < level.get(0).size(); j++) {
                 level.get(i).set(j, rnd.nextInt(2));
             }
@@ -66,7 +75,7 @@ public class GameMap {
 
     public void randomize()
     {
-        for (int i = 0; i < level.size(); i++)
+        for (int i = maxTop; i < level.size(); i++)
             for (int j = 0; j < level.get(0).size(); j++)
             {
                 if (j < chunkWidth)
@@ -101,17 +110,33 @@ public class GameMap {
            offSet = 0;
            randomize();
         }
+        map1offset-=speed/2;
+        map2offset-=speed/4;
+
+        if(map1offset<=-parallaxW) {
+            map1offset=0;
+        }
+
+        if(map2offset<=-parallaxW) {
+            map2offset=0;
+        }
     }
 
     public void draw()
     {
+        sky.drawAt("full", ArcadeMachine.SCREEN_OFFSET_X + map2offset ,ArcadeMachine.SCREEN_OFFSET_Y, parallaxW, parallaxH);
+        sky.drawAt("full", ArcadeMachine.SCREEN_OFFSET_X + map2offset + parallaxW ,ArcadeMachine.SCREEN_OFFSET_Y, parallaxW, parallaxH);
+
+        sky2.drawAt("full", ArcadeMachine.SCREEN_OFFSET_X + map1offset ,ArcadeMachine.SCREEN_OFFSET_Y, parallaxW, parallaxH);
+        sky2.drawAt("full", ArcadeMachine.SCREEN_OFFSET_X + map1offset + parallaxW ,ArcadeMachine.SCREEN_OFFSET_Y, parallaxW, parallaxH);
+
         for(int i = 0; i<level.size(); i++)
             for(int j = 0; j<level.get(0).size(); j++)
             {
                 if(i<=maxTop) continue;
                 else if(i>maxBottom) {
                     Shapes.setColor(Color.rgb(0, 0, 0));
-                    Shapes.drawRect((float)j*tileSize + offSet + 90, (float)i*tileSize + 160, tileSize , tileSize);
+                    Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
                 }
                 else {
 
@@ -120,7 +145,7 @@ public class GameMap {
                             break;
                         case 1:
                             Shapes.setColor(Color.rgb(0, 0, 0));
-                            Shapes.drawRect((float)j*tileSize + offSet + 90, (float)i*tileSize + 160, tileSize , tileSize);
+                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
                             break;
                         default:
                             break;
