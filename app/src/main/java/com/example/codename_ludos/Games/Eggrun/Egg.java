@@ -3,6 +3,7 @@ package com.example.codename_ludos.Games.Eggrun;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.GameEntity;
@@ -20,7 +21,7 @@ public class Egg extends GameEntity {
     private void outOfScreen(){
         if (mPos.x < 0){
             remove();
-            Log.d("Entity", "Removed");
+            Log.d("Entity", "Removed, size = " + ArcadeMachine.getCurrentGame().getEntityList().size());
         }
     }
 
