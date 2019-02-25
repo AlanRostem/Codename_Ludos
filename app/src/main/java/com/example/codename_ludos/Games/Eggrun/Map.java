@@ -96,7 +96,7 @@ public class Map {
                     }
                 }
                 if(screen) Shapes.drawRect((float)j*tileSize + offSet, (float)i*tileSize, tileSize , tileSize);
-                else Shapes.drawRect((float)j*tileSize + offSet + 24 * tileSize, (float)i*tileSize + 24*tileSize, tileSize , tileSize);
+                else Shapes.drawRect((float)j*tileSize + offSet + 24 * tileSize, (float)i*tileSize, tileSize , tileSize);
 
                 if(i<bottom)  Shapes.setColor(Color.rgb(255,255,255));
                 else if(i>top) Shapes.setColor(Color.rgb(0,0,0));
@@ -113,7 +113,7 @@ public class Map {
                             break;
                     }
                 }
-                if(screen) Shapes.drawRect((float)j*tileSize + offSet + 24 * tileSize, (float)i*tileSize + 24*tileSize, tileSize , tileSize);
+                if(screen) Shapes.drawRect((float)j*tileSize + offSet + 24 * tileSize, (float)i*tileSize, tileSize , tileSize);
                 else Shapes.drawRect((float)j*tileSize + offSet, (float)i*tileSize, tileSize , tileSize);
             }
     }
