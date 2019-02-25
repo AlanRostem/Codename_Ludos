@@ -1,12 +1,8 @@
 package com.example.codename_ludos.Games.Eggrun;
 
-
-import android.util.Log;
-
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Core.MainThread;
-import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 
@@ -42,17 +38,15 @@ public class Ali extends EggrunEntity {
     }
 
     public void update() {
-        controls();
         mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mVel.addVec(mAcc);
-        mPos.addVec(mVel);
         if (worldCollision()){
-            //mVel.setY(0);
-            //mAcc.setY(0);
-            //jumping = false;
-            Log.d("WoldCollision: ", " " + worldCollision());
+            mVel.setY(0);
+            mAcc.setY(0);
+            jumping = false;
         }
-
+        controls();
+        mPos.addVec(mVel);
     }
 
     public Vector2D getPosition(){
