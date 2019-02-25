@@ -85,14 +85,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             int id = event.getPointerId(i);
             int action = event.getAction();
 
+            boolean fingerOnScreen = action == MotionEvent.ACTION_DOWN
+                    || action == MotionEvent.ACTION_POINTER_DOWN
+                    || action == MotionEvent.ACTION_MOVE;
+
             if (pointerCount > 1)
                 fingers[i+1].setDown(false);
             else
                 fingers[i].setDown(false);
 
-            if (action == MotionEvent.ACTION_DOWN
-                    || action == MotionEvent.ACTION_POINTER_DOWN
-                    || action == MotionEvent.ACTION_MOVE)
+            if (fingerOnScreen)
                 fingers[i].set(true, id, x, y);
         }
     }

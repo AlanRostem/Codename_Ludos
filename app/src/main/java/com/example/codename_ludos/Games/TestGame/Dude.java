@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Audio.Audio;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
@@ -17,6 +18,8 @@ public class Dude extends BasePlayer {
 
     int width = 48*3;
     int height = 48*3;
+
+    private Audio keem;
 
     public boolean jumping = false;
 
@@ -34,6 +37,7 @@ public class Dude extends BasePlayer {
                 Animation(0, 7, 8, 0.1f);
         walkR = new SpriteMap.
                 Animation(8, 15, 8, 0.1f);
+       keem = new Audio(R.raw.keem);
     }
 
     public void update() {
@@ -43,6 +47,7 @@ public class Dude extends BasePlayer {
             if (!jumping) {
                 jumping = true;
                 mVel.y = -500.f;
+                keem.play();
             }
 
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("right"))
