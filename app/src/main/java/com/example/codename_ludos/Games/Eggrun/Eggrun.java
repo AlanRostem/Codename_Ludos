@@ -71,6 +71,24 @@ public class Eggrun extends ArcadeGame {
                 Shapes.drawRect(x, y, getWidth(), getHeight());
             }
         });
+
+        controls.createController("Spawn", new Button(400, 1700, 100, 100){
+            private int color = Color.GRAY;
+
+            public void onPressed(float x, float y) {
+                color = Color.rgb(190,190,190);
+                spawnEntity(new Egg());
+            }
+
+            public void onReleased(float x, float y) {
+                color = Color.GRAY;
+            }
+
+            public void draw() {
+                Shapes.setColor(color);
+                Shapes.drawRect(x, y, getWidth(), getHeight());
+            }
+        });
     }
 
     @Override

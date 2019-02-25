@@ -15,14 +15,15 @@ public class Ali extends BasePlayer {
     private SpriteMap.Animation slide;
 
     private float gravity = 25f;
-    private int width = 80;
-    private int height = 80;
+
 
     private boolean jumping = false;
     private boolean sliding = false;
 
     public Ali() {
         super(300 ,10);
+        width = 80;
+        height = 80;
 
         sprite = new SpriteMap(R.drawable.alisheet); // Dimensions of the raw image
         sprite.bindSprite("Ali",0,0,40,40);
@@ -56,6 +57,7 @@ public class Ali extends BasePlayer {
             jumping = false;
         }
     }
+
 
     public Vector2D getPosition(){
         return mPos;

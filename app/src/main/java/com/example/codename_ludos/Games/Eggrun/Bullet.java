@@ -16,7 +16,7 @@ public class Bullet extends GameEntity {
     }
 
     private void outOfScreen(){
-        if (mPos.x > 500){
+        if (mPos.x > 1080){
             remove();
         }
     }
