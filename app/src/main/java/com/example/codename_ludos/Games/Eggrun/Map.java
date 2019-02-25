@@ -4,6 +4,8 @@ import android.graphics.Color;
 
 import com.example.codename_ludos.Assets.Shapes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Map {
@@ -22,7 +24,7 @@ public class Map {
 
     public boolean screen = false;
 
-    public int level[][] = new int[72][42];
+    public List<List<Integer>> level = new ArrayList<List<Integer>>();
 
     public int[][] level1 = new int[30][24];
     public int[][] level2 = new int[30][24];
@@ -39,13 +41,16 @@ public class Map {
 
             for (int k = 0; k < level1.length; k++)
                 for (int l = 0; l < level1[k].length; l++) {
-
-                   /* if (k >= bottom && k<level1.length-1 && l<level1[k].length-1 && level1[k][l+1] == 0 && level1[k][l-1] == 0 && level1[k][l] == 1) {
-                    level1[k][l] = 0;
-                    }*/
                     if (k >= bottom && k < level1.length - 1 && level1[k + 1][l] == 0 && level1[k][l] == 1) {
-                        level1[k + 1][l] = 1;
+                     level1[k + 1][l] = 1;
+                     }
+                    if (k >= bottom && k<level1.length-1 && l<level1[k].length-1 && l>0 && level1[k][l+1] == 0 && level1[k][l-1] == 0 && level1[k][l] == 1) {
+                    level1[k][l] = 0;
                     }
+                    if (k >= bottom && k<level1.length-1 && l<level1[k].length-1 && l>0 && level1[k][l+1] == 1 && level1[k][l-1] == 1 && level1[k][l] == 0) {
+                        level1[k][l] = 1;
+                    }
+
 
                 }
         }
@@ -57,11 +62,15 @@ public class Map {
 
             for (int k = 0; k < level2.length; k++)
                 for (int l = 0; l < level2[k].length; l++) {
-                   /* if (k >= bottom && k<level2.length-1 && l<level2[k].length-1 && level2[k][l+1] == 0 && level2[k][l-1] == 0 && level2[k][l] == 1) {
-                        level2[k][l] = 0;
-                    }*/
+
                     if (k >= bottom && k<level2.length-1 && level2[k + 1][l] == 0 && level2[k][l] == 1) {
-                        level2[k + 1][l] = 1;
+                    level2[k + 1][l] = 1;
+                    }
+                    if (k >= bottom && k<level2.length-1 && l<level2[k].length-1 && l>0  && level2[k][l+1] == 0 && level2[k][l-1] == 0 && level2[k][l] == 1) {
+                        level2[k][l] = 0;
+                    }
+                    if (k >= bottom && k<level2.length-1 && l<level2[k].length-1 && l>0 && level2[k][l+1] == 1 && level2[k][l-1] == 1 && level2[k][l] == 0) {
+                        level2[k][l] = 1;
                     }
                 }
         }
