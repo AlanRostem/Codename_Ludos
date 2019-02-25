@@ -32,13 +32,9 @@ public class Ali extends BasePlayer {
         slide = new SpriteMap.Animation(2,3,4,.13f);
     }
 
-<<<<<<< HEAD
     private void controls(){
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")
                 && !jumping) { mVel.setY(-15f); jumping = true; }
-=======
-    private void jump(){
->>>>>>> d6140e06d4bcd29216a62cda3a11f8bc58e77a2a
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide")
                 && !jumping) { mVel.setY(-15f); jumping = true; }
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")
