@@ -10,9 +10,12 @@ public class Ali extends EggrunEntity {
     private SpriteMap sprite;
     private SpriteMap.Animation run;
     private SpriteMap.Animation jump;
+    private SpriteMap.Animation djump;
+    private SpriteMap.Animation djumpf;
     private SpriteMap.Animation slide;
 
     private boolean jumping = false;
+    private boolean djumping = false;
     private boolean sliding = false;
 
     public Ali() {
@@ -23,12 +26,15 @@ public class Ali extends EggrunEntity {
 
         run = new SpriteMap.Animation(0,1,4,.13f);
         jump = new SpriteMap.Animation(1,1,4,0f);
+        djump = new SpriteMap.Animation(4,7,4,0.26f);
+        djumpf = new SpriteMap.Animation(7,7,4,0f);
         slide = new SpriteMap.Animation(2,3,4,.13f);
     }
 
     private void controls(){
-        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")
-                && !jumping) { mVel.setY(-15f); jumping = true; }
+        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump"))
+            if(!jumping && !djumping) { mVel.setY(-15f); jumping = true; }
+            if(jumping && !djumping) {mVel.setY(-15f); djumping = true; jumping = false;}
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide")
                 && !sliding) {
             if (jumping) mAcc.setY(15f);
@@ -40,10 +46,11 @@ public class Ali extends EggrunEntity {
     public void update() {
         mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mVel.addVec(mAcc);
-        if (false){
+        if (mPos.y>=15){
             mVel.setY(0);
             mAcc.setY(0);
             jumping = false;
+            djumping = false;
         }
         controls();
         mPos.addVec(mVel);
@@ -55,6 +62,7 @@ public class Ali extends EggrunEntity {
 
     public void draw() {
         if (jumping) sprite.Animate("Ali", jump);
+        else if (djumping) sprite.Animate("Ali", djump);
         else if (sliding) sprite.Animate("Ali", slide);
         else sprite.Animate("Ali", run);
         sprite.drawAt("Ali", (int)mPos.x, (int)mPos.y, width, height);
