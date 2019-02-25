@@ -12,6 +12,9 @@ public class GameEntity {
     protected Vector2D mPos;
     protected Vector2D mAcc;
 
+    protected int width;
+    protected int height;
+
     public GameEntity(float x, float y) {
         mPos = new Vector2D(x, y);
         mVel = new Vector2D(0, 0);
