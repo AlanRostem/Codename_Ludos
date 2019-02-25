@@ -2,13 +2,14 @@ package com.example.codename_ludos.Games.Eggrun;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.R;
 
 public class Ali extends BasePlayer {
     private SpriteMap sprite;
     private SpriteMap.Animation run;
-    private float gravity = 0.3f;
+    private float gravity = 25f;
     private int width = 80;
     private int height = 80;
     private boolean jumping = false;
@@ -23,16 +24,16 @@ public class Ali extends BasePlayer {
     private void jump(){
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")
                 && !jumping) {
-            mVel.setY(-5);
+            mVel.setY(-10);
             jumping = true;
         }
     }
 
     public void update() {
         jump();
-        mVel.addY(gravity);
+        mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mPos.addVec(mVel);
-        if (mPos.y + height >= 600){
+        if (mPos.getY() + height >= 600){
             mVel.setY(0);
             mPos.setY(600 - height);
             jumping = false;
