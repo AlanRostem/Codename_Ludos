@@ -16,6 +16,10 @@ public class Finger extends Vector2D {
         return down;
     }
 
+    public void setDown(boolean on) {
+        down = on;
+    }
+
     public Vector2D set(boolean isDown, int id, float x, float y) {
         set(x, y);
         this.down = isDown;

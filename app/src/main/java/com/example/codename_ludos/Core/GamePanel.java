@@ -46,8 +46,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceChanged(SurfaceHolder sHolder, int format, int width, int height) {
         Constants.SCREEN_WIDTH = width;
         Constants.SCREEN_HEIGHT = height;
-        Log.i("RW meh", "" + width);
-        Log.i("RH meh", "" + height);
         ArcadeMachine.calibrateScreen();
     }
 
@@ -68,7 +66,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             try {
                 thread.setRunning(false);
                 thread.join();
-            } catch (Exception e) {e.printStackTrace();}
+            } catch (Exception e) { e.printStackTrace(); }
             retry = false;
         }
     }
@@ -77,6 +75,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return fingers;
     }
 
+    int hold = 0;
     private void touchFingerManager(MotionEvent event) {
         int pointerCount = ptrCnt = event.getPointerCount();
         for (int i = 0; i < pointerCount; i++) {
@@ -86,12 +85,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             int id = event.getPointerId(i);
             int action = event.getAction();
 
-            fingers[i].set(false, id, x, y);
+            if (pointerCount > 1)
+                fingers[i+1].setDown(false);
+            else
+                fingers[i].setDown(false);
+
             if (action == MotionEvent.ACTION_DOWN
                     || action == MotionEvent.ACTION_POINTER_DOWN
-                    || action == MotionEvent.ACTION_MOVE) {
+                    || action == MotionEvent.ACTION_MOVE)
                 fingers[i].set(true, id, x, y);
-            }
         }
     }
 
