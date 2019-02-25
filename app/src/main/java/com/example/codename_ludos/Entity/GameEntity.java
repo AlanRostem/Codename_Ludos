@@ -19,7 +19,7 @@ public class GameEntity {
     protected int width;
     protected int height;
 
-    private static class Side {
+    public static class Side {
         public boolean left = false;
         public boolean right = false;
         public boolean top = false;
@@ -29,7 +29,7 @@ public class GameEntity {
         }
     }
 
-    protected Side side;
+    protected Side side = new Side();
 
     protected GameTile[][] tiles = {
             {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},

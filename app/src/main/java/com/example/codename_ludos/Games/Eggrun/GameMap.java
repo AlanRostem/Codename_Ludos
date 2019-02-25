@@ -5,6 +5,7 @@ import android.graphics.Color;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.R;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class GameMap {
     int maxTop = height-6;
     int maxBottom = height-2;
 
-    public List<List<Integer>> level = new ArrayList<List<Integer>>();
+    public TileMap  level = new TileMap(tileSize);
 
     Random rnd = new Random();
 
