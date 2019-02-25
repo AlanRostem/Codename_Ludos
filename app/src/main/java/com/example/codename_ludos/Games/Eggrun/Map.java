@@ -67,7 +67,10 @@ public class Map {
             for(int j = 0; j<level.get(0).size(); j++)
             {
                 if(i<=level.size()-6) continue;
-                else if(i>level.size()-2) Shapes.setColor(Color.rgb(0,0,0));
+                else if(i>level.size()-2) {
+                    Shapes.setColor(Color.rgb(0, 0, 0));
+                    Shapes.drawRect((float)j*tileSize + offSet + 90, (float)i*tileSize + 160, tileSize , tileSize);
+                }
                 else {
 
                     switch (level.get(i).get(j)) {
@@ -75,6 +78,8 @@ public class Map {
                             break;
                         case 1:
                             Shapes.setColor(Color.rgb(0, 0, 0));
+                            Shapes.drawRect((float)j*tileSize + offSet + 90, (float)i*tileSize + 160, tileSize , tileSize);
+
                             break;
                         default:
                             break;
