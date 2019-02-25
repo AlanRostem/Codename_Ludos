@@ -19,7 +19,7 @@ public class Eggrun extends ArcadeGame {
         map = new Map();
         spawnEntity(ali);
 
-        controls.createController("Jump", new Button(800, 1500, 100, 100){
+        controls.createController("Jump", new Button(100, 1400, 200, 200){
             private int color = Color.GRAY;
 
             public void onPressed(float x, float y) {
@@ -28,6 +28,24 @@ public class Eggrun extends ArcadeGame {
 
             public void onReleased(float x, float y) {
                 color = Color.GRAY;
+            }
+
+            public void draw() {
+                Shapes.setColor(color);
+                Shapes.drawRect(x, y, getWidth(), getHeight());
+            }
+        });
+
+        controls.createController("Slide", new Button(400, 1400, 200, 200){
+            private int color = Color.GRAY;
+
+            public void onPressed(float x, float y) {
+                color = Color.rgb(190,190,190);
+            }
+
+            public void onReleased(float x, float y) {
+                color = Color.GRAY;
+                ali.sliding = false;
             }
 
             public void draw() {
