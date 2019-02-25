@@ -37,12 +37,11 @@ public class Ali extends BasePlayer {
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")
                 && !jumping) { mVel.setY(-15f); jumping = true; }
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide")
-                && !jumping) { mVel.setY(-15f); jumping = true; }
-        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")
                 && !sliding) {
-            if (jumping) mAcc.setY(15f * MainThread.getAverageDeltaTime());
+            if (jumping) mAcc.setY(15f);
             else sliding = true;
-        } else if(!ArcadeMachine.getCurrentGame().getControls().isTouched("Slide")) sliding = false;
+        } else if(!ArcadeMachine.getCurrentGame().getControls().isTouched("Slide"))
+            sliding = false;
     }
 
     public void update() {
@@ -57,7 +56,6 @@ public class Ali extends BasePlayer {
             jumping = false;
         }
     }
-
 
     public Vector2D getPosition(){
         return mPos;

@@ -37,6 +37,23 @@ public class Eggrun extends ArcadeGame {
             }
         });
 
+        controls.createController("Slide", new Button(400, 1400, 200, 200){
+            private int color = Color.GRAY;
+
+            public void onPressed(float x, float y) {
+                color = Color.rgb(190,190,190);
+            }
+
+            public void onReleased(float x, float y) {
+                color = Color.GRAY;
+            }
+
+            public void draw() {
+                Shapes.setColor(color);
+                Shapes.drawRect(x, y, getWidth(), getHeight());
+            }
+        });
+
         controls.createController("Shoot", new Button(800, 1400, 250, 250){
             private int color = Color.GRAY;
 
@@ -55,22 +72,6 @@ public class Eggrun extends ArcadeGame {
             }
         });
 
-        controls.createController("Slide", new Button(400, 1400, 200, 200){
-            private int color = Color.GRAY;
-
-            public void onPressed(float x, float y) {
-                color = Color.rgb(190,190,190);
-            }
-
-            public void onReleased(float x, float y) {
-                color = Color.GRAY;
-            }
-
-            public void draw() {
-                Shapes.setColor(color);
-                Shapes.drawRect(x, y, getWidth(), getHeight());
-            }
-        });
 
         controls.createController("Spawn", new Button(400, 1700, 100, 100){
             private int color = Color.GRAY;
