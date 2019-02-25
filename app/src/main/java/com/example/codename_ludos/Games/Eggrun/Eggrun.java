@@ -1,7 +1,6 @@
 package com.example.codename_ludos.Games.Eggrun;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
@@ -10,14 +9,16 @@ import com.example.codename_ludos.Controllers.Button;
 
 public class Eggrun extends ArcadeGame {
     private Ali ali;
-    private GameMap gamemap;
+    private GameMap map;
 
     public Eggrun(){ super("Eggrun"); }
 
     @Override
     public void setup() {
         ali = new Ali();
-        gamemap = new GameMap();
+        map = new GameMap();
+
+        EggrunEntity.gameMap = map;
         spawnEntity(ali);
 
         controls.createController("Jump", new Button(100, 1400, 200, 200){
@@ -94,13 +95,13 @@ public class Eggrun extends ArcadeGame {
     @Override
     public void update() {
         controls.update();
-        gamemap.update();
+        map.update();
         updateEntities();
     }
 
     @Override
     public void draw() {
-        gamemap.draw();
+        map.draw();
         drawEntities();
     }
 
