@@ -40,7 +40,7 @@ public class Ali extends EggrunEntity {
     public void update() {
         mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mVel.addVec(mAcc);
-        if (worldCollision()){
+        if (false){
             mVel.setY(0);
             mAcc.setY(0);
             jumping = false;
