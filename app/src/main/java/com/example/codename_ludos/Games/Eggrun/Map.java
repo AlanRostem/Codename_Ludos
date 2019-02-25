@@ -12,53 +12,91 @@ public class Map {
 
     public Map()
     {
-        for (int i = 0; i < 30; i++) {
-            level.add(new ArrayList<Integer>(72));
-            for (int j = 0; j < 72; j++){
+        for (int i = 0; i < height; i++) {
+            level.add(new ArrayList<Integer>(width));
+            for (int j = 0; j < width; j++){
                 level.get(i).add(0);
             }
     }
-        randomize();
+        initialize();
     }
 
     int tileSize = 40;
     public int offSet = 0;
     int speed = 4;
 
-    public boolean screen = false;
+    int height = 30;
+    int width  = 48;
+
+    int chunkWidth = 24;
+
+    int maxTop = height-6;
+    int maxBottom = height-2;
 
     public List<List<Integer>> level = new ArrayList<List<Integer>>();
 
     Random rnd = new Random();
 
-    public void randomize() {
+    public void initialize() {
         for (int i = 0; i < level.size(); i++)
             for (int j = 0; j < level.get(0).size(); j++) {
                 level.get(i).set(j, rnd.nextInt(2));
             }
 
         for (int i = 0; i < level.size(); i++)
-            for (int j = 0; j < level.get(0).size(); j++) {
+            for (int j = 0; j < level.get(0).size(); j++)
+            {
                 {
-                     /*   if (k >= bottom && k < level.length - 1 && level[k][l].get(0) == 0 && level[k][l] == 1) {
-                            level[k + 1][l].set() = 1;
+                        if (i > maxTop && i <= maxBottom && level.get(i+1).get(j) == 0 && level.get(i).get(j) == 1) level.get(i+1).set(j,1);
+                        if (i > maxTop && i <= maxBottom && j<level.get(i).size()-1 && j>0 && level.get(i).get(j+1) == 0 && level.get(i).get(j-1) == 0 && level.get(i).get(j) == 1)
+                        {
+                            level.get(i).set(j,0);
                         }
-                        if (k >= bottom && k<level1.length-1 && l<level1[k].length-1 && l>0 && level1[k][l+1] == 0 && level1[k][l-1] == 0 && level1[k][l] == 1) {
-                            level1[k][l] = 0;
+                        if (i > maxTop && i <= maxBottom && j<level.get(i).size()-1 && j>0 && level.get(i).get(j+1) == 1 && level.get(i).get(j-1) == 1 && level.get(i).get(j) == 0)
+                        {
+                        level.get(i).set(j,1);
                         }
-                        if (k >= bottom && k<level1.length-1 && l<level1[k].length-1 && l>0 && level1[k][l+1] == 1 && level1[k][l-1] == 1 && level1[k][l] == 0) {
-                            level1[k][l] = 1;
-                        }*/
                 }
             }
     }
 
+    public void randomize()
+    {
+        for (int i = 0; i < level.size(); i++)
+            for (int j = 0; j < level.get(0).size(); j++)
+            {
+                if (j < chunkWidth)
+                {
+                    level.get(i).set(j, level.get(i).get(j + chunkWidth));
+                } else
+                    {
+                    level.get(i).set(j, rnd.nextInt(2));
+                    }
+            }
+
+        for (int i = 0; i < level.size(); i++)
+            for (int j = chunkWidth-1; j < level.get(0).size(); j++)
+            {
+                {
+                        if (i > maxTop && i <= maxBottom && level.get(i + 1).get(j) == 0 && level.get(i).get(j) == 1) level.get(i + 1).set(j, 1);
+                        if (i > maxTop && i <= maxBottom && j < level.get(i).size() - 1 && j > 0 && level.get(i).get(j + 1) == 0 && level.get(i).get(j - 1) == 0 && level.get(i).get(j) == 1)
+                        {
+                            level.get(i).set(j, 0);
+                        }
+                        if (i > maxTop && i <= maxBottom && j < level.get(i).size() - 1 && j > 0 && level.get(i).get(j + 1) == 1 && level.get(i).get(j - 1) == 1 && level.get(i).get(j) == 0)
+                        {
+                            level.get(i).set(j, 1);
+                        }
+                    }
+                }
+    }
+
     public void update() {
-        /*offSet-=speed;
-        if(offSet<=-tileSize+speed) {
-            offSet = 0;
-            randomize();
-        }*/
+        offSet-=speed;
+        if(offSet<=-tileSize*chunkWidth+speed) {
+           offSet = 0;
+           randomize();
+        }
     }
 
     public void draw()
@@ -66,8 +104,8 @@ public class Map {
         for(int i = 0; i<level.size(); i++)
             for(int j = 0; j<level.get(0).size(); j++)
             {
-                if(i<=level.size()-6) continue;
-                else if(i>level.size()-2) {
+                if(i<=maxTop) continue;
+                else if(i>maxBottom) {
                     Shapes.setColor(Color.rgb(0, 0, 0));
                     Shapes.drawRect((float)j*tileSize + offSet + 90, (float)i*tileSize + 160, tileSize , tileSize);
                 }
@@ -79,7 +117,6 @@ public class Map {
                         case 1:
                             Shapes.setColor(Color.rgb(0, 0, 0));
                             Shapes.drawRect((float)j*tileSize + offSet + 90, (float)i*tileSize + 160, tileSize , tileSize);
-
                             break;
                         default:
                             break;
