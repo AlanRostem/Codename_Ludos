@@ -3,14 +3,16 @@ package com.example.codename_ludos.Games.Eggrun;
 import android.graphics.Color;
 
 import com.example.codename_ludos.Assets.Shapes;
+import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.R;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Map {
 
-    public Map()
+public class GameMap {
+    public GameMap()
     {
         for (int i = 0; i < height; i++) {
             level.add(new ArrayList<Integer>(width));
@@ -20,6 +22,8 @@ public class Map {
     }
         initialize();
     }
+
+    SpriteMap sky = new SpriteMap(R.drawable.sky);
 
     int tileSize = 40;
     public int offSet = 0;

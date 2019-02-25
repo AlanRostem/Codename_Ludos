@@ -10,14 +10,14 @@ import com.example.codename_ludos.Controllers.Button;
 
 public class Eggrun extends ArcadeGame {
     private Ali ali;
-    private Map map;
+    private GameMap gamemap;
 
     public Eggrun(){ super("Eggrun"); }
 
     @Override
     public void setup() {
         ali = new Ali();
-        map = new Map();
+        gamemap = new GameMap();
         spawnEntity(ali);
 
         controls.createController("Jump", new Button(100, 1400, 200, 200){
@@ -94,13 +94,13 @@ public class Eggrun extends ArcadeGame {
     @Override
     public void update() {
         controls.update();
-        map.update();
+        gamemap.update();
         updateEntities();
     }
 
     @Override
     public void draw() {
-        map.draw();
+        gamemap.draw();
         drawEntities();
     }
 
