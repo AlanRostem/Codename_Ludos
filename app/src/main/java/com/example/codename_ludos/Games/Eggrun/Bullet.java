@@ -7,12 +7,10 @@ import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
-public class Bullet extends GameEntity {
-    int width = 20;
-    int height = 20;
+public class Bullet extends EggrunEntity {
 
     public Bullet(Vector2D pos){
-        super(pos.x,pos.y);
+        super(pos.x, pos.y,20,20);
     }
 
     private void outOfScreen(){

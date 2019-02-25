@@ -8,20 +8,18 @@ import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.GameEntity;
 
-public class Egg extends GameEntity {
+public class Egg extends EggrunEntity {
 
     private float gravity = 25f;
 
     public Egg(){
-        super(1000,200);
-        width = 120;
-        height = 120;
+        super(1000,200, 120, 120);
     }
 
     private void outOfScreen(){
         if (mPos.x < 0){
             remove();
-            Log.d("Entity", "Removed, size = " + ArcadeMachine.getCurrentGame().getEntityList().size());
+            Log.d("EggrunEntity", "Removed, size = " + ArcadeMachine.getCurrentGame().getEntityList().size());
         }
     }
 

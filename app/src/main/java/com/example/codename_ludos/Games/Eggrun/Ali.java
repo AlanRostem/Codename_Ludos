@@ -1,6 +1,8 @@
 package com.example.codename_ludos.Games.Eggrun;
 
 
+import android.util.Log;
+
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Core.MainThread;
@@ -8,22 +10,17 @@ import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 
-public class Ali extends BasePlayer {
+public class Ali extends EggrunEntity {
     private SpriteMap sprite;
     private SpriteMap.Animation run;
     private SpriteMap.Animation jump;
     private SpriteMap.Animation slide;
 
-    private float gravity = 25f;
-
-
     private boolean jumping = false;
     private boolean sliding = false;
 
     public Ali() {
-        super(300 ,10);
-        width = 80;
-        height = 80;
+        super(300 ,10, 80 ,80);
 
         sprite = new SpriteMap(R.drawable.alisheet); // Dimensions of the raw image
         sprite.bindSprite("Ali",0,0,40,40);
@@ -49,12 +46,13 @@ public class Ali extends BasePlayer {
         mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mVel.addVec(mAcc);
         mPos.addVec(mVel);
-        if (mPos.getY() + height >= 920){
-            mVel.setY(0);
-            mAcc.setY(0);
-            mPos.setY(920 - height);
-            jumping = false;
+        if (worldCollision()){
+            //mVel.setY(0);
+            //mAcc.setY(0);
+            //jumping = false;
+            Log.d("WoldCollision: ", " " + worldCollision());
         }
+
     }
 
     public Vector2D getPosition(){
