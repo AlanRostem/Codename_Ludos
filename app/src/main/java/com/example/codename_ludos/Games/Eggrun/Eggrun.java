@@ -1,6 +1,7 @@
 package com.example.codename_ludos.Games.Eggrun;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
@@ -36,6 +37,24 @@ public class Eggrun extends ArcadeGame {
             }
         });
 
+        controls.createController("Shoot", new Button(800, 1400, 250, 250){
+            private int color = Color.GRAY;
+
+            public void onPressed(float x, float y) {
+                color = Color.rgb(190,190,190);
+                spawnEntity(new Bullet(ali.getPosition()));
+            }
+
+            public void onReleased(float x, float y) {
+                color = Color.GRAY;
+            }
+
+            public void draw() {
+                Shapes.setColor(color);
+                Shapes.drawRect(x, y, getWidth(), getHeight());
+            }
+        });
+
         controls.createController("Slide", new Button(400, 1400, 200, 200){
             private int color = Color.GRAY;
 
@@ -45,7 +64,6 @@ public class Eggrun extends ArcadeGame {
 
             public void onReleased(float x, float y) {
                 color = Color.GRAY;
-                ali.sliding = false;
             }
 
             public void draw() {
@@ -59,13 +77,13 @@ public class Eggrun extends ArcadeGame {
     public void update() {
         controls.update();
         map.update();
-        ali.update();
+        updateEntities();
     }
 
     @Override
     public void draw() {
         map.draw();
-        ali.draw();
+        drawEntities();
     }
 
     @Override

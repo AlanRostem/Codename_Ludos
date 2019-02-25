@@ -1,9 +1,11 @@
 package com.example.codename_ludos.Games.Eggrun;
 
+
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.BasePlayer;
+import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 
 public class Ali extends BasePlayer {
@@ -17,29 +19,31 @@ public class Ali extends BasePlayer {
     private int height = 80;
 
     private boolean jumping = false;
-    public boolean sliding = false;
+    private boolean sliding = false;
 
     public Ali() {
-        super(500 ,10);
+        super(300 ,10);
+
         sprite = new SpriteMap(R.drawable.alisheet); // Dimensions of the raw image
         sprite.bindSprite("Ali",0,0,40,40);
+
         run = new SpriteMap.Animation(0,1,4,.13f);
         jump = new SpriteMap.Animation(1,1,4,0f);
         slide = new SpriteMap.Animation(2,3,4,.13f);
     }
 
-    private void jump(){
+    private void controls(){
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")
                 && !jumping) { mVel.setY(-15f); jumping = true; }
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide")
                 && !sliding) {
             if (jumping) mAcc.setY(15f * MainThread.getAverageDeltaTime());
             else sliding = true;
-        }
+        } else if(!ArcadeMachine.getCurrentGame().getControls().isTouched("Slide")) sliding = false;
     }
 
     public void update() {
-        jump();
+        controls();
         mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mVel.addVec(mAcc);
         mPos.addVec(mVel);
@@ -49,6 +53,10 @@ public class Ali extends BasePlayer {
             mPos.setY(920 - height);
             jumping = false;
         }
+    }
+
+    public Vector2D getPosition(){
+        return mPos;
     }
 
     public void draw() {
