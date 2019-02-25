@@ -1,13 +1,8 @@
 package com.example.codename_ludos.Games.Eggrun;
 
-import android.util.Log;
-
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EggrunEntity extends GameEntity {
 
@@ -24,7 +19,6 @@ public class EggrunEntity extends GameEntity {
 
     public static GameMap gameMap;
 
-    
 
     protected boolean worldCollision(){
         for (int i = 0; i < gameMap.level.size(); i++) {
