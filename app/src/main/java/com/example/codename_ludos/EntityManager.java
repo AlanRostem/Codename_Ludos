@@ -13,6 +13,10 @@ public class EntityManager {
         this.objects = new ArrayList<>();
     }
 
+    public ArrayList<GameEntity> getEntityList() {
+        return objects;
+    }
+
     // Append a new GameEntity to the manager
     public void spawnEntity(GameEntity object) {
         objects.add(object);
@@ -25,7 +29,7 @@ public class EntityManager {
     public void updateEntities() {
         for (int i = 0; i < objects.size(); i++) {
             if (objects.get(i).isRemoved()) {
-                objects.get(i).remove();
+                objects.remove(objects.get(i));
             }
             objects.get(i).update();
         }
