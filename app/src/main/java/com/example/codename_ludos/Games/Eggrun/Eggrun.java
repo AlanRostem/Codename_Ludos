@@ -72,7 +72,6 @@ public class Eggrun extends ArcadeGame {
             }
         });
 
-
         controls.createController("Spawn", new Button(400, 1700, 100, 100){
             private int color = Color.GRAY;
 
