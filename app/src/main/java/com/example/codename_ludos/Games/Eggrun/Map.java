@@ -2,8 +2,7 @@ package com.example.codename_ludos.Games.Eggrun;
 
 import android.graphics.Color;
 
-import com.example.codename_ludos.Core.GamePanel;
-import com.example.codename_ludos.Core.MainThread;
+import com.example.codename_ludos.Assets.Shapes;
 
 import java.util.Random;
 
@@ -22,6 +21,8 @@ public class Map {
     int speed = 4;
 
     public boolean screen = false;
+
+    public int level[][] = new int[72][42];
 
     public int[][] level1 = new int[30][24];
     public int[][] level2 = new int[30][24];
@@ -79,41 +80,41 @@ public class Map {
         for(int i = 0; i<level1.length; i++)
             for(int j = 0; j<level1[i].length; j++)
             {
-                if(i<bottom)  GamePanel.paint.setColor(Color.rgb(255,255,255));
-                else if(i>top) GamePanel.paint.setColor(Color.rgb(0,0,0));
+                if(i<bottom)  Shapes.setColor(Color.rgb(255,255,255));
+                else if(i>top) Shapes.setColor(Color.rgb(0,0,0));
                 else {
                     switch (level1[i][j]) {
                         case 0:
-                            GamePanel.paint.setColor(Color.rgb(255, 255, 255));
+                            Shapes.setColor(Color.rgb(255, 255, 255));
                             break;
                         case 1:
-                            GamePanel.paint.setColor(Color.rgb(0, 0, 0));
+                            Shapes.setColor(Color.rgb(0, 0, 0));
                             break;
 
                         default:
                             break;
                     }
                 }
-                if(screen) MainThread.canvas.drawRect((float)j*tileSize + offSet, (float)i*tileSize, (float)j*tileSize + tileSize + offSet, (float)i*tileSize + tileSize, GamePanel.paint);
-                else MainThread.canvas.drawRect((float)j*tileSize + offSet + top*tileSize, (float)i*tileSize, (float)j*tileSize + tileSize + offSet + top*tileSize, (float)i*tileSize + tileSize, GamePanel.paint);
+                if(screen) Shapes.drawRect((float)j*tileSize + offSet, (float)i*tileSize, tileSize , tileSize);
+                else Shapes.drawRect((float)j*tileSize + offSet + 24 * tileSize, (float)i*tileSize + 24*tileSize, tileSize , tileSize);
 
-                if(i<bottom)  GamePanel.paint.setColor(Color.rgb(255,255,255));
-                else if(i>top) GamePanel.paint.setColor(Color.rgb(0,0,0));
+                if(i<bottom)  Shapes.setColor(Color.rgb(255,255,255));
+                else if(i>top) Shapes.setColor(Color.rgb(0,0,0));
                 else {
                     switch (level2[i][j]) {
                         case 0:
-                            GamePanel.paint.setColor(Color.rgb(255, 255, 255));
+                            Shapes.setColor(Color.rgb(255, 255, 255));
                             break;
                         case 1:
-                            GamePanel.paint.setColor(Color.rgb(0, 0, 0));
+                            Shapes.setColor(Color.rgb(0, 0, 0));
                             break;
 
                         default:
                             break;
                     }
                 }
-                if(screen) MainThread.canvas.drawRect((float)j*tileSize + offSet + top*tileSize, (float)i*tileSize, (float)j*tileSize + tileSize + offSet + top*tileSize, (float)i*tileSize + tileSize, GamePanel.paint);
-                else MainThread.canvas.drawRect((float)j*tileSize + offSet, (float)i*tileSize, (float)j*tileSize + tileSize + offSet, (float)i*tileSize + tileSize, GamePanel.paint);
+                if(screen) Shapes.drawRect((float)j*tileSize + offSet + 24 * tileSize, (float)i*tileSize + 24*tileSize, tileSize , tileSize);
+                else Shapes.drawRect((float)j*tileSize + offSet, (float)i*tileSize, tileSize , tileSize);
             }
     }
 }
