@@ -56,7 +56,7 @@ public class GameMap {
                 level.get(i).set(j, rnd.nextInt(2));
             }
 
-        for (int i = 0; i < level.size(); i++)
+        for (int i = maxTop; i < level.size(); i++)
             for (int j = 0; j < level.get(0).size(); j++)
             {
                 {
@@ -87,7 +87,7 @@ public class GameMap {
                     }
             }
 
-        for (int i = 0; i < level.size(); i++)
+        for (int i = maxTop; i < level.size(); i++)
             for (int j = chunkWidth-1; j < level.get(0).size(); j++)
             {
                 {
