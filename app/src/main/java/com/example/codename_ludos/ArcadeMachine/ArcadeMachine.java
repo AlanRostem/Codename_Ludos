@@ -35,7 +35,7 @@ public class ArcadeMachine {
     private static int rawScreenOffsetY = 160;
 
     private static int rawScreenWidth = 900;
-    private static int rawScreenHeight = 1050;
+    private static int rawScreenHeight = 1200;
 
     private static int rawImageWidth;
     private static int rawImageHeight;
