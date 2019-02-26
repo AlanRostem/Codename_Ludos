@@ -5,12 +5,16 @@ import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.Assets.Shapes;
+import com.example.codename_ludos.Audio.Music;
 import com.example.codename_ludos.Controllers.Button;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainThread;
+import com.example.codename_ludos.R;
 
 public class TestGame extends ArcadeGame {
     private Dude dude;
+
+    private Music song;
 
     public TestGame() {
         super("TestGame");
@@ -20,6 +24,7 @@ public class TestGame extends ArcadeGame {
     public void setup() {
 
         dude = new Dude();
+        song = new Music(R.raw.music);
 
         controls.createController("jump", new Button( 800, 1500, 200, 200) {
             private int color = Color.GREEN;
@@ -84,6 +89,7 @@ public class TestGame extends ArcadeGame {
 
     @Override
     public void update() {
+        song.play();
         controls.update();
         dude.update();
     }

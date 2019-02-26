@@ -37,7 +37,7 @@ public class Dude extends BasePlayer {
                 Animation(0, 7, 8, 0.1f);
         walkR = new SpriteMap.
                 Animation(8, 15, 8, 0.1f);
-       keem = new Audio(R.raw.keem);
+        keem = new Audio(R.raw.keem);
     }
 
     public void update() {

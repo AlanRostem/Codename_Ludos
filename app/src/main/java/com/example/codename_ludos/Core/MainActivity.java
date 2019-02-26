@@ -35,10 +35,10 @@ public class MainActivity extends Activity {
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                 .build();
 
-        soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0); /*new SoundPool.Builder()
+        soundPool = /*new SoundPool(6, AudioManager.STREAM_MUSIC, 0); */new SoundPool.Builder()
                 .setMaxStreams(6)
                 .setAudioAttributes(audioAttributes)
-                .build();*/
+                .build();
 
         soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
             @Override
