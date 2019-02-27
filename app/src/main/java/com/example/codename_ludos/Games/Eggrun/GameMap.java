@@ -88,7 +88,6 @@ public class GameMap {
 
     public void update() {
         offSet-=speed;
-        level.offsetX = offSet;
         if(offSet <= -tileSize * chunkWidth + speed) {
            offSet = 0;
            randomize();

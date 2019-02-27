@@ -29,8 +29,8 @@ public class EggrunEntity extends GameEntity {
     }
 
     public boolean overlap(GameTile t, TileMap map, int tileSize) {
-        int ox = map.offsetX + ArcadeMachine.SCREEN_OFFSET_X;
-        int oy = map.offsetY + ArcadeMachine.SCREEN_OFFSET_Y;
+        int ox = gameMap.offSet + ArcadeMachine.SCREEN_OFFSET_X;
+        int oy = ArcadeMachine.SCREEN_OFFSET_Y;
         return mPos.x < t.cx + ox * tileSize + tileSize + ox
                 && mPos.x + width > t.cx * tileSize + ox
                 && mPos.y  < t.cy * tileSize + tileSize + oy
@@ -39,8 +39,8 @@ public class EggrunEntity extends GameEntity {
 
     @Override
     public void manageTileCollisionX(TileMap map, int minSolidTileID) {
-        int offSettX = map.offsetX + ArcadeMachine.SCREEN_OFFSET_X;
-        int offSettY = map.offsetY + ArcadeMachine.SCREEN_OFFSET_Y;
+        int offSettX = gameMap.offSet + ArcadeMachine.SCREEN_OFFSET_X;
+        int offSettY = ArcadeMachine.SCREEN_OFFSET_Y;
         int cx = (int)(mPos.x - offSettX) / map.getTileSize();
         int cy = (int)(mPos.y - offSettY) / map.getTileSize();
         int ox = -1;
@@ -71,12 +71,10 @@ public class EggrunEntity extends GameEntity {
                         if (mVel.x != 0) {
 
                             if (mPos.x + width < tile.x(map.getTileSize(), offSettX)) {
-                                //mPos.x = tile.x(map.getTileSize(), offSettX) - width + offSettX;
                                 side.right = true;
                             }
 
                             if (mPos.x > tile.x(map.getTileSize(), offSettX) + map.getTileSize()) {
-                                //mPos.x = tile.x(map.getTileSize(), offSettX) + map.getTileSize() + offSettX;
                                 side.left = true;
                             }
                         }
@@ -90,8 +88,8 @@ public class EggrunEntity extends GameEntity {
 
     @Override
     public void manageTileCollisionY(TileMap map, int minSolidTileID) {
-        int offSettX = map.offsetX + ArcadeMachine.SCREEN_OFFSET_X;
-        int offSettY = map.offsetY + ArcadeMachine.SCREEN_OFFSET_Y;
+        int offSettX = gameMap.offSet + ArcadeMachine.SCREEN_OFFSET_X;
+        int offSettY = ArcadeMachine.SCREEN_OFFSET_Y;
         int cx = (int)(mPos.x - offSettX) / map.getTileSize();
         int cy = (int)(mPos.y - offSettY) / map.getTileSize();
         int ox = -1;
@@ -122,13 +120,11 @@ public class EggrunEntity extends GameEntity {
                                 tiles[y][x].cy  * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
                         if (mVel.y > 0) {
                             if (mPos.y + height > tile.y(map.getTileSize(), offSettY)) {
-                                //mPos.y = tile.y(map.getTileSize(), offSettY) - height;
                                 side.bottom = true;
                             }
 
                         } else if (mVel.y < 0) {
                             if (mPos.y < tile.y(map.getTileSize(), offSettY) + map.getTileSize()) {
-                                //mPos.y = tile.y(map.getTileSize(), offSettY) + map.getTileSize();
                                 side.top = true;
                             }
                         }
