@@ -1,6 +1,9 @@
 package com.example.codename_ludos.Games.Eggrun;
 
+import android.graphics.Color;
+
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
+import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
@@ -60,15 +63,26 @@ public class Ali extends EggrunEntity {
         mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mVel.addVec(mAcc);
         if(mVel.y>0) djumpingf = true;
-        if (mPos.y>=900){
+        side.reset();
+
+        mVel.x = 1f;
+
+        if (side.right)
+            mVel.x = -4;
+        else
+            mVel.x = 1f;
+
+        if (side.bottom || mPos.y > 29*gameMap.tileSize){
             mVel.setY(0);
             mAcc.setY(0);
             jumping = false;
             djumping = false;
             djumpingf = false;
         }
+
         controls();
-        mPos.addVec(mVel);
+        //mPos.addVec(mVel);
+        mPos.y += mVel.y;
     }
 
     public Vector2D getPosition(){
@@ -81,6 +95,8 @@ public class Ali extends EggrunEntity {
         else if (djumping) sprite.Animate("Ali", djump);
         else if (sliding) sprite.Animate("Ali", slide);
         else sprite.Animate("Ali", run);
+        manageTileCollisionY(gameMap.level,1);
+        manageTileCollisionX(gameMap.level,1);
         sprite.drawAt("Ali", (int)mPos.x, (int)mPos.y, width, height);
     }
 }
