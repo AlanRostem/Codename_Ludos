@@ -33,9 +33,6 @@ public class GameEntity {
     protected Side side = new Side();
 
 
-
-    ArrayList<ArrayList<GameTile>> tilesTest = new ArrayList<ArrayList<GameTile>>();
-
     protected GameTile[][] tiles = {
             {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
             {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
@@ -125,11 +122,11 @@ public class GameEntity {
                 &&  mPos.getX() < (e.mPos.x + e.width);
     }
 
-    public boolean overlap(GameTile t, int tileSize, int offSettX, int offSettY) {
-        return mPos.x + offSettX < t.cx * tileSize + tileSize
-                && mPos.x + width + offSettX > t.cx * tileSize
-                && mPos.y + offSettY < t.cy * tileSize + tileSize
-                && mPos.y + height + offSettY > t.cy * tileSize;
+    public boolean overlap(GameTile t, int tileSize) {
+        return mPos.x < t.cx * tileSize + tileSize
+                && mPos.x + width > t.cx * tileSize
+                && mPos.y  < t.cy * tileSize + tileSize
+                && mPos.y + height  > t.cy * tileSize;
     }
 
     public int getTileMapValue(TileMap map) {
@@ -143,10 +140,10 @@ public class GameEntity {
     }
 
     public void manageTileCollisionX(TileMap map, int minSolidTileID) {
-        int offSettX = - map.offSettX - ArcadeMachine.SCREEN_OFFSET_X;
-        int offSettY = - map.offSettY - ArcadeMachine.SCREEN_OFFSET_Y;
-        int cx = (int)(mPos.x + offSettX) / map.getTileSize();
-        int cy = (int)(mPos.y + offSettY) / map.getTileSize();
+        int offSettX = map.offSettX + ArcadeMachine.SCREEN_OFFSET_X;
+        int offSettY = map.offSettY + ArcadeMachine.SCREEN_OFFSET_Y;
+        int cx = (int)(mPos.x - offSettX) / map.getTileSize();
+        int cy = (int)(mPos.y - offSettY) / map.getTileSize();
         int ox = -1;
         int oy = -1;
         for (int y = 0; y < 4; y++) {
@@ -159,16 +156,17 @@ public class GameEntity {
                 try { tile.type = map.get(yy).get(xx); }
                 catch (Exception e){ tile.type = 0; }
                 if (tile.type >= minSolidTileID) {
-                    if (overlap(tile, map.getTileSize(), offSettX, offSettY)) {
-                        Shapes.setColor(Color.YELLOW);
-                        Shapes.drawRect(tiles[y][x].cx * map.getTileSize() - offSettX,tiles[y][x].cy  * map.getTileSize() - offSettY, map.getTileSize(), map.getTileSize());
+                    Shapes.setColor(Color.YELLOW);
+                    Shapes.drawRect(tiles[y][x].cx * map.getTileSize() + offSettX,
+                            tiles[y][x].cy  * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                    if (overlap(tile, map.getTileSize())) {
                         if (mVel.x != 0) {
-                           if (mPos.x + width < tile.x(map.getTileSize(), -offSettX)) {
+                            if (mPos.x + width < tile.x(map.getTileSize(), offSettX)) {
                                 //mPos.x = tile.x(map.getTileSize(), offSettX) - width + offSettX;
-                               side.right = true;
+                                side.right = true;
                             }
-                        //} else if (mVel.x > 0) {
-                            if (mPos.x > tile.x(map.getTileSize(), -offSettX) + map.getTileSize()) {
+                            //} else if (mVel.x > 0) {
+                            if (mPos.x > tile.x(map.getTileSize(), offSettX) + map.getTileSize()) {
                                 //mPos.x = tile.x(map.getTileSize(), offSettX) + map.getTileSize() + offSettX;
                                 side.left = true;
                             }
@@ -183,11 +181,11 @@ public class GameEntity {
     }
 
     public void manageTileCollisionY(TileMap map, int minSolidTileID) {
-        int offSettX = - map.offSettX - ArcadeMachine.SCREEN_OFFSET_X;
-        int offSettY = - map.offSettY - ArcadeMachine.SCREEN_OFFSET_Y;
+        int offSettX = map.offSettX + ArcadeMachine.SCREEN_OFFSET_X;
+        int offSettY = map.offSettY + ArcadeMachine.SCREEN_OFFSET_Y;
 
-        int cx = (int)(mPos.x + offSettX) / map.getTileSize();
-        int cy = (int)(mPos.y + offSettY) / map.getTileSize();
+        int cx = (int)(mPos.x - offSettX) / map.getTileSize();
+        int cy = (int)(mPos.y - offSettY) / map.getTileSize();
         int ox = -1;
         int oy = -1;
         for (int y = 0; y < 4; y++) {
@@ -200,9 +198,10 @@ public class GameEntity {
                 try { tile.type = map.get(yy).get(xx); }
                 catch (Exception e){ tile.type = 0; }
                 if (tile.type >= minSolidTileID) {
-                    if (overlap(tile, map.getTileSize(), offSettX, offSettY)) {
-                        Shapes.setColor(Color.RED);
-                        Shapes.drawRect(tiles[y][x].cx * map.getTileSize() - offSettX,tiles[y][x].cy  * map.getTileSize() - offSettY, map.getTileSize(), map.getTileSize());
+                    Shapes.setColor(Color.RED);
+                    Shapes.drawRect(tiles[y][x].cx * map.getTileSize() + offSettX,
+                            tiles[y][x].cy  * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                    if (overlap(tile, map.getTileSize())) {
                         if (mVel.y > 0) {
                             if (mPos.y + height > tile.y(map.getTileSize(), offSettY)) {
                                 //mPos.y = tile.y(map.getTileSize(), offSettY) - height;
