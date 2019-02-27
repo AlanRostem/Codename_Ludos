@@ -52,7 +52,7 @@ public class GameMap {
     Random rnd = new Random();
 
     public void initialize() {
-        for (int i = maxTop; i < level.size(); i++)
+        for (int i = maxTop + 1; i < level.size(); i++)
             for (int j = 0; j < level.get(0).size(); j++) {
                 level.get(i).set(j, rnd.nextInt(2));
             }
@@ -76,7 +76,7 @@ public class GameMap {
 
     public void randomize()
     {
-        for (int i = maxTop; i < level.size(); i++)
+        for (int i = maxTop + 1; i < level.size(); i++)
             for (int j = 0; j < level.get(0).size(); j++)
             {
                 if (j < chunkWidth)
@@ -134,12 +134,12 @@ public class GameMap {
         for(int i = 0; i<level.size(); i++)
             for(int j = 0; j<level.get(0).size(); j++)
             {
-                if(i<=maxTop) continue;
+             /*   if(i<=maxTop) continue;
                 else if(i>maxBottom) {
                     Shapes.setColor(Color.rgb(0, 0, 0));
                     Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
                 }
-                else {
+                else {*/
 
                     switch (level.get(i).get(j)) {
                         case 0:
@@ -151,7 +151,7 @@ public class GameMap {
                         default:
                             break;
 
-                    }
+                //    }
                 }
             }
     }
