@@ -17,5 +17,4 @@ public class EggrunEntity extends GameEntity {
 
     public static GameMap gameMap;
 
-
 }

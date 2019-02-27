@@ -31,6 +31,7 @@ public class EntityManager {
             objects.get(i).update();
             if (objects.get(i).isRemoved())
                 objects.remove(objects.get(i));
+
         }
     }
 
