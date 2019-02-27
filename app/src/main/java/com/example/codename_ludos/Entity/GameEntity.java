@@ -166,12 +166,12 @@ public class GameEntity {
                         if (mVel.x != 0) {
 
                             if (mPos.x + width < tile.x(map.getTileSize())) {
-                                //mPos.x = tile.x(map.getTileSize(), offSettX) - width + offSettX;
+                                //mPos.x = tile.x(map.getTileSize()) - width;
                                 side.right = true;
                             }
 
                             if (mPos.x > tile.x(map.getTileSize()) + map.getTileSize()) {
-                                //mPos.x = tile.x(map.getTileSize(), offSettX) + map.getTileSize() + offSettX;
+                                //mPos.x = tile.x(map.getTileSize()) + map.getTileSize();
                                 side.left = true;
                             }
                         }
@@ -214,13 +214,13 @@ public class GameEntity {
                                 tiles[y][x].cy  * map.getTileSize(), map.getTileSize(), map.getTileSize());
                         if (mVel.y > 0) {
                             if (mPos.y + height > tile.y(map.getTileSize())) {
-                                //mPos.y = tile.y(map.getTileSize(), offSettY) - height;
+                                //mPos.y = tile.y(map.getTileSize()) - height;
                                 side.bottom = true;
                             }
 
                         } else if (mVel.y < 0) {
                             if (mPos.y < tile.y(map.getTileSize()) + map.getTileSize()) {
-                               //mPos.y = tile.y(map.getTileSize(), offSettY) + map.getTileSize();
+                               //mPos.y = tile.y(map.getTileSize()) + map.getTileSize();
                                 side.top = true;
                             }
                         }

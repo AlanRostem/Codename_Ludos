@@ -9,9 +9,9 @@ public class GameTile {
         cy = y;
     }
 
-    public int x(int tileSize, int offSett) { return cx * tileSize + offSett; }
+    public int x(int tileSize, int offSet) { return cx * tileSize + offSet; }
 
-    public int y(int tileSize, int offSett) { return cy * tileSize + offSett; }
+    public int y(int tileSize, int offSet) { return cy * tileSize + offSet; }
 
     public int x(int tileSize) { return cx * tileSize; }
 
