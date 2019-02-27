@@ -34,7 +34,7 @@ public class Ali extends EggrunEntity {
     private void controls(){
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump"))
             if(!jumping && !djumping) { mVel.setY(-15f); jumping = true; }
-            if(jumping && !djumping) {mVel.setY(-15f); djumping = true; jumping = false;}
+            else if(!djumping && jumping) {mVel.setY(-15f); djumping = true; jumping = false;}
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide")
                 && !sliding) {
             if (jumping) mAcc.setY(15f);
@@ -46,7 +46,7 @@ public class Ali extends EggrunEntity {
     public void update() {
         mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mVel.addVec(mAcc);
-        if (mPos.y>=15){
+        if (mPos.y>=900){
             mVel.setY(0);
             mAcc.setY(0);
             jumping = false;
