@@ -67,8 +67,8 @@ public class Ali extends EggrunEntity {
 
         mVel.x = 1f;
 
-        //manageTileCollisionY(gameMap.level,1);
-        //manageTileCollisionX(gameMap.level,1);
+        manageTileCollisionY(gameMap.level,1);
+        manageTileCollisionX(gameMap.level,1);
 
         if (side.right)
             mVel.x = -4;
@@ -99,7 +99,7 @@ public class Ali extends EggrunEntity {
         else if (sliding) sprite.Animate("Ali", slide);
         else sprite.Animate("Ali", run);
         manageTileCollisionY(gameMap.level,1);
-        //manageTileCollisionX(gameMap.level,1);
+        manageTileCollisionX(gameMap.level,1);
         sprite.drawAt("Ali", (int)mPos.x, (int)mPos.y, width, height);
     }
 }
