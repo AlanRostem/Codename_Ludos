@@ -1,5 +1,7 @@
 package com.example.codename_ludos.Games.Eggrun;
 
+import android.util.Log;
+
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Core.MainThread;
@@ -32,19 +34,30 @@ public class Ali extends EggrunEntity {
         slide = new SpriteMap.Animation(2,3,4,.13f);
     }
 
-    private void controls(){
+    private int jumps = 0;
+    private int maxJumps = 1;
+
+    private void controls() {
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")) {
-            if (!jumping && !djumping) {
-                mVel.setY(-15f);
+            if (!jumping) {
+                mVel.y = -15.f;
                 jumping = true;
-                djumping = false;
             }
-            else if(!djumping){
-                    mVel.setY(-15f);
+        } else {
+            if (jumps < maxJumps) {
+                if (jumping) {
+                    jumps++;
                     djumping = true;
                     jumping = false;
+                }
+            } else {
+                if (mVel.y == 0.0f) {
+                    jumps = 0;
+
+                }
             }
         }
+
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide") && !sliding) {
             if (jumping || djumping)
             {
@@ -52,7 +65,7 @@ public class Ali extends EggrunEntity {
                 mAcc.setY(15f);
             }
             else sliding = true;
-        } else if(!ArcadeMachine.getCurrentGame().getControls().isTouched("Slide"))
+        } else if (!ArcadeMachine.getCurrentGame().getControls().isTouched("Slide"))
             sliding = false;
     }
 
