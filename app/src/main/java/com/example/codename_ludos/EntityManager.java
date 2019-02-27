@@ -29,9 +29,9 @@ public class EntityManager {
     public void updateEntities() {
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).update();
-            if (objects.get(i).isRemoved()) {
+            if (objects.get(i).isRemoved())
                 objects.remove(objects.get(i));
-            }
+
         }
     }
 

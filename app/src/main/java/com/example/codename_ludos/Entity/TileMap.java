@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 public class TileMap extends ArrayList<ArrayList<Integer>> {
 
-    int mTileSize;
+    private int mTileSize;
+    public int offSettX = 0;
+    public int offSettY = 0;
+
     public TileMap(int tileSize) {
         mTileSize = tileSize;
     }
 
-    public int getTileSize() {
-        return mTileSize;
-    }
+    public int getTileSize() { return mTileSize; }
+
 }

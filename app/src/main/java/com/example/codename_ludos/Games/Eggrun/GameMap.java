@@ -88,6 +88,7 @@ public class GameMap {
 
     public void update() {
         offSet-=speed;
+        level.offSettX = offSet;
         if(offSet<=-tileSize*chunkWidth+speed) {
            offSet = 0;
            randomize();

@@ -1,7 +1,8 @@
 package com.example.codename_ludos.Entity;
 
-import android.service.quicksettings.Tile;
-
+import android.graphics.Color;
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
+import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
@@ -31,10 +32,12 @@ public class GameEntity {
 
     protected Side side = new Side();
 
+
     protected GameTile[][] tiles = {
-            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
-            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
-            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)}
+            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
+            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
+            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
+            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)}
     };
 
     public GameEntity(float x, float y) {
@@ -120,10 +123,10 @@ public class GameEntity {
     }
 
     public boolean overlap(GameTile t, int tileSize) {
-        return mPos.y > t.cx * tileSize
-                &&  mPos.y < (t.cy * tileSize + tileSize)
-                && mPos.getX() > t.cy * tileSize
-                &&  mPos.getX() < (t.cx * tileSize + tileSize);
+        return mPos.x < t.cx * tileSize + tileSize
+                && mPos.x + width > t.cx * tileSize
+                && mPos.y  < t.cy * tileSize + tileSize
+                && mPos.y + height  > t.cy * tileSize;
     }
 
     public int getTileMapValue(TileMap map) {
@@ -137,28 +140,44 @@ public class GameEntity {
     }
 
     public void manageTileCollisionX(TileMap map, int minSolidTileID) {
-        int cx = (int)mPos.x / map.getTileSize();
-        int cy = (int)mPos.y / map.getTileSize();
+        int offSettX = map.offSettX + ArcadeMachine.SCREEN_OFFSET_X;
+        int offSettY = map.offSettY + ArcadeMachine.SCREEN_OFFSET_Y;
+        int cx = (int)(mPos.x - offSettX) / map.getTileSize();
+        int cy = (int)(mPos.y - offSettY) / map.getTileSize();
         int ox = -1;
         int oy = -1;
-        for (int y = 0; y < 3; y++) {
-            for (int x = 0; x < 3; x++) {
+
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 4; x++) {
                 int xx = cx + ox;
                 int yy = cy + oy;
+
                 GameTile tile = tiles[y][x];
                 tile.cx = xx;
                 tile.cy = yy;
-                if (map.get(y).get(x) >= minSolidTileID) {
-                    tile.type = map.get(y).get(x);
+
+                try {
+                    tile.type = map.get(yy).get(xx);
+                }
+                catch (Exception e){
+                    tile.type = 0;
+                }
+
+                if (tile.type >= minSolidTileID) {
+                    Shapes.setColor(Color.YELLOW);
+                    Shapes.drawRect(tiles[y][x].cx * map.getTileSize() + offSettX,
+                            tiles[y][x].cy  * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+
                     if (overlap(tile, map.getTileSize())) {
-                        if (mVel.x > 0) {
-                            if (mPos.x + width > tile.x(map.getTileSize())) {
-                                mPos.x = tile.x(map.getTileSize()) - width;
+                        if (mVel.x != 0) {
+
+                            if (mPos.x + width < tile.x(map.getTileSize(), offSettX)) {
+                                //mPos.x = tile.x(map.getTileSize(), offSettX) - width + offSettX;
                                 side.right = true;
                             }
-                        } else if (mVel.x < 0) {
-                            if (mPos.x < tile.x(map.getTileSize()) + map.getTileSize()) {
-                                mPos.x = tile.x(map.getTileSize()) + map.getTileSize();
+
+                            if (mPos.x > tile.x(map.getTileSize(), offSettX) + map.getTileSize()) {
+                                //mPos.x = tile.x(map.getTileSize(), offSettX) + map.getTileSize() + offSettX;
                                 side.left = true;
                             }
                         }
@@ -166,33 +185,49 @@ public class GameEntity {
                 }
                 ox++;
             }
-            oy++;
+            ox -= 4; oy++;
         }
     }
 
     public void manageTileCollisionY(TileMap map, int minSolidTileID) {
-        int cx = (int)mPos.x / map.getTileSize();
-        int cy = (int)mPos.y / map.getTileSize();
+        int offSettX = map.offSettX + ArcadeMachine.SCREEN_OFFSET_X;
+        int offSettY = map.offSettY + ArcadeMachine.SCREEN_OFFSET_Y;
+        int cx = (int)(mPos.x - offSettX) / map.getTileSize();
+        int cy = (int)(mPos.y - offSettY) / map.getTileSize();
         int ox = -1;
         int oy = -1;
-        for (int y = 0; y < 3; y++) {
-            for (int x = 0; x < 3; x++) {
+
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 4; x++) {
                 int xx = cx + ox;
                 int yy = cy + oy;
+
                 GameTile tile = tiles[y][x];
                 tile.cx = xx;
                 tile.cy = yy;
-                if (map.get(y).get(x) >= minSolidTileID) {
-                    tile.type = map.get(y).get(x);
+
+                try {
+                    tile.type = map.get(yy).get(xx);
+                }
+                catch (Exception e){
+                    tile.type = 0;
+                }
+
+                if (tile.type >= minSolidTileID) {
+                    Shapes.setColor(Color.RED);
+                    Shapes.drawRect(tiles[y][x].cx * map.getTileSize() + offSettX,
+                            tiles[y][x].cy  * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+
                     if (overlap(tile, map.getTileSize())) {
                         if (mVel.y > 0) {
-                            if (mPos.y + height > tile.y(map.getTileSize())) {
-                                mPos.y = tile.y(map.getTileSize()) - height;
+                            if (mPos.y + height > tile.y(map.getTileSize(), offSettY)) {
+                                //mPos.y = tile.y(map.getTileSize(), offSettY) - height;
                                 side.bottom = true;
                             }
+
                         } else if (mVel.y < 0) {
-                            if (mPos.y < tile.y(map.getTileSize()) + map.getTileSize()) {
-                                mPos.y = tile.y(map.getTileSize()) + map.getTileSize();
+                            if (mPos.y < tile.y(map.getTileSize(), offSettY) + map.getTileSize()) {
+                               //mPos.y = tile.y(map.getTileSize(), offSettY) + map.getTileSize();
                                 side.top = true;
                             }
                         }
@@ -200,6 +235,7 @@ public class GameEntity {
                 }
                 ox++;
             }
+            ox-=4;
             oy++;
         }
     }
