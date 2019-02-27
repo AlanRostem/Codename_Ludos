@@ -16,6 +16,7 @@ public class Ali extends EggrunEntity {
 
     private boolean jumping = false;
     private boolean djumping = false;
+    private boolean djumpingf = false;
     private boolean sliding = false;
 
     public Ali() {
@@ -32,12 +33,24 @@ public class Ali extends EggrunEntity {
     }
 
     private void controls(){
-        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump"))
-            if(!jumping && !djumping) { mVel.setY(-15f); jumping = true; }
-            else if(!djumping && jumping) {mVel.setY(-15f); djumping = true; jumping = false;}
-        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide")
-                && !sliding) {
-            if (jumping) mAcc.setY(15f);
+        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")) {
+            if (!jumping && !djumping) {
+                mVel.setY(-15f);
+                jumping = true;
+                djumping = false;
+            }
+            else if(!djumping){
+                    mVel.setY(-15f);
+                    djumping = true;
+                    jumping = false;
+            }
+        }
+        if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide") && !sliding) {
+            if (jumping || djumping)
+            {
+                djumpingf=true;
+                mAcc.setY(15f);
+            }
             else sliding = true;
         } else if(!ArcadeMachine.getCurrentGame().getControls().isTouched("Slide"))
             sliding = false;
@@ -46,11 +59,13 @@ public class Ali extends EggrunEntity {
     public void update() {
         mVel.addY(gravity * MainThread.getAverageDeltaTime());
         mVel.addVec(mAcc);
+        if(mVel.y>0) djumpingf = true;
         if (mPos.y>=900){
             mVel.setY(0);
             mAcc.setY(0);
             jumping = false;
             djumping = false;
+            djumpingf = false;
         }
         controls();
         mPos.addVec(mVel);
@@ -61,7 +76,8 @@ public class Ali extends EggrunEntity {
     }
 
     public void draw() {
-        if (jumping) sprite.Animate("Ali", jump);
+        if (djumpingf && !jumping) sprite.Animate("Ali", djumpf);
+        else if (jumping) sprite.Animate("Ali", jump);
         else if (djumping) sprite.Animate("Ali", djump);
         else if (sliding) sprite.Animate("Ali", slide);
         else sprite.Animate("Ali", run);
