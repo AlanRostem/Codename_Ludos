@@ -28,10 +28,10 @@ public class EntityManager {
     // Calls the 'update' methods of all GameObjects
     public void updateEntities() {
         for (int i = 0; i < objects.size(); i++) {
+            objects.get(i).update();
             if (objects.get(i).isRemoved()) {
                 objects.remove(objects.get(i));
             }
-            objects.get(i).update();
         }
     }
 
