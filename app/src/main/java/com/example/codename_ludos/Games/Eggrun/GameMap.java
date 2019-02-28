@@ -9,7 +9,6 @@ import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.R;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 
@@ -24,6 +23,8 @@ public class GameMap {
     }
         initialize();
     }
+
+    SpriteMap tilemap = new SpriteMap(R.drawable.worldtiles);
 
     SpriteMap sky = new SpriteMap(R.drawable.sky);
     SpriteMap sky2 = new SpriteMap(R.drawable.sky2);
@@ -47,7 +48,7 @@ public class GameMap {
     int maxTop = height-6;
     int maxBottom = height;
 
-    public TileMap  level = new TileMap(tileSize);
+    public TileMap level = new TileMap(tileSize);
 
     Random rnd = new Random();
 
@@ -84,7 +85,28 @@ public class GameMap {
                         if (j == 0 && level.get(i).get(j + 1) == 1 && level.get(i).get(j) == 0) level.get(i).set(j, 1);*/
 
                     }
+
+        for (int i = 0; i < level.size(); i++)
+            for (int j = 0; j < level.get(0).size(); j++)
+            {
+                if(level.get(i).get(j)>0) {
+                    if(level.get(i).get(j-1) == 0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 1);
+                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 2);
+                    if(level.get(i).get(j+1) == 0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 3);
+                    if(level.get(i).get(j-1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 4);
+                    if(level.get(i).get(j-1) >  0 && level.get(j+1).get(j) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 5);
+                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i+1).get(j) >  0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 6);
+                    if(level.get(i).get(j-1) == 0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 7);
+                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i+1).get(j) > 0) level.get(i).set(j, 8);
+                    if(level.get(i).get(j+1) == 0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 9);
+
                 }
+            }
+    }
+
+
+
+
 
     public void update() {
         offSet-=speed;
