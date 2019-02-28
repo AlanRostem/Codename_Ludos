@@ -144,6 +144,10 @@ public class GameMap {
         sky2.drawAt("full", ArcadeMachine.SCREEN_OFFSET_X + map1offset ,ArcadeMachine.SCREEN_OFFSET_Y, parallaxW, parallaxH);
         sky2.drawAt("full", ArcadeMachine.SCREEN_OFFSET_X + map1offset + parallaxW ,ArcadeMachine.SCREEN_OFFSET_Y, parallaxW, parallaxH);
 
+        tilemap.drawTileMap(level, 3, 0,
+                ArcadeMachine.SCREEN_OFFSET_X + offSet, ArcadeMachine.SCREEN_OFFSET_Y);
+
+        /*
         for(int i = 0; i<level.size(); i++)
             for(int j = 0; j<level.get(0).size(); j++)
             {
@@ -193,6 +197,6 @@ public class GameMap {
 
                     }
                 }
-            }
+            }*/
     }
 }

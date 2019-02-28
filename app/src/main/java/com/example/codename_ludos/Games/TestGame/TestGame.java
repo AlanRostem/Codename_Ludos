@@ -1,20 +1,26 @@
 package com.example.codename_ludos.Games.TestGame;
 
 import android.graphics.Color;
+import android.service.quicksettings.Tile;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Shapes;
+import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Audio.Music;
 import com.example.codename_ludos.Controllers.Button;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainThread;
+import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.R;
 
 public class TestGame extends ArcadeGame {
     private Dude dude;
 
     private Music song;
+    private TileMap tm;
+    private SpriteMap sm;
 
     public TestGame() {
         super("TestGame");
@@ -25,6 +31,21 @@ public class TestGame extends ArcadeGame {
 
         dude = new Dude();
         song = new Music(R.raw.music);
+        sm = new SpriteMap(R.drawable.worldtiles);
+
+        int [][] array = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        };
+        tm = new TileMap(32, array);
 
         controls.createController("jump", new Button( 800, 1500, 200, 200) {
             private int color = Color.GREEN;
@@ -96,6 +117,7 @@ public class TestGame extends ArcadeGame {
 
     @Override
     public void draw() {
+        sm.drawTileMap(tm, 3, 0, ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
         dude.draw();
     }
 

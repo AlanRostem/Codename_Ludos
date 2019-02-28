@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
 
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Core.MainThread;
@@ -144,23 +145,25 @@ public class SpriteMap {
                 GamePanel.paint);
     }
 
-    public void drawTileMap(TileMap map, int tilesPerRow, int offsetX, int offsetY) {
+    public void drawTileMap(TileMap map, int tilesPerRow, int dontDrawID, int offsetX, int offsetY) {
         int cols = imageWidth / map.getTileSize();
         int rows = imageHeight / map.getTileSize();
         int tileSize = map.getTileSize();
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < map.size(); i++) {
+            for (int j = 0; j < map.get(i).size(); j++) {
                 int tile = map.get(i).get(j);
+                if (tile <= dontDrawID)
+                    continue;
                 int tileRow = tile / tilesPerRow;
                 int tileCol = tile % tilesPerRow;
                 positionRect.set(
-                        (int)(offsetX * Constants.SCREEN_SCALE_X),
-                        (int)(offsetY * Constants.SCREEN_SCALE_Y),
-                        (int)((map.getTileSize() + offsetX) * Constants.SCREEN_SCALE_X),
-                        (int)((map.getTileSize() + offsetY) * Constants.SCREEN_SCALE_Y));
-                offsetTileRect.set((tileCol * tileSize), (tileRow * tileSize), tileSize + (tileCol * tileSize),
-                        tileSize + (tileRow * tileSize));
+                        (int)((map.getTileSize() * j + offsetX) * Constants.SCREEN_SCALE_X),
+                        (int)((map.getTileSize() * i + offsetY) * Constants.SCREEN_SCALE_Y),
+                        (int)((map.getTileSize() * (j + 1) + offsetX) * Constants.SCREEN_SCALE_X),
+                        (int)((map.getTileSize() * (i + 1) + offsetY) * Constants.SCREEN_SCALE_Y));
+                offsetTileRect.set((tileCol * tileSize), (tileRow * tileSize), tileSize * (tileCol + 1),
+                        tileSize * (tileRow + 1));
                 MainThread.canvas.drawBitmap(bitmap, offsetTileRect, positionRect, GamePanel.paint);
             }
         }
