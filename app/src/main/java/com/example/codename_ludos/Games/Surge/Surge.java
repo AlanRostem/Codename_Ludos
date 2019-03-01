@@ -15,7 +15,7 @@ import com.example.codename_ludos.R;
 
 public class Surge extends ArcadeGame {
 
-    private Player player;
+    public static Player player;
 
     public static SpriteMap objects = new SpriteMap(R.drawable.collisionobjects);
 
@@ -37,10 +37,12 @@ public class Surge extends ArcadeGame {
         objects.bindSprite("grassFloor", 10, 0, 90, 12);
 
         player = new Player();
+        for (int i = 0; i < 10; i++) {
+            spawnEntity(new UnderPassObject(
+                    "grassFloor", (float)Math.random() * (ArcadeMachine.SCREEN_WIDTH - 90*3) + ArcadeMachine.SCREEN_OFFSET_X ,
+                     i*-200 + 1220 , 90*3, 12*3));
+        }
         spawnEntity(player);
-        spawnEntity(new UnderPassObject("grassFloor", 420, 1220, 90*3, 12));
-        spawnEntity(new UnderPassObject("grassFloor", 420, 1020, 90*3, 12));
-        spawnEntity(new UnderPassObject("grassFloor", 420, 420, 90*3, 12));
     }
 
     @Override

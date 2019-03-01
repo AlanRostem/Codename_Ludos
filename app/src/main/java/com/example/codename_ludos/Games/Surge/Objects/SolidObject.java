@@ -3,7 +3,7 @@ package com.example.codename_ludos.Games.Surge.Objects;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.Games.Surge.Surge;
 
-public class SolidObject extends GameEntity {
+public class SolidObject extends SurgeEntity {
     private String drawName;
     public SolidObject(String drawName, float x, float y, int width, int height) {
         super(x, y);
