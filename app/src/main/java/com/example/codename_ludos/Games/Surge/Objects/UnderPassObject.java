@@ -19,16 +19,21 @@ public class UnderPassObject extends GameEntity {
     }
 
     public static void playerYCollision(Player player, UnderPassObject self) {
-        Vector2D a = new Vector2D(player.mPos.x, player.mPos.y);
-        Vector2D b = new Vector2D(player.mPos.x, player.mPos.y + player.height);
+        Vector2D pTop = new Vector2D(player.mPos.x, player.mPos.y);
+        Vector2D pBot = new Vector2D(player.mPos.x, player.mPos.y + player.height);
 
-        Vector2D c = new Vector2D(self.mPos.x, self.mPos.y);
-        Vector2D d = new Vector2D(self.mPos.x + self.width, self.mPos.y);
+        Vector2D sL = new Vector2D(self.mPos.x, self.mPos.y);
+        Vector2D sR = new Vector2D(self.mPos.x + self.width, self.mPos.y);
+
+        Vector2D pBL = new Vector2D(player.mPos.x - 300, player.mPos.y + player.height);
+        Vector2D pBR = new Vector2D(player.mPos.x + 600, player.mPos.y + player.height);
+
+        Vector2D sTL = new Vector2D(self.mPos.x, self.mPos.y + 1);
+        Vector2D sBL = new Vector2D(self.mPos.x, self.mPos.y + self.height);
 
         if (player.mVel.y > 0) {
-            if ((int)self.mPos.y != (int)Vector2D.getIntersectPos(a, b, c, d).y &&
-                    (int)(player.mPos.y + player.height) > (int)Vector2D.getIntersectPos(a, b, c, d).y) {
-                player.mPos.y = self.mPos.y - player.height;
+            if (Vector2D.intersect(pTop, pBot, sL, sR) && !Vector2D.intersect(pBL, pBR, sTL, sBL)) {
+                player.mPos.y = Vector2D.getIntersectPos(pTop, pBot, sL, sR).y - player.height;
                 player.mVel.y = 0;
             }
         }
