@@ -1,5 +1,7 @@
 package com.example.codename_ludos.Games.Surge.Objects;
 
+import android.util.Log;
+
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.Games.Surge.Player;
 import com.example.codename_ludos.Games.Surge.Surge;
@@ -15,26 +17,24 @@ public class UnderPassObject extends GameEntity {
     }
 
     public static void playerXCollision(Player player, UnderPassObject self) {
-
+        if (player.mVel.x > 0) {
+            if (player.mPos.x + player.width > self.mPos.x) {
+                player.mPos.x = self.mPos.x - player.width;
+                player.mVel.x = 0;
+            }
+        } else if (player.mVel.x < 0) {
+            if (player.mPos.x < self.mPos.x + self.width) {
+                player.mPos.x = self.mPos.x + self.width;
+                player.mVel.x = 0;
+            }
+        }
     }
 
     public static void playerYCollision(Player player, UnderPassObject self) {
-        Vector2D pTop = new Vector2D(player.mPos.x, player.mPos.y);
-        Vector2D pBot = new Vector2D(player.mPos.x, player.mPos.y + player.height);
-
-        Vector2D sL = new Vector2D(self.mPos.x, self.mPos.y);
-        Vector2D sR = new Vector2D(self.mPos.x + self.width, self.mPos.y);
-
-        Vector2D pBL = new Vector2D(player.mPos.x - 300, player.mPos.y + player.height);
-        Vector2D pBR = new Vector2D(player.mPos.x + 600, player.mPos.y + player.height);
-
-        Vector2D sTL = new Vector2D(self.mPos.x, self.mPos.y + 1);
-        Vector2D sBL = new Vector2D(self.mPos.x, self.mPos.y + self.height);
-
         if (player.mVel.y > 0) {
-            if (Vector2D.intersect(pTop, pBot, sL, sR) && !Vector2D.intersect(pBL, pBR, sTL, sBL)) {
-                player.mPos.y = Vector2D.getIntersectPos(pTop, pBot, sL, sR).y - player.height;
-                player.mVel.y = 0;
+            if (player.mPos.y + player.height > self.mPos.y) {
+                    player.mPos.y = self.mPos.y - player.height;
+                    player.mVel.y = 0;
             }
         }
     }

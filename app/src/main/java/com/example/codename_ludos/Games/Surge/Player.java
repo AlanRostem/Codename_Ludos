@@ -79,7 +79,7 @@ public class Player extends BasePlayer {
         for (GameEntity e : list) {
             if (e != this)
                 if (overlap(e)) {
-                    if (e instanceof UnderPassObject) {
+                    if (e instanceof UnderPassObject && mVel.y >= 0) {
                         UnderPassObject.playerXCollision(this, (UnderPassObject) e);
                     }
                 }
@@ -91,7 +91,7 @@ public class Player extends BasePlayer {
         for (GameEntity e : list) {
             if (e != this)
                 if (overlap(e)) {
-                    if (e instanceof UnderPassObject) {
+                    if (e instanceof UnderPassObject && mVel.y >= 0) {
                         UnderPassObject.playerYCollision(this, (UnderPassObject) e);
                     }
                 }
