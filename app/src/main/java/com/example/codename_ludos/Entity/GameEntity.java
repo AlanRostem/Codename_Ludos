@@ -13,12 +13,12 @@ public class GameEntity {
 
     private boolean toRemove = false;
 
-    protected Vector2D mVel;
-    protected Vector2D mPos;
-    protected Vector2D mAcc;
+    public Vector2D mVel;
+    public Vector2D mPos;
+    public Vector2D mAcc;
 
-    protected int width;
-    protected int height;
+    public int width;
+    public int height;
 
     public static class Side {
         public boolean left = false;
@@ -114,10 +114,10 @@ public class GameEntity {
         }*/
 
     public boolean overlap(GameEntity e) {
-        return mPos.y > e.mPos.y
+        return mPos.y + height > e.mPos.y
                 &&  mPos.y < (e.mPos.y + e.height)
-                && mPos.getX() > e.mPos.x
-                &&  mPos.getX() < (e.mPos.x + e.width);
+                && mPos.x + width > e.mPos.x
+                &&  mPos.x < (e.mPos.x + e.width);
     }
 
     public boolean overlap(GameTile t, int tileSize) {

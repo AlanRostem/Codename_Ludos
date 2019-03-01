@@ -44,4 +44,27 @@ public class Vector2D {
         return this;
     }
 
+    public static boolean intersect(Vector2D a, Vector2D b, Vector2D c, Vector2D d)
+    {
+        Vector2D r = new Vector2D (b.x - a.x, b.y - a.y);
+        Vector2D s = new Vector2D (d.x - c.x, d.y- c.y);
+
+        float dd = r.x * s.y - r.y * s.x;
+        float u = ((c.x - a.x) * r.y - (c.y - a.y) * r.x) / dd;
+        float t = ((c.x - a.x) * s.y - (c.y - a.y) * s.x) / dd;
+        return (0 < u && u < 1 && 0 < t && t < 1);
+    }
+
+    public static Vector2D getIntersectPos(Vector2D a, Vector2D b, Vector2D c, Vector2D d)
+    {
+        Vector2D r = new Vector2D (b.x - a.x, b.y - a.y);
+        Vector2D s = new Vector2D (d.x - c.x, d.y- c.y);
+
+        float dd = r.x * s.y - r.y * s.x;
+        float u = ((c.x - a.x) * r.y - (c.y - a.y) * r.x) / dd;
+        float t = ((c.x - a.x) * s.y - (c.y - a.y) * s.x) / dd;
+        return new Vector2D(a.x + t * r.x, a.y + t * r.y);
+
+    }
+
 }

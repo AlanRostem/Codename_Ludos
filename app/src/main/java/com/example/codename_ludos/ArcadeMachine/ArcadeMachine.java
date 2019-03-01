@@ -10,6 +10,7 @@ import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.GameSelect.GameSelect;
+import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
@@ -79,6 +80,8 @@ public class ArcadeMachine {
 
         createGame("TestGame", new TestGame());
         createGame("Eggrun", new Eggrun());
+        createGame("Surge", new Surge());
+
         createGame("GameSelect", new GameSelect());
         enterGame("GameSelect");
 
