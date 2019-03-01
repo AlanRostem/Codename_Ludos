@@ -44,7 +44,7 @@ public class Player extends BasePlayer {
             mVel.setX(-400.f);
     }
 
-    private boolean jumping = false;
+    public boolean jumping = false;
 
     private void step() {
         accelerateY(25);

@@ -17,24 +17,28 @@ public class UnderPassObject extends GameEntity {
     }
 
     public static void playerXCollision(Player player, UnderPassObject self) {
-        if (player.mVel.x > 0) {
-            if (player.mPos.x + player.width > self.mPos.x) {
-                player.mPos.x = self.mPos.x - player.width;
-                player.mVel.x = 0;
+        if (player.mPos.y + player.height < self.mPos.y + self.height)
+            if (player.mVel.x > 0) {
+                if (player.mPos.x + player.width > self.mPos.x) {
+                    player.mPos.x = self.mPos.x - player.width;
+                    player.mVel.x = 0;
+                }
+            } else if (player.mVel.x < 0) {
+                if (player.mPos.x < self.mPos.x + self.width) {
+                    player.mPos.x = self.mPos.x + self.width;
+                    player.mVel.x = 0;
+                }
             }
-        } else if (player.mVel.x < 0) {
-            if (player.mPos.x < self.mPos.x + self.width) {
-                player.mPos.x = self.mPos.x + self.width;
-                player.mVel.x = 0;
-            }
-        }
     }
 
     public static void playerYCollision(Player player, UnderPassObject self) {
         if (player.mVel.y > 0) {
-            if (player.mPos.y + player.height > self.mPos.y) {
+            if (player.mPos.y + player.height > self.mPos.y &&
+            player.mPos.y + player.height < self.mPos.y + self.height
+            ) {
                     player.mPos.y = self.mPos.y - player.height;
                     player.mVel.y = 0;
+                    player.jumping = false;
             }
         }
     }

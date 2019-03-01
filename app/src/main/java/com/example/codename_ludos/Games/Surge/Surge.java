@@ -38,9 +38,9 @@ public class Surge extends ArcadeGame {
 
         player = new Player();
         spawnEntity(player);
-        spawnEntity(new UnderPassObject("grassFloor", 420, 1120, 90*3, 12*3));
-        spawnEntity(new UnderPassObject("grassFloor", 420, 820, 90*3, 12*3));
-        spawnEntity(new UnderPassObject("grassFloor", 420, 420, 90*3, 12*3));
+        spawnEntity(new UnderPassObject("grassFloor", 420, 1220, 90*3, 12));
+        spawnEntity(new UnderPassObject("grassFloor", 420, 1020, 90*3, 12));
+        spawnEntity(new UnderPassObject("grassFloor", 420, 420, 90*3, 12));
     }
 
     @Override
