@@ -52,6 +52,9 @@ public class Surge extends ArcadeGame {
 
     @Override
     public void update() {
+        if (getEntityList().size() < 20) {
+            // TODO: Implement an algorithm to spawn entities above the player
+        }
         updateEntities();
     }
 
