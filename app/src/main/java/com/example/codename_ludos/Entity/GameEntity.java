@@ -30,7 +30,7 @@ public class GameEntity {
         }
     }
 
-    protected Side side = new Side();
+    public Side side = new Side();
 
     protected GameTile[][] tiles = {
             {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},

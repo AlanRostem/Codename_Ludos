@@ -8,6 +8,8 @@ import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Assets.SpriteMap;
 import com.example.codename_ludos.Controllers.Button;
 import com.example.codename_ludos.Core.MainActivity;
+import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
+import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
 import com.example.codename_ludos.Games.Surge.Objects.UnderPassObject;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
@@ -33,10 +35,13 @@ public class Surge extends ArcadeGame {
 
         bg = new SpriteMap(R.drawable.bg);
 
+        PowerUp.sprite.bindSprite("doublejump", 0, 0, 20, 20);
+
         objects.bindSprite("metalWall", 0, 0, 10, 50);
         objects.bindSprite("grassFloor", 10, 0, 90, 12);
 
         player = new Player();
+        spawnEntity(new DoubleJump(320, 320));
         for (int i = 0; i < 10; i++) {
             spawnEntity(new UnderPassObject(
                     "grassFloor", (float)Math.random() * (ArcadeMachine.SCREEN_WIDTH - 90*3) + ArcadeMachine.SCREEN_OFFSET_X ,
