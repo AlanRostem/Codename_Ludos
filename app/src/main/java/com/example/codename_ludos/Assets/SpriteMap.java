@@ -152,8 +152,8 @@ public class SpriteMap {
 
         for (int i = 0; i < map.size(); i++) {
             for (int j = 0; j < map.get(i).size(); j++) {
-                int tile = map.get(i).get(j);
-                if (tile <= dontDrawID)
+                int tile = map.get(i).get(j) - 1;
+                if (tile < dontDrawID)
                     continue;
                 int tileRow = tile / tilesPerRow;
                 int tileCol = tile % tilesPerRow;

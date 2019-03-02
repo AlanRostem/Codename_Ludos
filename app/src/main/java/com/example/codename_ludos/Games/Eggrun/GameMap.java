@@ -58,21 +58,13 @@ public class GameMap {
                 level.get(i).set(j, 1);
             }
 
-        for (int i = 0; i < level.size(); i++)
+        for (int i = maxTop+1; i < level.size(); i++)
             for (int j = 0; j < level.get(0).size(); j++)
             {
-                if(level.get(i).get(j)>0 && j>0 && j<level.get(0).size()-1 && i>0 && i < level.size()-1) {
-                    if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 1);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 2);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 3);
-                    if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 4);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 5);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 6);
-                    if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 7);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 8);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 9);
-                }
+                if(i==maxTop+1) level.get(i).set(j, 2);
+                else level.get(i).set(j, 5);
             }
+
     }
 
     public void randomize()
@@ -89,31 +81,98 @@ public class GameMap {
                     }
             }
 
-        for (int i = 0; i < level.size(); i++)
-            for (int j = 0; j < level.get(0).size(); j++)
+        for (int i = maxTop + 1; i < level.size(); i++)
+            for (int j = chunkWidth; j < level.get(0).size(); j++)
             {
+                if(level.get(i).get(j)>0 && j<level.get(0).size()-1 && j>chunkWidth && i < height-1) {
+                    if (level.get(i + 1).get(j) == 0) level.get(i + 1).set(j, 1); // Check if block under is empty
+                    if (level.get(i).get(j + 1) == 0 && level.get(i).get(j - 1) == 0) level.get(i).set(j, 0);
+                }
 
-                        if (i < maxBottom-1 && level.get(i + 1).get(j) == 0 && level.get(i).get(j) == 1) level.get(i + 1).set(j, 1); // Check if block under is empty
-                        if (i < maxBottom   && j < level.get(i).size() - 2 && j > 0 && level.get(i).get(j + 1) == 0 && level.get(i).get(j - 1) == 0 && level.get(i).get(j) == 1) level.get(i).set(j, 0);
-                        if (i < maxBottom   && j < level.get(i).size() - 2 && j > 0 && level.get(i).get(j + 1) == 1 && level.get(i).get(j - 1) == 1 && level.get(i).get(j) == 0) level.get(i).set(j, 1);
+                if(level.get(i).get(j)==0 && j<level.get(0).size()-1 && j>chunkWidth  && i < height-1)
+                    if (level.get(i).get(j + 1) >  0 && level.get(i).get(j - 1) >  0) level.get(i).set(j, 1);
 
-                        /*if (j == chunkWidth-1 && level.get(i).get(j  - 1) == 1 && level.get(i).get(j) == 0) level.get(i).set(j, 1);
-                        if (j == 0 && level.get(i).get(j + 1) == 1 && level.get(i).get(j) == 0) level.get(i).set(j, 1);*/
 
-                    }
-        for (int i = 0; i < level.size(); i++)
+                if(j==chunkWidth && i < height-1) {
+                    if (level.get(i).get(j) == 0 && level.get(i).get(j + 1) >  0) level.get(i).set(j, 1);
+                    if (level.get(i).get(j) >  0 && level.get(i + 1).get(j) == 0) level.get(i + 1).set(j, 1);
+                    if (level.get(i).get(j) >  0 && level.get(i).get(j - 1) == 0) level.get(i).set(j, 0);
+
+                }
+
+                if(j==level.get(0).size()-1 &&  i < height-1) {
+                    if (level.get(i).get(j) == 0 && level.get(i).get(j - 1) >  0) level.get(i).set(j, 1);
+                    if (level.get(i).get(j) >  0 && level.get(i).get(j - 1) == 0) level.get(i).set(j, 0);
+                    if (level.get(i).get(j) >  0 && level.get(i + 1).get(j) == 0) level.get(i + 1).set(j, 1);
+                }
+
+                if(i == height - 1) {
+                    if (level.get(i).get(j) == 0 && level.get(i).get(j - 1) > 0 && level.get(i).get(j + 1) > 0) level.get(i).set(j, 1);
+                }
+
+            }
+
+            setMapSprite();
+    }
+
+    public void setMapSprite()
+    {
+        for (int i = maxTop; i < level.size(); i++)
             for (int j = chunkWidth - 1; j < level.get(0).size(); j++)
             {
-                if(level.get(i).get(j)>0 && j>0 && j<level.get(0).size()-1 && i>0 && i < level.size()-1) {
-                    if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 1);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 2);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 3);
-                    if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 4);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 5);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 6);
-                    if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 7);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 8);
-                    if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 9);
+                if(level.get(i).get(j) > 0)
+                {
+                    if(j<level.get(0).size()-1 && i < height - 1) {
+                        if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 1);
+                        if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 2);
+                        if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 3);
+                        if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 4);
+                        if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 5);
+                        if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 6);
+                        if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 7);
+                        if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 8);
+                        if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 9);
+                    }
+
+                    else if(j == level.get(0).size() - 1 && i<height-1)
+                    {
+                        if(level.get(i).get(j-1) == 0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 1);
+                        if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 2);
+                        if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 3);
+                        if(level.get(i).get(j-1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 4);
+                        if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 5);
+                        if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 6);
+                        if(level.get(i).get(j-1) == 0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 7);
+                        if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 8);
+                        if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) >  0 && level.get(i+1).get(j) == 0) level.get(i).set(j, 9);
+                    }
+
+                    else if(i == height - 1)
+                    {
+                        if(j == level.get(0).size() - 1)
+                        {
+                            if(level.get(i).get(j-1) == 0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 1);
+                            else if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 2);
+                            else if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 3);
+                            else if(level.get(i).get(j-1) == 0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 4);
+                            else if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 5);
+                            else if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 6);
+                            else if(level.get(i).get(j-1) == 0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 7);
+                            else if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 8);
+                            else if(level.get(i).get(j-1) >  0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 9);
+                        }
+
+                        else if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 1);
+                        else if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 2);
+                        else if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) == 0) level.get(i).set(j, 3);
+                        else if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 4);
+                        else if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 5);
+                        else if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) >  0) level.get(i).set(j, 6);
+                    }
+
+                    else{
+                        level.get(i).set(j, 10);
+                    }
                 }
             }
     }
@@ -147,56 +206,5 @@ public class GameMap {
         tilemap.drawTileMap(level, 3, 0,
                 ArcadeMachine.SCREEN_OFFSET_X + offSet, ArcadeMachine.SCREEN_OFFSET_Y);
 
-        /*
-        for(int i = 0; i<level.size(); i++)
-            for(int j = 0; j<level.get(0).size(); j++)
-            {
-                if(i>maxTop)
-                {
-                    switch (level.get(i).get(j)) {
-                        case 0:
-                            break;
-                        case 1:
-                            Shapes.setColor(Color.rgb(255, 0, 0));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        case 2:
-                            Shapes.setColor(Color.rgb(0, 255, 0));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        case 3:
-                            Shapes.setColor(Color.rgb(0, 0, 255));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        case 4:
-                            Shapes.setColor(Color.rgb(255, 255, 0));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        case 5:
-                            Shapes.setColor(Color.rgb(0, 255, 255));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        case 6:
-                            Shapes.setColor(Color.rgb(255, 0, 255));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        case 7:
-                            Shapes.setColor(Color.rgb(255, 255, 255));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        case 8:
-                            Shapes.setColor(Color.rgb(50, 0, 50));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        case 9:
-                            Shapes.setColor(Color.rgb(0, 50, 0));
-                            Shapes.drawRect((float)j*tileSize + offSet + ArcadeMachine.SCREEN_OFFSET_X, (float)i*tileSize + ArcadeMachine.SCREEN_OFFSET_Y, tileSize , tileSize);
-                            break;
-                        default:
-                            break;
-
-                    }
-                }
-            }*/
     }
 }

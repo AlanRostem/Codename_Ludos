@@ -1,0 +1,221 @@
+<html>
+<head>
+<title>GameMap.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #808080;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+GameMap.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.codename_ludos.Games.Eggrun</span><span class="s0">;</span>
+
+import <span class="s1">android.graphics.Color</span><span class="s0">;</span>
+
+import <span class="s1">com.example.codename_ludos.ArcadeMachine.ArcadeMachine</span><span class="s0">;</span>
+import <span class="s1">com.example.codename_ludos.Assets.Shapes</span><span class="s0">;</span>
+import <span class="s1">com.example.codename_ludos.Assets.SpriteMap</span><span class="s0">;</span>
+import <span class="s1">com.example.codename_ludos.Entity.TileMap</span><span class="s0">;</span>
+import <span class="s1">com.example.codename_ludos.R</span><span class="s0">;</span>
+
+import <span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+import <span class="s1">java.util.Random</span><span class="s0">;</span>
+
+
+public class <span class="s1">GameMap {</span>
+    <span class="s0">public </span><span class="s1">GameMap()</span>
+    {
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; height</span><span class="s0">; </span><span class="s1">i++) {</span>
+            level.add(<span class="s0">new </span><span class="s1">ArrayList&lt;Integer&gt;(width))</span><span class="s0">;</span>
+            for <span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; width</span><span class="s0">; </span><span class="s1">j++){</span>
+                level.get(i).add(<span class="s2">0</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+    }
+        initialize()<span class="s0">;</span>
+    <span class="s1">}</span>
+
+    SpriteMap tilemap = <span class="s0">new </span><span class="s1">SpriteMap(R.drawable.worldtiles)</span><span class="s0">;</span>
+
+    <span class="s1">SpriteMap sky = </span><span class="s0">new </span><span class="s1">SpriteMap(R.drawable.sky)</span><span class="s0">;</span>
+    <span class="s1">SpriteMap sky2 = </span><span class="s0">new </span><span class="s1">SpriteMap(R.drawable.sky2)</span><span class="s0">;</span>
+
+    int <span class="s1">tileSize = </span><span class="s2">40</span><span class="s0">;</span>
+    public int <span class="s1">offSet = </span><span class="s2">0</span><span class="s0">;</span>
+
+    int <span class="s1">map1offset = </span><span class="s2">0</span><span class="s0">;</span>
+    int <span class="s1">map2offset = </span><span class="s2">0</span><span class="s0">;</span>
+
+    int <span class="s1">parallaxW = </span><span class="s2">2160</span><span class="s0">;</span>
+    int <span class="s1">parallaxH = </span><span class="s2">1920</span><span class="s0">;</span>
+
+    int <span class="s1">speed = </span><span class="s2">4</span><span class="s0">;</span>
+
+    int <span class="s1">height = </span><span class="s2">30</span><span class="s0">;</span>
+    int <span class="s1">width  = </span><span class="s2">48</span><span class="s0">;</span>
+
+    int <span class="s1">chunkWidth = </span><span class="s2">24</span><span class="s0">;</span>
+
+    int <span class="s1">maxTop = height-</span><span class="s2">6</span><span class="s0">;</span>
+    int <span class="s1">maxBottom = height</span><span class="s0">;</span>
+
+    public <span class="s1">TileMap level = </span><span class="s0">new </span><span class="s1">TileMap(tileSize)</span><span class="s0">;</span>
+
+    <span class="s1">Random rnd = </span><span class="s0">new </span><span class="s1">Random()</span><span class="s0">;</span>
+
+    public void <span class="s1">initialize() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = maxTop + </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; level.size()</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; level.get(</span><span class="s2">0</span><span class="s1">).size()</span><span class="s0">; </span><span class="s1">j++) {</span>
+                level.get(i).set(j<span class="s0">, </span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; level.size()</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; level.get(</span><span class="s2">0</span><span class="s1">).size()</span><span class="s0">; </span><span class="s1">j++)</span>
+            {
+                <span class="s0">if</span><span class="s1">(level.get(i).get(j)&gt;</span><span class="s2">0 </span><span class="s1">&amp;&amp; j&gt;</span><span class="s2">0 </span><span class="s1">&amp;&amp; j&lt;level.get(</span><span class="s2">0</span><span class="s1">).size()-</span><span class="s2">1 </span><span class="s1">&amp;&amp; i&gt;</span><span class="s2">0 </span><span class="s1">&amp;&amp; i &lt; level.size()-</span><span class="s2">1</span><span class="s1">) {</span>
+                    <span class="s0">if</span><span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">2</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">3</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">4</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">5</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">6</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">7</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">8</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">9</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            }
+    }
+
+    <span class="s0">public void </span><span class="s1">randomize()</span>
+    {
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = maxTop + </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; level.size()</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; level.get(</span><span class="s2">0</span><span class="s1">).size()</span><span class="s0">; </span><span class="s1">j++)</span>
+            {
+                <span class="s0">if </span><span class="s1">(j &lt; chunkWidth)</span>
+                {
+                    level.get(i).set(j<span class="s0">, </span><span class="s1">level.get(i).get(j + chunkWidth))</span><span class="s0">;</span>
+                <span class="s1">} </span><span class="s0">else</span>
+                    <span class="s1">{</span>
+                    level.get(i).set(j<span class="s0">, </span><span class="s1">rnd.nextInt(</span><span class="s2">2</span><span class="s1">))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+            }
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = maxTop</span><span class="s0">; </span><span class="s1">i &lt; level.size()</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = chunkWidth</span><span class="s0">; </span><span class="s1">j &lt; level.get(</span><span class="s2">0</span><span class="s1">).size()</span><span class="s0">; </span><span class="s1">j++)</span>
+            {
+                <span class="s0">if</span><span class="s1">(level.get(i).get(j)&gt;</span><span class="s2">0 </span><span class="s1">&amp;&amp; j&lt;level.get(</span><span class="s2">0</span><span class="s1">).size()-</span><span class="s2">1 </span><span class="s1">&amp;&amp; j&gt;chunkWidth &amp;&amp; i &lt; height-</span><span class="s2">1</span><span class="s1">) {</span>
+                    <span class="s0">if </span><span class="s1">(level.get(i + </span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i + </span><span class="s2">1</span><span class="s1">).set(j</span><span class="s0">, </span><span class="s2">1</span><span class="s1">)</span><span class="s0">; </span><span class="s3">// Check if block under is empty</span>
+                    <span class="s0">if </span><span class="s1">(level.get(i).get(j + </span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j - </span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">0</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+                <span class="s0">if</span><span class="s1">(level.get(i).get(j)==</span><span class="s2">0 </span><span class="s1">&amp;&amp; j&lt;level.get(</span><span class="s2">0</span><span class="s1">).size()-</span><span class="s2">1 </span><span class="s1">&amp;&amp; j&gt;chunkWidth  &amp;&amp; i &lt; height-</span><span class="s2">1</span><span class="s1">)</span>
+                    <span class="s0">if </span><span class="s1">(level.get(i).get(j + </span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j - </span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+
+
+                if<span class="s1">(j==chunkWidth &amp;&amp; level.get(i).get(j) &gt; </span><span class="s2">0</span><span class="s1">)    </span><span class="s0">;</span>
+
+                        <span class="s3">/*if (j == chunkWidth-1 &amp;&amp; level.get(i).get(j  - 1) == 1 &amp;&amp; level.getw(i).get(j) == 0) level.get(i).set(j, 1); 
+                        if (j == 0 &amp;&amp; level.get(i).get(j + 1) == 1 &amp;&amp; level.get(i).get(j) == 0) level.get(i).set(j, 1);*/</span>
+
+
+            <span class="s1">}</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; level.size()</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = chunkWidth - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">j &lt; level.get(</span><span class="s2">0</span><span class="s1">).size()</span><span class="s0">; </span><span class="s1">j++)</span>
+            {
+                <span class="s0">if</span><span class="s1">(level.get(i).get(j) &gt; </span><span class="s2">0</span><span class="s1">)</span>
+                {
+                <span class="s0">if</span><span class="s1">(level.get(i).get(j)&gt;</span><span class="s2">0 </span><span class="s1">&amp;&amp; j&gt;chunkWidth-</span><span class="s2">1 </span><span class="s1">&amp;&amp; j&lt;level.get(</span><span class="s2">0</span><span class="s1">).size()-</span><span class="s2">1 </span><span class="s1">&amp;&amp; i&gt;</span><span class="s2">0 </span><span class="s1">&amp;&amp; i &lt; level.size()-</span><span class="s2">1</span><span class="s1">) {</span>
+                    <span class="s0">if</span><span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">2</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">3</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">4</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">5</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">6</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">7</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">8</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">9</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+                <span class="s0">else if</span><span class="s1">(i == level.size() - </span><span class="s2">1</span><span class="s1">)</span>
+                {
+                    <span class="s0">if</span><span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">2</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">3</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">4</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">5</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">6</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+                <span class="s0">else if</span><span class="s1">(j == chunkWidth-</span><span class="s2">1</span><span class="s1">)</span>
+                {
+                    <span class="s0">if</span><span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">2</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">3</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">4</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">5</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">6</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">7</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">8</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j+</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">9</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+                <span class="s0">else if</span><span class="s1">(j == level.get(</span><span class="s2">0</span><span class="s1">).size() - </span><span class="s2">1</span><span class="s1">)</span>
+                {
+                    <span class="s0">if</span><span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">2</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">3</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">4</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">5</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">6</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) == </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">7</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">8</span><span class="s1">)</span><span class="s0">;</span>
+                    if<span class="s1">(level.get(i).get(j-</span><span class="s2">1</span><span class="s1">) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i-</span><span class="s2">1</span><span class="s1">).get(j) &gt;  </span><span class="s2">0 </span><span class="s1">&amp;&amp; level.get(i+</span><span class="s2">1</span><span class="s1">).get(j) == </span><span class="s2">0</span><span class="s1">) level.get(i).set(j</span><span class="s0">, </span><span class="s2">9</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s0">else</span><span class="s1">{</span>
+                    level.get(i).set(j<span class="s0">, </span><span class="s2">10</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            }
+        }
+    }
+
+    <span class="s0">public void </span><span class="s1">update() {</span>
+        offSet-=speed<span class="s0">;</span>
+        if<span class="s1">(offSet &lt;= -tileSize * chunkWidth + speed) {</span>
+           offSet = <span class="s2">0</span><span class="s0">;</span>
+           <span class="s1">randomize()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        map1offset-=speed/<span class="s2">2</span><span class="s0">;</span>
+        <span class="s1">map2offset-=speed/</span><span class="s2">4</span><span class="s0">;</span>
+
+        if<span class="s1">(map1offset&lt;=-parallaxW) {</span>
+            map1offset=<span class="s2">0</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">if</span><span class="s1">(map2offset&lt;=-parallaxW) {</span>
+            map2offset=<span class="s2">0</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    }
+
+    <span class="s0">public void </span><span class="s1">draw()</span>
+    {
+        sky.drawAt(<span class="s4">&quot;full&quot;</span><span class="s0">, </span><span class="s1">ArcadeMachine.SCREEN_OFFSET_X + map2offset </span><span class="s0">,</span><span class="s1">ArcadeMachine.SCREEN_OFFSET_Y</span><span class="s0">, </span><span class="s1">parallaxW</span><span class="s0">, </span><span class="s1">parallaxH)</span><span class="s0">;</span>
+        <span class="s1">sky.drawAt(</span><span class="s4">&quot;full&quot;</span><span class="s0">, </span><span class="s1">ArcadeMachine.SCREEN_OFFSET_X + map2offset + parallaxW </span><span class="s0">,</span><span class="s1">ArcadeMachine.SCREEN_OFFSET_Y</span><span class="s0">, </span><span class="s1">parallaxW</span><span class="s0">, </span><span class="s1">parallaxH)</span><span class="s0">;</span>
+
+        <span class="s1">sky2.drawAt(</span><span class="s4">&quot;full&quot;</span><span class="s0">, </span><span class="s1">ArcadeMachine.SCREEN_OFFSET_X + map1offset </span><span class="s0">,</span><span class="s1">ArcadeMachine.SCREEN_OFFSET_Y</span><span class="s0">, </span><span class="s1">parallaxW</span><span class="s0">, </span><span class="s1">parallaxH)</span><span class="s0">;</span>
+        <span class="s1">sky2.drawAt(</span><span class="s4">&quot;full&quot;</span><span class="s0">, </span><span class="s1">ArcadeMachine.SCREEN_OFFSET_X + map1offset + parallaxW </span><span class="s0">,</span><span class="s1">ArcadeMachine.SCREEN_OFFSET_Y</span><span class="s0">, </span><span class="s1">parallaxW</span><span class="s0">, </span><span class="s1">parallaxH)</span><span class="s0">;</span>
+
+        <span class="s1">tilemap.drawTileMap(level</span><span class="s0">, </span><span class="s2">3</span><span class="s0">, </span><span class="s2">0</span><span class="s0">,</span>
+                <span class="s1">ArcadeMachine.SCREEN_OFFSET_X + offSet</span><span class="s0">, </span><span class="s1">ArcadeMachine.SCREEN_OFFSET_Y)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+}
+</pre>
+</body>
+</html>
