@@ -2,6 +2,7 @@ package com.example.codename_ludos.Games.Surge.Objects;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Entity.GameEntity;
+import com.example.codename_ludos.Games.Surge.Player;
 import com.example.codename_ludos.Games.Surge.Surge;
 
 public class SurgeEntity extends GameEntity {
@@ -10,6 +11,14 @@ public class SurgeEntity extends GameEntity {
     }
 
     public void step() {
+
+    }
+
+    public void playerXCollision(Player player) {
+
+    }
+
+    public void playerYCollision(Player player) {
 
     }
 

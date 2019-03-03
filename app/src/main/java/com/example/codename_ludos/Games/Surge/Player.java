@@ -13,6 +13,7 @@ import com.example.codename_ludos.Entity.GameTile;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
 import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
+import com.example.codename_ludos.Games.Surge.Objects.SurgeEntity;
 import com.example.codename_ludos.Games.Surge.Objects.UnderPassObject;
 import com.example.codename_ludos.R;
 
@@ -112,8 +113,8 @@ public class Player extends BasePlayer {
         for (GameEntity e : list) {
             if (e != this)
                 if (overlap(e)) {
-                    if (e instanceof UnderPassObject) {
-                        UnderPassObject.playerXCollision(this, (UnderPassObject) e);
+                    if (e instanceof SurgeEntity) {
+                        ((SurgeEntity) e).playerXCollision(this);
                     }
                 }
         }
@@ -124,15 +125,17 @@ public class Player extends BasePlayer {
         for (GameEntity e : list) {
             if (e != this)
                 if (overlap(e)) {
-                    if (e instanceof UnderPassObject) {
-                        UnderPassObject.playerYCollision(this, (UnderPassObject) e);
-                    } else if (e instanceof PowerUp) {
-                        for (int i = 0; i < activePowerUps.length; i++) {
-                            if (!activePowerUps[i].isUsing() && activePowerUps[i].isDone()) {
-                                activePowerUps[i] = (PowerUp) e;
-                                activePowerUps[i].use();
-                                break;
+                    if (e instanceof SurgeEntity) {
+                        if (e instanceof PowerUp) {
+                            for (int i = 0; i < activePowerUps.length; i++) {
+                                if (!activePowerUps[i].isUsing() && activePowerUps[i].isDone()) {
+                                    activePowerUps[i] = (PowerUp) e;
+                                    activePowerUps[i].use();
+                                    break;
+                                }
                             }
+                        } else {
+                            ((SurgeEntity) e).playerYCollision(this);
                         }
                     }
                 }
