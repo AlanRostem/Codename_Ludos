@@ -38,8 +38,7 @@ public class UnderPassObject extends SurgeEntity {
             ) {
                     player.mPos.y = self.mPos.y - player.height;
                     player.mVel.y = 0;
-                    player.jumping = false;
-                    player.side.bottom = true;
+                    player.onGround();
             }
         }
     }
