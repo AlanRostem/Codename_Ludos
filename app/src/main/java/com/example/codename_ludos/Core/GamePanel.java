@@ -75,7 +75,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         return fingers;
     }
 
-    int hold = 0;
     private void touchFingerManager(MotionEvent event) {
         int pointerCount = ptrCnt = event.getPointerCount();
         for (int i = 0; i < pointerCount; i++) {
