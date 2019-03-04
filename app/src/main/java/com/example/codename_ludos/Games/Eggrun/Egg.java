@@ -1,43 +1,49 @@
 package com.example.codename_ludos.Games.Eggrun;
 
 import android.graphics.Color;
-import android.util.Log;
-
-import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Shapes;
-import com.example.codename_ludos.Core.MainThread;
-import com.example.codename_ludos.Entity.GameEntity;
 
 public class Egg extends EggrunEntity {
 
     private float gravity = 25f;
 
     public Egg(){
-        super(1000,200, 120, 120);
+        super(1000,26*gameMap.tileSize, 80, 80);
     }
 
     private void outOfScreen(){
         if (mPos.x < 0){
             remove();
-            Log.d("EggrunEntity", "Removed, size = " + ArcadeMachine.getCurrentGame().getEntityList().size());
         }
     }
 
     public void update() {
-        mVel.setX(-200f* MainThread.getAverageDeltaTime());
-        mPos.addVec(mVel);
-        outOfScreen();
-        mVel.addY(gravity * MainThread.getAverageDeltaTime());
-        mVel.addVec(mAcc);
-        mPos.addVec(mVel);
-        if (mPos.getY() + height >= 920){
+
+        mVel.setX(-500f);
+        mVel.addY(gravity);
+
+        if (side.bottom){
             mVel.setY(0);
             mAcc.setY(0);
-            mPos.setY(920 - height);
         }
+
+        if (side.right)
+            mVel.x = 0f;
+        else
+            mVel.x = -500f;
+
+
+        accelerate();
+        move();
+
+        side.reset();
+
+        outOfScreen();
     }
 
     public void draw(){
+        manageTileCollisionY(gameMap.level,1);
+        manageTileCollisionX(gameMap.level,1);
         Shapes.setColor(Color.RED);
         Shapes.drawRect(mPos.x, mPos.y, width, height);
     }

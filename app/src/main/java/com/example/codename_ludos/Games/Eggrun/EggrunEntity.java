@@ -13,14 +13,7 @@ public class EggrunEntity extends GameEntity {
 
     protected int width;
     protected int height;
-    protected float gravity = 25f;
-
-    protected GameTile[][] tiles = {
-            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
-            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
-            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)},
-            {new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0), new GameTile(0, 0)}
-    };
+    protected float gravity = 50f;
 
     public EggrunEntity(float x, float y, int w, int h){
         super(x,y);
@@ -28,13 +21,13 @@ public class EggrunEntity extends GameEntity {
         height = h;
     }
 
-    public boolean overlap(GameTile t, TileMap map, int tileSize) {
+    public boolean overlap(GameTile t, int tileSize) {
         int ox = gameMap.offSet + ArcadeMachine.SCREEN_OFFSET_X;
         int oy = ArcadeMachine.SCREEN_OFFSET_Y;
-        return mPos.x < t.cx + ox * tileSize + tileSize + ox
-                && mPos.x + width > t.cx * tileSize + ox
-                && mPos.y  < t.cy * tileSize + tileSize + oy
-                && mPos.y + height  > t.cy * tileSize + oy;
+        return mPos.x - ox < t.cx * tileSize + tileSize
+                && mPos.x + width - ox > t.cx * tileSize
+                && mPos.y - oy  < t.cy * tileSize + tileSize
+                && mPos.y + height -oy  > t.cy * tileSize;
     }
 
     @Override
@@ -44,14 +37,15 @@ public class EggrunEntity extends GameEntity {
         int cx = (int)(mPos.x - offSettX) / map.getTileSize();
         int cy = (int)(mPos.y - offSettY) / map.getTileSize();
         int ox = -1;
-        int oy = -1;
+        int oy = 0;
 
-        for (int y = 0; y < 4; y++) {
-            for (int x = 0; x < 4; x++) {
+        GameTile tile = new GameTile(0, 0);
+
+        for (int y = 0; y < height/map.getTileSize(); y++) {
+            for (int x = 0; x < width/map.getTileSize() + 2; x++) {
                 int xx = cx + ox;
                 int yy = cy + oy;
 
-                GameTile tile = tiles[y][x];
                 tile.cx = xx;
                 tile.cy = yy;
 
@@ -62,27 +56,34 @@ public class EggrunEntity extends GameEntity {
                     tile.type = 0;
                 }
 
+                Shapes.setColor(Color.DKGRAY);
+                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
+                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+
                 if (tile.type >= minSolidTileID) {
-                    Shapes.setColor(Color.YELLOW);
-                    Shapes.drawRect(tiles[y][x].cx * map.getTileSize() + offSettX,
-                            tiles[y][x].cy  * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
 
-                    if (overlap(tile, map, map.getTileSize())) {
-                        if (mVel.x != 0) {
-
-                            if (mPos.x + width < tile.x(map.getTileSize(), offSettX)) {
+                    if (overlap(tile, map.getTileSize())) {
+                       if (mVel.x > 0)
+                            if (mPos.x + width >= tile.x(map.getTileSize(), offSettX) && x >= (width/map.getTileSize() + 2)/2) {
+                                Shapes.setColor(Color.RED);
+                                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
+                                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                                mPos.x = tile.x(map.getTileSize(), offSettX) - width;
                                 side.right = true;
                             }
-
-                            if (mPos.x > tile.x(map.getTileSize(), offSettX) + map.getTileSize()) {
+                       if (mVel.x < 0)
+                            if (mPos.x <= tile.x(map.getTileSize(), offSettX) + map.getTileSize() && x < (width/map.getTileSize() + 2)/2) {
+                                Shapes.setColor(Color.CYAN);
+                                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
+                                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                                mPos.x = tile.x(map.getTileSize(), offSettX) + map.getTileSize();
                                 side.left = true;
                             }
-                        }
                     }
                 }
                 ox++;
             }
-            ox -= 4; oy++;
+            ox = -1; oy++;
         }
     }
 
@@ -92,15 +93,16 @@ public class EggrunEntity extends GameEntity {
         int offSettY = ArcadeMachine.SCREEN_OFFSET_Y;
         int cx = (int)(mPos.x - offSettX) / map.getTileSize();
         int cy = (int)(mPos.y - offSettY) / map.getTileSize();
-        int ox = -1;
+        int ox = 0;
         int oy = -1;
 
-        for (int y = 0; y < 4; y++) {
-            for (int x = 0; x < 4; x++) {
+        GameTile tile = new GameTile(0, 0);
+
+        for (int y = 0; y < height/map.getTileSize() + 2; y++) {
+            for (int x = 0; x < width/map.getTileSize(); x++) {
                 int xx = cx + ox;
                 int yy = cy + oy;
 
-                GameTile tile = tiles[y][x];
                 tile.cx = xx;
                 tile.cy = yy;
 
@@ -111,29 +113,35 @@ public class EggrunEntity extends GameEntity {
                     tile.type = 0;
                 }
 
+                Shapes.setColor(Color.GRAY);
+                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
+                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+
+
                 if (tile.type >= minSolidTileID) {
-                    Shapes.setColor(Color.RED);
 
-
-                    if (overlap(tile, map, map.getTileSize())) {
-                        Shapes.drawRect(tiles[y][x].cx * map.getTileSize() + offSettX,
-                                tiles[y][x].cy  * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
-                        if (mVel.y > 0) {
-                            if (mPos.y + height > tile.y(map.getTileSize(), offSettY)) {
+                    if (overlap(tile, map.getTileSize())) {
+                       // if (mVel.y > 0.f)
+                            if (mPos.y + height >= tile.y(map.getTileSize(), offSettY) && y >= (height/map.getTileSize() + 2)/2) {
+                                Shapes.setColor(Color.MAGENTA);
+                                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
+                                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                                mPos.y = tile.y(map.getTileSize(), offSettY) - height;
                                 side.bottom = true;
                             }
-
-                        } else if (mVel.y < 0) {
-                            if (mPos.y < tile.y(map.getTileSize(), offSettY) + map.getTileSize()) {
+                       // if (mVel.y < 0.f)
+                            if (mPos.y <= tile.y(map.getTileSize(), offSettY) + map.getTileSize() && y < (height/map.getTileSize() + 2)/2) {
+                                Shapes.setColor(Color.YELLOW);
+                                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
+                                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                                mPos.y = tile.y(map.getTileSize(), offSettY) + map.getTileSize();
                                 side.top = true;
                             }
-                        }
                     }
                 }
                 ox++;
             }
-            ox-=4;
-            oy++;
+            ox = 0; oy++;
         }
     }
 
