@@ -63,7 +63,7 @@ public class EggrunEntity extends GameEntity {
                 if (tile.type >= minSolidTileID) {
 
                     if (overlap(tile, map.getTileSize())) {
-                       if (mVel.x > 0)
+                       if (mVel.x >= 0)
                             if (mPos.x + width >= tile.x(map.getTileSize(), offSettX) && x >= (width/map.getTileSize() + 2)/2) {
                                 Shapes.setColor(Color.RED);
                                 Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,

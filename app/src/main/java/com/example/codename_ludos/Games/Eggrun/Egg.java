@@ -32,8 +32,10 @@ public class Egg extends EggrunEntity {
         side.reset();
 
         accelerate();
+
         moveX(mVel.x);
         manageTileCollisionX(gameMap.level,1);
+
         moveY(mVel.y);
         manageTileCollisionY(gameMap.level, 1);
 

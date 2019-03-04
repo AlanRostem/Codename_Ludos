@@ -85,13 +85,13 @@ public class Ali extends EggrunEntity {
 
         side.reset();
 
-        mVel.x = 1;
         accelerate();
+
         moveX(mVel.x);
         manageTileCollisionX(gameMap.level,1);
+
         moveY(mVel.y);
         manageTileCollisionY(gameMap.level, 1);
-
 
         if (side.bottom){
             //mPos.y = 29 * gameMap.tileSize;
