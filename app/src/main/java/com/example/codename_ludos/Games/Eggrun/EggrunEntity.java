@@ -50,17 +50,17 @@ public class EggrunEntity extends GameEntity {
                 tile.cy = yy;
 
                 try {
-                    tile.type = map.get(yy).get(xx);
+                    tile.ID = map.get(yy).get(xx);
                 }
                 catch (Exception e){
-                    tile.type = 0;
+                    tile.ID = 0;
                 }
 
                 Shapes.setColor(Color.DKGRAY);
                 Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
                         tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
 
-                if (tile.type >= minSolidTileID) {
+                if (tile.ID >= minSolidTileID) {
 
                     if (overlap(tile, map.getTileSize())) {
                        if (mVel.x >= 0)
@@ -107,10 +107,10 @@ public class EggrunEntity extends GameEntity {
                 tile.cy = yy;
 
                 try {
-                    tile.type = map.get(yy).get(xx);
+                    tile.ID = map.get(yy).get(xx);
                 }
                 catch (Exception e){
-                    tile.type = 0;
+                    tile.ID = 0;
                 }
 
                 Shapes.setColor(Color.GRAY);
@@ -118,7 +118,7 @@ public class EggrunEntity extends GameEntity {
                         tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
 
 
-                if (tile.type >= minSolidTileID) {
+                if (tile.ID >= minSolidTileID) {
 
                     if (overlap(tile, map.getTileSize())) {
                        // if (mVel.y > 0.f)
