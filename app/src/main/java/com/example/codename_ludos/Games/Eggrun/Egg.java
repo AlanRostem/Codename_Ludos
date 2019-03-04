@@ -22,28 +22,30 @@ public class Egg extends EggrunEntity {
         mVel.setX(-500f);
         mVel.addY(gravity);
 
-        if (side.bottom){
-            mVel.setY(0);
-            mAcc.setY(0);
-        }
+
 
         if (side.right)
             mVel.x = 0f;
         else
             mVel.x = -500f;
 
+        side.reset();
 
         accelerate();
-        move();
+        moveX(mVel.x);
+        manageTileCollisionX(gameMap.level,1);
+        moveY(mVel.y);
+        manageTileCollisionY(gameMap.level, 1);
 
-        side.reset();
+        if (side.bottom){
+            mVel.setY(0);
+            mAcc.setY(0);
+        }
 
         outOfScreen();
     }
 
     public void draw(){
-        manageTileCollisionY(gameMap.level,1);
-        manageTileCollisionX(gameMap.level,1);
         Shapes.setColor(Color.RED);
         Shapes.drawRect(mPos.x, mPos.y, width, height);
     }

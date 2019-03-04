@@ -76,6 +76,23 @@ public class Ali extends EggrunEntity {
 
         if(mVel.y > 0) djumpingf = true;
 
+
+
+        if (!side.right && mPos.x < 7 *gameMap.tileSize)
+            mVel.x = 100f;
+        else
+            mVel.x = 0;
+
+        side.reset();
+
+        mVel.x = 1;
+        accelerate();
+        moveX(mVel.x);
+        manageTileCollisionX(gameMap.level,1);
+        moveY(mVel.y);
+        manageTileCollisionY(gameMap.level, 1);
+
+
         if (side.bottom){
             //mPos.y = 29 * gameMap.tileSize;
             mVel.setY(0);
@@ -85,16 +102,6 @@ public class Ali extends EggrunEntity {
             djumpingf = false;
         }
 
-        if (!side.right && mPos.x < 7 *gameMap.tileSize)
-            mVel.x = 100f;
-        else
-            mVel.x = 0;
-
-        accelerate();
-        move();
-
-        side.reset();
-        mVel.x = 1;
     }
 
     public Vector2D getPosition(){
@@ -108,8 +115,6 @@ public class Ali extends EggrunEntity {
        // else if (jumping) sprite.Animate("Ali", jump);
         //else if (djumping) sprite.Animate("Ali", djump);
         //else if (sliding) sprite.Animate("Ali", slide);
-        manageTileCollisionY(gameMap.level, 1);
-        manageTileCollisionX(gameMap.level,1);
         sprite.drawAt("Ali", (int)mPos.x, (int)mPos.y, width, height);
     }
 }
