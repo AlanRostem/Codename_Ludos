@@ -24,7 +24,13 @@ public class ArcadeMachine {
     private static HashMap<String, ArcadeGame> games;
     private static ArrayList<String> gameIDList;
     private static String currentGameID = "Eggrun";
-    private static SpriteMap arcadeImage;
+    public static SpriteMap arcadeImage;
+
+    public enum MachineState {
+        in_game,
+        in_game_select,
+        in_settings
+    }
 
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
@@ -38,8 +44,8 @@ public class ArcadeMachine {
     private static int rawScreenWidth = 900;
     private static int rawScreenHeight = 1200;
 
-    private static int rawImageWidth;
-    private static int rawImageHeight;
+    public static int rawImageWidth;
+    public static int rawImageHeight;
 
     private static float relativeWidthFactor;
     private static float relativeHeightFactor;
@@ -95,7 +101,6 @@ public class ArcadeMachine {
 
     public static void draw() {
         games.get(currentGameID).draw();
-        arcadeImage.drawAt("all", 0, 0, rawImageWidth, rawImageHeight);
         games.get(currentGameID).controls.draw();
 
        // GamePanel.paint.setColor(Color.argb(0.5f, 1f, 1f, 1f));

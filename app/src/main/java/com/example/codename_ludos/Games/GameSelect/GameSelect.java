@@ -39,6 +39,6 @@ public class GameSelect extends ArcadeGame {
 
     @Override
     public void draw() {
-
+        ArcadeMachine.arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
     }
 }
