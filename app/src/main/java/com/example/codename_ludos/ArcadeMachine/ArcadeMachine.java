@@ -1,13 +1,9 @@
 package com.example.codename_ludos.ArcadeMachine;
 
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.SpriteMap;
-import com.example.codename_ludos.Core.GamePanel;
-import com.example.codename_ludos.Core.MainThread;
+import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.GameSelect.GameSelect;
 import com.example.codename_ludos.Games.Surge.Surge;
@@ -18,13 +14,22 @@ import com.example.codename_ludos.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class ArcadeMachine {
     // Static class that holds all ArcadeGame instances
 
     private static HashMap<String, ArcadeGame> games;
     private static ArrayList<String> gameIDList;
     private static String currentGameID = "Eggrun";
-    private static SpriteMap arcadeImage;
+    public static SpriteMap arcadeImage;
+
+    public enum MachineState {
+        in_game,
+        in_game_select,
+        in_settings
+    }
+
+    private static MachineState currentState = MachineState.in_game_select;
 
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
@@ -38,8 +43,8 @@ public class ArcadeMachine {
     private static int rawScreenWidth = 900;
     private static int rawScreenHeight = 1200;
 
-    private static int rawImageWidth;
-    private static int rawImageHeight;
+    public static int rawImageWidth;
+    public static int rawImageHeight;
 
     private static float relativeWidthFactor;
     private static float relativeHeightFactor;
@@ -63,12 +68,21 @@ public class ArcadeMachine {
 
     public static void enterGame(String gameID) {
         currentGameID = gameID;
+        setCurrentState(MachineState.in_game);
         games.get(currentGameID).start();
         // TODO: Add user friendly ways to stop a game
     }
 
     private static void exitGame() {
         // TODO: Add a way to stop a game and save its changes
+    }
+
+    public static MachineState getCurrentState() {
+        return currentState;
+    }
+
+    public static void setCurrentState(MachineState val) {
+        currentState = val;
     }
 
     // Works like a constructor for this static class
@@ -90,12 +104,13 @@ public class ArcadeMachine {
         relativeWidthFactor = (float)rawScreenWidth / (float)rawImageWidth;
         relativeHeightFactor = (float)rawScreenHeight / (float)rawImageHeight;
 
+
+
         //games.get(currentGameIndex).setup();
     }
 
     public static void draw() {
-        games.get(currentGameID).draw();
-        arcadeImage.drawAt("all", 0, 0, rawImageWidth, rawImageHeight);
+        games.get(currentGameID).coreDraw();
         games.get(currentGameID).controls.draw();
 
        // GamePanel.paint.setColor(Color.argb(0.5f, 1f, 1f, 1f));
@@ -103,9 +118,9 @@ public class ArcadeMachine {
     }
 
     public static void update() {
-        if (games.get(currentGameID).isStarted()) {
+        if (games.get(currentGameID).isStarted() && getCurrentState() == MachineState.in_game) {
             games.get(currentGameID).controls.update();
-            games.get(currentGameID).update();
+            games.get(currentGameID).coreUpdate();
         }
     }
 

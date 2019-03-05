@@ -16,7 +16,9 @@ public class UnderPassObject extends SurgeEntity {
         this.width = width;
     }
 
-    public static void playerXCollision(Player player, UnderPassObject self) {
+    @Override
+    public void playerXCollision(Player player) {
+        UnderPassObject self = this;
         if (player.mPos.y + player.height < self.mPos.y + self.height && player.mVel.y >= 0)
             if (player.mVel.x > 0) {
                 if (player.mPos.x + player.width > self.mPos.x) {
@@ -31,15 +33,16 @@ public class UnderPassObject extends SurgeEntity {
             }
     }
 
-    public static void playerYCollision(Player player, UnderPassObject self) {
+    @Override
+    public void playerYCollision(Player player) {
+        UnderPassObject self = this;
         if (player.mVel.y > 0 && player.mVel.y >= 0) {
             if (player.mPos.y + player.height > self.mPos.y &&
             player.mPos.y + player.height < self.mPos.y + self.height
             ) {
                     player.mPos.y = self.mPos.y - player.height;
                     player.mVel.y = 0;
-                    player.jumping = false;
-                    player.side.bottom = true;
+                    player.onGround();
             }
         }
     }

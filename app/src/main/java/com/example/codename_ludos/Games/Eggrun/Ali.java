@@ -1,9 +1,14 @@
 package com.example.codename_ludos.Games.Eggrun;
 
+<<<<<<< HEAD
+import android.content.Context;
+import android.os.Vibrator;
+=======
+import android.graphics.Color;
+>>>>>>> bcf748e816615e621f31b0cc418d4f2736a3766d
+
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Assets.SpriteMap;
-import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 
@@ -39,7 +44,7 @@ public class Ali extends EggrunEntity {
     private void controls() {
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Jump")) {
             if (!jumping) {
-                mVel.y = -15.f;
+                mVel.y = -1000.f;
                 jumping = true;
             }
         } else {
@@ -60,7 +65,7 @@ public class Ali extends EggrunEntity {
         if (ArcadeMachine.getCurrentGame().getControls().isTouched("Slide") && !sliding) {
             if (jumping || djumping)
             {
-                djumpingf=true;
+                djumpingf = true;
                 mAcc.setY(15f);
             }
             else sliding = true;
@@ -69,22 +74,32 @@ public class Ali extends EggrunEntity {
     }
 
     public void update() {
-        mVel.addY(gravity * MainThread.getAverageDeltaTime());
-        mVel.addVec(mAcc);
-        if(mVel.y>0) djumpingf = true;
+        mVel.x=0;
+        mVel.addY(gravity);
+
+        controls();
+
+        if(mVel.y > 0) djumpingf = true;
+
+
+
+        if (!side.right && mPos.x < 7 *gameMap.tileSize)
+            mVel.x = 100f;
+        else
+            mVel.x = 0;
+
         side.reset();
 
-        mVel.x = 1f;
+        accelerate();
 
-        manageTileCollisionY(gameMap.level,1);
-        //manageTileCollisionX(gameMap.level,1);
+        moveX(mVel.x);
+        manageTileCollisionX(gameMap.level,1);
 
-        if (side.right)
-            mVel.x = -4;
-        else
-            mVel.x = 1f;
+        moveY(mVel.y);
+        manageTileCollisionY(gameMap.level, 1);
 
-        if (side.bottom || mPos.y > 29*gameMap.tileSize){
+        if (side.bottom){
+            //mPos.y = 29 * gameMap.tileSize;
             mVel.setY(0);
             mAcc.setY(0);
             jumping = false;
@@ -92,9 +107,6 @@ public class Ali extends EggrunEntity {
             djumpingf = false;
         }
 
-        controls();
-        //mPos.addVec(mVel);
-        mPos.y += mVel.y;
     }
 
     public Vector2D getPosition(){
@@ -102,13 +114,12 @@ public class Ali extends EggrunEntity {
     }
 
     public void draw() {
-        if (djumpingf && !jumping) sprite.Animate("Ali", djumpf);
-        else if (jumping) sprite.Animate("Ali", jump);
-        else if (djumping) sprite.Animate("Ali", djump);
-        else if (sliding) sprite.Animate("Ali", slide);
-        else sprite.Animate("Ali", run);
-        manageTileCollisionY(gameMap.level,1);
-        //manageTileCollisionX(gameMap.level,1);
+        //if (side.bottom)
+        sprite.Animate("Ali", run);
+       // else if (djumpingf && !jumping) sprite.Animate("Ali", djumpf);
+       // else if (jumping) sprite.Animate("Ali", jump);
+        //else if (djumping) sprite.Animate("Ali", djump);
+        //else if (sliding) sprite.Animate("Ali", slide);
         sprite.drawAt("Ali", (int)mPos.x, (int)mPos.y, width, height);
     }
 }

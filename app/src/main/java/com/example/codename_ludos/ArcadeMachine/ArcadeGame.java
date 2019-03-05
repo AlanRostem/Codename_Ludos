@@ -9,6 +9,7 @@ public class ArcadeGame extends EntityManager {
     // Subclass for each arcade game that we develop
 
     private boolean mStarted = false;
+    private boolean mPaused = false;
     private String id;
     protected Controls controls;
 
@@ -29,7 +30,11 @@ public class ArcadeGame extends EntityManager {
     }
 
     public void togglePause() {
-        mStarted = !mStarted;
+        mPaused = !mPaused;
+    }
+
+    public boolean isPaused() {
+        return mPaused;
     }
 
     public boolean isStarted() {
@@ -45,8 +50,21 @@ public class ArcadeGame extends EntityManager {
 
     }
 
+    public void coreDraw() {
+        draw();
+        if (mPaused) {
+
+        }
+    }
+
     public void draw() {
 
+    }
+
+    public void coreUpdate() {
+        if (!mPaused) {
+            update();
+        }
     }
 
     public void update() {

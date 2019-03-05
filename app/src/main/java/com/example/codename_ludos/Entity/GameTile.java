@@ -1,12 +1,20 @@
 package com.example.codename_ludos.Entity;
 
 public class GameTile {
-    public int type = 0;
+    public int ID = 0;
     public int cx;
     public int cy;
+    int tileSize = 32;
     public GameTile(int x, int y) {
         cx = x;
         cy = y;
+    }
+
+    public GameTile(int x, int y, int ID, int tileSize) {
+        cx = x;
+        cy = y;
+        this.ID = ID;
+        this.tileSize = tileSize;
     }
 
     public int x(int tileSize, int offSet) { return cx * tileSize + offSet; }

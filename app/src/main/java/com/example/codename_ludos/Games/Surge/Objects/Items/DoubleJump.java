@@ -23,6 +23,7 @@ public class DoubleJump extends PowerUp {
             } else {
                 if (player.side.bottom) {
                     player.jumps = 0;
+                    player.djumping = false;
                 }
             }
         }

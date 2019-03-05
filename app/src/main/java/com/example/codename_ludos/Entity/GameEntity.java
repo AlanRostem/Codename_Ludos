@@ -1,6 +1,9 @@
 package com.example.codename_ludos.Entity;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.os.Vibrator;
+
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Core.MainThread;
@@ -28,6 +31,7 @@ public class GameEntity {
         public void reset() {
             left = right = top = bottom = false;
         }
+
     }
 
     public Side side = new Side();
@@ -142,36 +146,38 @@ public class GameEntity {
     public void manageTileCollisionX(TileMap map, int minSolidTileID) {
         int cx = (int)(mPos.x) / map.getTileSize();
         int cy = (int)(mPos.y) / map.getTileSize();
+
+        int tileX = width / map.getTileSize() + 2;
+        int tileY = height / map.getTileSize() + 2;
+
         int ox = -1;
         int oy = -1;
 
-        for (int y = 0; y < 4; y++) {
-            for (int x = 0; x < 4; x++) {
+        for (int y = 0; y < tileY; y++) {
+            for (int x = 0; x < tileX; x++) {
                 int xx = cx + ox;
                 int yy = cy + oy;
 
-                GameTile tile = tiles[y][x];
-                tile.cx = xx;
-                tile.cy = yy;
+                GameTile tile = new GameTile(xx, yy);
 
                 try {
-                    tile.type = map.get(yy).get(xx);
+                    tile.ID = map.get(yy).get(xx);
                 }
                 catch (Exception e){
-                    tile.type = 0;
+                    tile.ID = 0;
                 }
 
-                if (tile.type >= minSolidTileID) {
+                if (tile.ID >= minSolidTileID) {
                     if (overlap(tile, map.getTileSize())) {
-                        if (mVel.x != 0) {
-
+                        if (mVel.x > 0) {
                             if (mPos.x + width < tile.x(map.getTileSize())) {
-                                //mPos.x = tile.x(map.getTileSize()) - width;
+                                onRightCollision(tile);
                                 side.right = true;
                             }
-
+                        }
+                        if (mVel.x < 0) {
                             if (mPos.x > tile.x(map.getTileSize()) + map.getTileSize()) {
-                                //mPos.x = tile.x(map.getTileSize()) + map.getTileSize();
+                                onLeftCollision(tile);
                                 side.left = true;
                             }
                         }
@@ -180,47 +186,47 @@ public class GameEntity {
                 ox++;
             }
             oy++;
+            ox = -1;
         }
     }
 
     public void manageTileCollisionY(TileMap map, int minSolidTileID) {
         int cx = (int)(mPos.x) / map.getTileSize();
         int cy = (int)(mPos.y) / map.getTileSize();
+
+        int tileX = width / map.getTileSize() + 2;
+        int tileY = height / map.getTileSize() + 2;
+
         int ox = -1;
         int oy = -1;
 
-        for (int y = 0; y < 4; y++) {
-            for (int x = 0; x < 4; x++) {
+        for (int y = 0; y < tileY; y++) {
+            for (int x = 0; x < tileX; x++) {
                 int xx = cx + ox;
                 int yy = cy + oy;
 
-                GameTile tile = tiles[y][x];
-                tile.cx = xx;
-                tile.cy = yy;
+                GameTile tile = new GameTile(xx, yy);
+                tile.tileSize = map.getTileSize();
 
                 try {
-                    tile.type = map.get(yy).get(xx);
+                    tile.ID = map.get(yy).get(xx);
                 }
-                catch (Exception e){
-                    tile.type = 0;
+                catch (Exception e) {
+                    tile.ID = 0;
                 }
 
-                if (tile.type >= minSolidTileID) {
-                    Shapes.setColor(Color.RED);
-
+                if (tile.ID >= minSolidTileID) {
 
                     if (overlap(tile, map.getTileSize())) {
-                        Shapes.drawRect(tiles[y][x].cx * map.getTileSize(),
-                                tiles[y][x].cy  * map.getTileSize(), map.getTileSize(), map.getTileSize());
                         if (mVel.y > 0) {
                             if (mPos.y + height > tile.y(map.getTileSize())) {
-                                //mPos.y = tile.y(map.getTileSize()) - height;
+                                onBottomCollision(tile);
                                 side.bottom = true;
                             }
 
                         } else if (mVel.y < 0) {
                             if (mPos.y < tile.y(map.getTileSize()) + map.getTileSize()) {
-                               //mPos.y = tile.y(map.getTileSize()) + map.getTileSize();
+                                onTopCollision(tile);
                                 side.top = true;
                             }
                         }
@@ -229,7 +235,15 @@ public class GameEntity {
                 ox++;
             }
             oy++;
+            ox = -1;
         }
+    }
+
+    protected void onLeftCollision(GameTile tile) { mPos.x = tile.x(tile.tileSize) + tile.tileSize; }
+    protected void onRightCollision(GameTile tile) { mPos.x = tile.x(tile.tileSize) - width; }
+    protected void onTopCollision(GameTile tile) { mPos.y = tile.y(tile.tileSize) + tile.tileSize; }
+    protected void onBottomCollision(GameTile tile) {
+        mPos.y = tile.y(tile.tileSize) - height;
     }
 
     public void draw() {

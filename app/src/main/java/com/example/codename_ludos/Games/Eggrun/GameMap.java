@@ -38,7 +38,7 @@ public class GameMap {
     int parallaxW = 2160;
     int parallaxH = 1920;
 
-    int speed = 4;
+    int speed = 10;
 
     int height = 30;
     int width  = 48;
@@ -69,19 +69,38 @@ public class GameMap {
 
     public void randomize()
     {
-        for (int i = maxTop + 1; i < level.size(); i++)
+        for (int i = 0; i < level.size(); i++)
             for (int j = 0; j < level.get(0).size(); j++)
             {
                 if (j < chunkWidth)
                 {
                     level.get(i).set(j, level.get(i).get(j + chunkWidth));
-                } else
-                    {
-                    level.get(i).set(j, rnd.nextInt(2));
-                    }
+                }
+
+                else if (j>=chunkWidth && i>maxTop - 1) level.get(i).set(j, rnd.nextInt(2));
+
             }
 
-        for (int i = maxTop + 1; i < level.size(); i++)
+        int rndS = rnd.nextInt(4);
+           // rndS = 3;
+
+        if(rndS == 3)
+        {
+            int rndI = maxTop - rnd.nextInt(3) - 5;
+            int rndJ = rnd.nextInt(chunkWidth) - 2;
+            int rndW = rnd.nextInt(chunkWidth) - rndJ;
+            int rndH = rnd.nextInt(3) + 2;
+
+            for (int i = 0; i < rndH; i++)
+                for (int j = 0; j < rndW; j++)
+                {
+                    if(i<2) level.get(rndI - i).set(chunkWidth + rndJ + j, 1);
+                    else level.get(rndI - i).set(chunkWidth + rndJ + j, rnd.nextInt(2));
+                }
+
+        }
+
+        for (int i = 0; i < level.size(); i++)
             for (int j = chunkWidth; j < level.get(0).size(); j++)
             {
                 if(level.get(i).get(j)>0 && j<level.get(0).size()-1 && j>chunkWidth && i < height-1) {
@@ -117,7 +136,7 @@ public class GameMap {
 
     public void setMapSprite()
     {
-        for (int i = maxTop; i < level.size(); i++)
+        for (int i = 0; i < level.size(); i++)
             for (int j = chunkWidth - 1; j < level.get(0).size(); j++)
             {
                 if(level.get(i).get(j) > 0)

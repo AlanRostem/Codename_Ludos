@@ -13,6 +13,7 @@ import com.example.codename_ludos.Entity.GameTile;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
 import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
+import com.example.codename_ludos.Games.Surge.Objects.SurgeEntity;
 import com.example.codename_ludos.Games.Surge.Objects.UnderPassObject;
 import com.example.codename_ludos.R;
 
@@ -40,13 +41,22 @@ public class Player extends BasePlayer {
         }
     }
 
+    public void onGround() {
+        djumping = false;
+        jumping = false;
+        jumps = 0;
+    }
+
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
 
         if (controls.isTouched("jump"))
             if (!jumping) {
                 jumping = true;
-                mVel.setY(-900.f);
+                if (djumping)
+                    mVel.y += (-300.f);
+                else
+                    mVel.setY(-900.f);
             }
 
         mVel.setX(0);
@@ -80,7 +90,7 @@ public class Player extends BasePlayer {
         int H = ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT;
         if (mPos.y + height > H) {
             mPos.y = H - height;
-            jumping = false;
+            onGround();
             side.bottom = true;
         }
 
@@ -103,8 +113,8 @@ public class Player extends BasePlayer {
         for (GameEntity e : list) {
             if (e != this)
                 if (overlap(e)) {
-                    if (e instanceof UnderPassObject) {
-                        UnderPassObject.playerXCollision(this, (UnderPassObject) e);
+                    if (e instanceof SurgeEntity) {
+                        ((SurgeEntity) e).playerXCollision(this);
                     }
                 }
         }
@@ -115,15 +125,17 @@ public class Player extends BasePlayer {
         for (GameEntity e : list) {
             if (e != this)
                 if (overlap(e)) {
-                    if (e instanceof UnderPassObject) {
-                        UnderPassObject.playerYCollision(this, (UnderPassObject) e);
-                    } else if (e instanceof PowerUp) {
-                        for (int i = 0; i < activePowerUps.length; i++) {
-                            if (!activePowerUps[i].isUsing() && activePowerUps[i].isDone()) {
-                                activePowerUps[i] = (PowerUp) e;
-                                activePowerUps[i].use();
-                                break;
+                    if (e instanceof SurgeEntity) {
+                        if (e instanceof PowerUp) {
+                            for (int i = 0; i < activePowerUps.length; i++) {
+                                if (!activePowerUps[i].isUsing() && activePowerUps[i].isDone()) {
+                                    activePowerUps[i] = (PowerUp) e;
+                                    activePowerUps[i].use();
+                                    break;
+                                }
                             }
+                        } else {
+                            ((SurgeEntity) e).playerYCollision(this);
                         }
                     }
                 }
