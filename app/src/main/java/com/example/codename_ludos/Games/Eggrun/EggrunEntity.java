@@ -25,15 +25,9 @@ public class EggrunEntity extends GameEntity {
         int ox = gameMap.offSet + ArcadeMachine.SCREEN_OFFSET_X;
         int oy = ArcadeMachine.SCREEN_OFFSET_Y;
         return mPos.x - ox < t.cx * tileSize + tileSize
-<<<<<<< HEAD
-                && mPos.x -ox + width > t.cx * tileSize
-                && mPos.y - oy  < t.cy * tileSize + tileSize
-                && mPos.y - oy + height  > t.cy * tileSize;
-=======
-                && mPos.x + width - ox > t.cx * tileSize
-                && mPos.y - oy  < t.cy * tileSize + tileSize
-                && mPos.y + height -oy  > t.cy * tileSize;
->>>>>>> bcf748e816615e621f31b0cc418d4f2736a3766d
+                && mPos.x - ox + width > t.cx * tileSize
+                && mPos.y - oy < t.cy * tileSize + tileSize
+                && mPos.y - oy + height > t.cy * tileSize;
     }
 
     @Override

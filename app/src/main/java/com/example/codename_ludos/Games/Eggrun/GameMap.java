@@ -38,7 +38,7 @@ public class GameMap {
     int parallaxW = 2160;
     int parallaxH = 1920;
 
-    int speed = 10;
+    int speed = 8;
 
     int height = 30;
     int width  = 48;

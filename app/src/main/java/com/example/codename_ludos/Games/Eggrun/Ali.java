@@ -1,11 +1,9 @@
 package com.example.codename_ludos.Games.Eggrun;
 
-<<<<<<< HEAD
 import android.content.Context;
 import android.os.Vibrator;
-=======
 import android.graphics.Color;
->>>>>>> bcf748e816615e621f31b0cc418d4f2736a3766d
+
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.SpriteMap;
