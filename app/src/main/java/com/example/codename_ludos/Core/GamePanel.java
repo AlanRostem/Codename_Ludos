@@ -51,6 +51,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder sHolder) {
+        Log.i("Haha xD", "aaa");
         thread = new MainThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
