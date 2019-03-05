@@ -24,6 +24,10 @@ public class MainThread extends Thread {
         this.running = running;
     }
 
+    public boolean isRunning() {
+        return running;
+    }
+
     public static float getCurrentDeltaTime() {
         return deltaTime;
     }
