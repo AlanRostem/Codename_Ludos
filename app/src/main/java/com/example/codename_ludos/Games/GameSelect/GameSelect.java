@@ -1,11 +1,10 @@
 package com.example.codename_ludos.Games.GameSelect;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.Shapes;
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Controllers.Button;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainThread;

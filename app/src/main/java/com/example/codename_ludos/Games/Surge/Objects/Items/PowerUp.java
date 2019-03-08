@@ -1,7 +1,6 @@
 package com.example.codename_ludos.Games.Surge.Objects.Items;
 
-import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeEntity;
 import com.example.codename_ludos.Games.Surge.Player;

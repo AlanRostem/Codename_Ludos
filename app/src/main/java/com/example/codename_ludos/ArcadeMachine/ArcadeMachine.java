@@ -2,8 +2,7 @@ package com.example.codename_ludos.ArcadeMachine;
 
 import android.view.MotionEvent;
 
-import com.example.codename_ludos.Assets.SpriteMap;
-import com.example.codename_ludos.Core.MainActivity;
+import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.GameSelect.GameSelect;
 import com.example.codename_ludos.Games.Surge.Surge;

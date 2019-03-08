@@ -1,17 +1,14 @@
 package com.example.codename_ludos.Games.TestGame;
 
 import android.graphics.Color;
-import android.service.quicksettings.Tile;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.Shapes;
-import com.example.codename_ludos.Assets.SpriteMap;
-import com.example.codename_ludos.Audio.Music;
+import com.example.codename_ludos.Assets.Graphics.Shapes;
+import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Assets.Audio.Music;
 import com.example.codename_ludos.Controllers.Button;
-import com.example.codename_ludos.Core.GamePanel;
-import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.R;
 

@@ -1,13 +1,9 @@
 package com.example.codename_ludos.Games.TestGame;
 
-import android.util.Log;
-
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.SpriteMap;
-import com.example.codename_ludos.Audio.Audio;
-import com.example.codename_ludos.Core.MainThread;
+import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Assets.Audio.Audio;
 import com.example.codename_ludos.Entity.BasePlayer;
-import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 
 public class Dude extends BasePlayer {

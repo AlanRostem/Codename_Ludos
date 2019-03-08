@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
-import com.example.codename_ludos.Assets.Shapes;
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Controllers.Button;
 
 public class Eggrun extends ArcadeGame {

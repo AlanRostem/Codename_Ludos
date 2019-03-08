@@ -1,4 +1,4 @@
-package com.example.codename_ludos.Assets;
+package com.example.codename_ludos.Assets.Graphics;
 
 import android.graphics.Rect;
 

@@ -1,20 +1,12 @@
 package com.example.codename_ludos.Games.Surge;
 
-import android.graphics.Color;
-import android.util.Log;
-
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.Shapes;
-import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Controllers.Controls;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.Entity.GameEntity;
-import com.example.codename_ludos.Entity.GameTile;
-import com.example.codename_ludos.Entity.TileMap;
-import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
 import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeEntity;
-import com.example.codename_ludos.Games.Surge.Objects.UnderPassObject;
 import com.example.codename_ludos.R;
 
 import java.util.ArrayList;

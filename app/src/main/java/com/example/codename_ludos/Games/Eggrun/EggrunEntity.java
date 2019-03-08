@@ -3,7 +3,7 @@ package com.example.codename_ludos.Games.Eggrun;
 import android.graphics.Color;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.Shapes;
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.Entity.GameTile;
 import com.example.codename_ludos.Entity.TileMap;

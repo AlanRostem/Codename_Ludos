@@ -1,7 +1,7 @@
 package com.example.codename_ludos.Games.Eggrun;
 
 import android.graphics.Color;
-import com.example.codename_ludos.Assets.Shapes;
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 
 public class Egg extends EggrunEntity {
 

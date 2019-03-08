@@ -1,15 +1,8 @@
 package com.example.codename_ludos.Entity;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Vibrator;
-
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.Shapes;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
-
-import java.util.ArrayList;
 
 public class GameEntity {
     // Subclass for objects that will be pushed into EntityManager

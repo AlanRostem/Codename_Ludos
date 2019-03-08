@@ -1,4 +1,4 @@
-package com.example.codename_ludos.Assets;
+package com.example.codename_ludos.Assets.Graphics;
 
 import android.app.VoiceInteractor;
 import android.content.res.Resources;
@@ -101,7 +101,7 @@ public class SpriteMap {
     }
 
     public void Animate(String name, Animation anim) {
-        if (!anim.paused)
+        if (!anim.paused && !ArcadeMachine.getCurrentGame().isPaused())
             if ((anim.passed_time += MainThread.getAverageDeltaTime()) >= anim.frame_speed) {
                 if (!anim.reverse) {
                     if (anim.current_col < anim.end_col)

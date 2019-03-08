@@ -12,12 +12,14 @@ public class ArcadeGame extends EntityManager {
     private boolean mPaused = false;
     private String id;
     protected Controls controls;
+    protected PauseMenu pauseMenu;
 
     // Upon extending this class make sure to create a public
     // static variable for the id
     public ArcadeGame(String ID) {
         this.id = ID;
         controls = new Controls();
+        pauseMenu = new PauseMenu(this);
     }
 
     public String getID() {
@@ -29,8 +31,24 @@ public class ArcadeGame extends EntityManager {
         setup();
     }
 
+    public void onExit() {
+
+    }
+
+    public void exit() {
+        mStarted = false;
+        mPaused = false;
+        onExit();
+        clearEntities();
+    }
+
+    public void onPaused() {
+
+    }
+
     public void togglePause() {
         mPaused = !mPaused;
+        onPaused();
     }
 
     public boolean isPaused() {
@@ -53,7 +71,7 @@ public class ArcadeGame extends EntityManager {
     public void coreDraw() {
         draw();
         if (mPaused) {
-
+            pauseMenu.draw();
         }
     }
 
@@ -64,6 +82,8 @@ public class ArcadeGame extends EntityManager {
     public void coreUpdate() {
         if (!mPaused) {
             update();
+        } else {
+            pauseMenu.update();
         }
     }
 

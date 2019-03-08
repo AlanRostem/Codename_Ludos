@@ -53,13 +53,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder sHolder) {
-        thread = new MainThread(getHolder(), this);
-        thread.setRunning(true);
-        thread.start();
         if (!runningInBackground) {
             ArcadeMachine.initialize();
             runningInBackground = true;
         }
+        thread = new MainThread(getHolder(), this);
+        thread.setRunning(true);
+        thread.start();
         // TESTS:
         Logger.enableDebugStats(true);
     }

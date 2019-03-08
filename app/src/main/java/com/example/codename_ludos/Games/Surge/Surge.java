@@ -4,15 +4,13 @@ import android.graphics.Color;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.Shapes;
-import com.example.codename_ludos.Assets.SpriteMap;
+import com.example.codename_ludos.Assets.Graphics.Shapes;
+import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Controllers.Button;
-import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
 import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
 import com.example.codename_ludos.Games.Surge.Objects.UnderPassObject;
 import com.example.codename_ludos.LibraryTools.Constants;
-import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 
 public class Surge extends ArcadeGame {

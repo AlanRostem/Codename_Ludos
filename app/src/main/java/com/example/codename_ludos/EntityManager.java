@@ -41,4 +41,8 @@ public class EntityManager {
             o.draw();
         }
     }
+
+    public void clearEntities() {
+        objects.clear();
+    }
 }

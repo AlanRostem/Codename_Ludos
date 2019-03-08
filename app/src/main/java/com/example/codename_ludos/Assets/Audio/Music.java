@@ -1,8 +1,7 @@
-package com.example.codename_ludos.Audio;
+package com.example.codename_ludos.Assets.Audio;
 
 import android.media.MediaPlayer;
 
-import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainActivity;
 
 public class Music {

@@ -1,7 +1,11 @@
 package com.example.codename_ludos.ArcadeMachine;
 
+import android.graphics.Color;
+
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Controllers.Button;
 import com.example.codename_ludos.Controllers.Controls;
+import com.example.codename_ludos.Input.Finger;
 
 public class PauseMenu {
 
@@ -12,7 +16,17 @@ public class PauseMenu {
         controls = new Controls();
         myGame = game;
         // TODO: Make a real button dude
-        controls.createController("returnToArcadeMachine", new Button(0, 0, 32, 32));
+        controls.createController("returnToArcadeMachine", new Button(100 + 900/2 - 700/2, 320 + 50, 700, 100) {
+            public void draw() {
+                Shapes.setColor(Color.argb(1f, 1f, 0f, 1f));
+                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+            }
+
+            public void onPressed(float x, float y) {
+                ArcadeMachine.enterGame("GameSelect");
+                myGame.exit();
+            }
+        });
         // TODO: Make proper user interface bases
     }
 
@@ -24,6 +38,8 @@ public class PauseMenu {
 
     public void draw() {
         if (myGame.isPaused()) {
+            Shapes.setColor(Color.argb(0.5f, 1f, 1f, 1f));
+            Shapes.drawRect(100, 320, 900, 500);
             controls.draw();
         }
     }
