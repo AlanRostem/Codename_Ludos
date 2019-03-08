@@ -62,6 +62,11 @@ public class Surge extends ArcadeGame {
         drawEntities();
     }
 
+    @Override
+    public void onExit() {
+        camera = new Camera(0, 0);
+    }
+
     private void makeButtons() {
         controls.createController("jump", new Button( 800, 1500, 200, 200) {
             private int color = Color.GREEN;
