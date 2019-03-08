@@ -5,13 +5,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Input.Finger;
+import com.example.codename_ludos.UserInterface.Finger;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Logger;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
@@ -38,7 +37,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         touchPosition = new Vector2D(0, 0);
         fingers = new Finger[maxPointerCount];
         for (int i = 0; i < maxPointerCount; i++) {
-            fingers[i] = new Finger(false, -1, -1, -1);
+            fingers[i] = new Finger(false, -1, -1, -1, MotionEvent.ACTION_UP);
         }
      }
 
@@ -99,7 +98,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 fingers[i].setDown(false);
 
             if (fingerOnScreen)
-                fingers[i].set(true, id, x, y);
+                fingers[i].set(true, id, x, y, action);
+
         }
     }
 

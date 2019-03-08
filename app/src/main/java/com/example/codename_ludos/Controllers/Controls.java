@@ -1,9 +1,7 @@
 package com.example.codename_ludos.Controllers;
 
-import android.util.Log;
-
 import com.example.codename_ludos.Core.MainActivity;
-import com.example.codename_ludos.Input.Finger;
+import com.example.codename_ludos.UserInterface.Finger;
 
 import java.util.ArrayList;
 import java.util.HashMap;

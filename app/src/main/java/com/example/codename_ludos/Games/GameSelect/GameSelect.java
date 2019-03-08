@@ -17,7 +17,7 @@ public class GameSelect extends ArcadeGame {
         for (String n : ArcadeMachine.getGameIDList()) {
             final String N = n;
             controls.createController(n, new Button(240, 250 + i * 200, 600, 100) {
-                public void onTouch(float x, float y) {
+                public void onPressed(float x, float y) {
                     ArcadeMachine.enterGame(N);
                 }
 

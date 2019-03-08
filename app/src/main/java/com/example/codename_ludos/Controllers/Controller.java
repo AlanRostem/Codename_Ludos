@@ -1,9 +1,7 @@
 package com.example.codename_ludos.Controllers;
 
-import android.view.MotionEvent;
-
 import com.example.codename_ludos.Core.MainActivity;
-import com.example.codename_ludos.Input.Finger;
+import com.example.codename_ludos.UserInterface.Finger;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 

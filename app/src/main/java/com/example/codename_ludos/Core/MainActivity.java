@@ -72,5 +72,6 @@ public class MainActivity extends Activity {
     @Override
     public void onUserLeaveHint() {
         super.onUserLeaveHint();
+        ArcadeMachine.getCurrentGame().togglePause();
     }
 }

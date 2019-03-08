@@ -1,10 +1,10 @@
 package com.example.codename_ludos.Controllers;
 
-import com.example.codename_ludos.Core.MainActivity;
-import com.example.codename_ludos.Input.Finger;
-import com.example.codename_ludos.LibraryTools.Math.Vector2D;
+import android.view.MotionEvent;
 
-import java.util.Iterator;
+import com.example.codename_ludos.Core.MainActivity;
+import com.example.codename_ludos.LibraryTools.Constants;
+import com.example.codename_ludos.UserInterface.Finger;
 
 public class Button extends Controller {
     private int holding = 0;
@@ -17,11 +17,11 @@ public class Button extends Controller {
     public void update() {
         for (Finger pos : MainActivity.gamePanel.getFingers()) {
             if (isTouched(pos)) {
-                if (holding < 1) {
-                    onPressed(pos.getX(), pos.getY());
-                }
                 onTouch(pos.getX(), pos.getY());
                 onHolding(pos.getX(), pos.getY());
+                if (holding < 1 && pos.getAction() != MotionEvent.ACTION_MOVE) {
+                    onPressed(pos.getX(), pos.getY());
+                }
                 holding++;
                 break;
             } else {
