@@ -17,14 +17,17 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
+import com.example.codename_ludos.Assets.Audio.Music;
 import com.example.codename_ludos.LibraryTools.Constants;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
     public static GamePanel gamePanel;
     public static SoundPool soundPool;
     public static boolean soundLoaded = false;
-
+    public static ArrayList<Music> songList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -21,29 +21,8 @@ public class TestGame extends ArcadeGame {
 
     public TestGame() {
         super("TestGame");
-    }
-
-    @Override
-    public void setup() {
-
-        dude = new Dude();
-        song = new Music(R.raw.music);
+        song = new Music(R.raw.music, this);
         sm = new SpriteMap(R.drawable.worldtiles);
-
-        int [][] array = {
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0},
-                {0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        };
-        tm = new TileMap(32, array);
-
         controls.createController("jump", new Button( 800, 1500, 200, 200) {
             private int color = Color.GREEN;
 
@@ -102,12 +81,32 @@ public class TestGame extends ArcadeGame {
                 Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
             }
         });
+    }
 
+    @Override
+    public void setup() {
+
+        dude = new Dude();
+
+        song.play();
+
+        int [][] array = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        };
+        tm = new TileMap(32, array);
     }
 
     @Override
     public void update() {
-        song.play();
         controls.update();
         dude.update();
     }
