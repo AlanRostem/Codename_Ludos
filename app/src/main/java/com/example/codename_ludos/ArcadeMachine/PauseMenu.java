@@ -22,8 +22,7 @@ public class PauseMenu {
             }
 
             public void onPressed(float x, float y) {
-                ArcadeMachine.enterGame("GameSelect");
-                myGame.exit();
+                ArcadeMachine.exitGame();
             }
         });
         // TODO: Make proper user interface bases

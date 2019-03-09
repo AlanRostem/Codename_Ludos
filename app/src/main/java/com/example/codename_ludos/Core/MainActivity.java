@@ -25,7 +25,6 @@ public class MainActivity extends Activity {
     public static SoundPool soundPool;
     public static boolean soundLoaded = false;
 
-    public static boolean leftApp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

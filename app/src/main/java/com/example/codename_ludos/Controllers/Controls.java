@@ -18,6 +18,16 @@ public class Controls {
         container = new ArrayList<>();
     }
 
+    public void removeController(String name) {
+        container.remove(checkMap.get(name));
+        checkMap.remove(name);
+    }
+
+    public void clearControllers() {
+        container.clear();
+        checkMap.clear();
+    }
+
     public void createController(String name, Controller c) {
         container.add(c);
         checkMap.put(name, c);
