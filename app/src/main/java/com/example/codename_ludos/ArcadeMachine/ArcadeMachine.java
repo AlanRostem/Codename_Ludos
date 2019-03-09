@@ -110,6 +110,7 @@ public class ArcadeMachine {
 
     public static void draw() {
         games.get(currentGameID).coreDraw();
+        arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
         games.get(currentGameID).controls.draw();
 
        // GamePanel.paint.setColor(Color.argb(0.5f, 1f, 1f, 1f));

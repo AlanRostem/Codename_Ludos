@@ -48,15 +48,15 @@ public class Player extends BasePlayer {
                 if (djumping)
                     mVel.y += (-300.f);
                 else
-                    mVel.setY(-900.f);
+                    mVel.y = (-900.f);
             }
 
         mVel.setX(0);
         if (controls.isTouched("right"))
-            mVel.setX(400.f);
+            mVel.x = (400.f);
 
         if (controls.isTouched("left"))
-            mVel.setX(-400.f);
+            mVel.x = (-400.f);
     }
 
     public boolean jumping = false;
