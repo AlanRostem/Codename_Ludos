@@ -99,6 +99,8 @@ public class Ali extends EggrunEntity {
             jumping = false;
             djumping = false;
             djumpingf = false;
+            sliding = false;
+            jumps = 0;
         }
 
     }
