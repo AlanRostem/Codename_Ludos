@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UIContainer extends UIElement {
-    private ArrayList<UIElement> childContainer;
-    private HashMap<String, UIElement> childMap;
+    protected ArrayList<UIElement> childContainer;
+    protected HashMap<String, UIElement> childMap;
 
     public UIContainer(String id, float x, float y, int width, int height) {
         super(id, x, y, width, height);

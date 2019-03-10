@@ -23,7 +23,7 @@ public class TestGame extends ArcadeGame {
         super("TestGame");
         song = new Music(R.raw.music, this);
         sm = new SpriteMap(R.drawable.worldtiles);
-        controls.createController("jump", new Button( 800, 1500, 200, 200) {
+        controls.createController("jump", new Button( controls, "jump",800, 1500, 200, 200) {
             private int color = Color.GREEN;
 
             public void onPressed(float x, float y) {
@@ -38,10 +38,10 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("left", new Button( 140 , 1500, 100, 100) {
+        controls.createController("left", new Button(controls, "left",140, 1500, 100, 100) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -58,10 +58,10 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("right", new Button(250, 1500, 100, 100) {
+        controls.createController("right", new Button(controls, "left",250, 1500, 100, 100) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -78,7 +78,7 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
             }
         });
     }

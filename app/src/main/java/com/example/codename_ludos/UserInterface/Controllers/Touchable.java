@@ -4,18 +4,24 @@ import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.UserInterface.Finger;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
+import com.example.codename_ludos.UserInterface.UIContainer;
+import com.example.codename_ludos.UserInterface.UIElement;
 
-public class Controller extends Vector2D {
+public class Touchable extends UIElement {
     // Subclass for buttons, joysticks, etc.
 
     private int width;
     private int height;
 
-    public Controller(int x, int y, int width, int height) {
-        super(x, y);
+    public Touchable(UIContainer parent, String ID, int x, int y, int width, int height) {
+        super(parent, ID, x, y, width, height);
         this.width = width;
         this.height = height;
     }
+
+    public float getX() { return pos.x; }
+
+    public float getY() { return pos.y; }
 
     public int getHeight() {
         return height;
@@ -27,10 +33,6 @@ public class Controller extends Vector2D {
 
     public void onTouch(float eventX, float eventY) {
 
-    }
-
-    public Vector2D getTouchPosition() {
-        return MainActivity.gamePanel.getTouchPosition();
     }
 
     public boolean isTouched(Finger pos) {

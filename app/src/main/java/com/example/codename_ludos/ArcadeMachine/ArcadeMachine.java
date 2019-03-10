@@ -106,15 +106,15 @@ public class ArcadeMachine {
         int i = 0;
         for (String n : getGameIDList()) {
             final String N = n;
-            controls.createController(n, new Button(240, 250 + i * 200, 600, 100) {
+            controls.createController(n, new Button(controls, n, 240, 250 + i * 200, 600, 100) {
                 public void onPressed(float x, float y) {
                     ArcadeMachine.enterGame(N);
                 }
 
                 public void draw() {
                     Shapes.setColor(Color.RED);
-                    Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
-                    MainThread.canvas.drawText(N, this.x, this.y, GamePanel.paint);
+                    Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                    MainThread.canvas.drawText(N, this.pos.x, this.pos.y, GamePanel.paint);
                 }
             });
             i++;

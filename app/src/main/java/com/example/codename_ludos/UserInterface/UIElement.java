@@ -31,6 +31,14 @@ public class UIElement {
         return parent;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     public Vector2D getPos() {
         return pos;
     }

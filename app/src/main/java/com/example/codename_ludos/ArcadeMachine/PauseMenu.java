@@ -15,10 +15,10 @@ public class PauseMenu {
         controls = new Controls();
         myGame = game;
         // TODO: Make a real button dude
-        controls.createController("returnToArcadeMachine", new Button(100 + 900/2 - 700/2, 320 + 50, 700, 100) {
+        controls.createController("returnToArcadeMachine", new Button(controls, "returnToArcadeMachine",100 + 900/2 - 700/2, 320 + 50, 700, 100) {
             public void draw() {
                 Shapes.setColor(Color.argb(1f, 1f, 0f, 1f));
-                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
             }
 
             public void onPressed(float x, float y) {

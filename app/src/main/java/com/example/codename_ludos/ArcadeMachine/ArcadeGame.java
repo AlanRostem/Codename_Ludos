@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 import com.example.codename_ludos.Assets.Audio.Music;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Core.MainActivity;
-import com.example.codename_ludos.EntityManager;
+import com.example.codename_ludos.Entity.EntityManager;
 
 import java.util.ArrayList;
 
