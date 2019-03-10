@@ -8,7 +8,7 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Audio.Music;
-import com.example.codename_ludos.Controllers.Button;
+import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.R;
 

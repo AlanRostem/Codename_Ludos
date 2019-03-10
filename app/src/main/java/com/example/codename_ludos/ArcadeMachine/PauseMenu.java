@@ -3,8 +3,8 @@ package com.example.codename_ludos.ArcadeMachine;
 import android.graphics.Color;
 
 import com.example.codename_ludos.Assets.Graphics.Shapes;
-import com.example.codename_ludos.Controllers.Button;
-import com.example.codename_ludos.Controllers.Controls;
+import com.example.codename_ludos.UserInterface.Controllers.Button;
+import com.example.codename_ludos.UserInterface.Controllers.Controls;
 
 public class PauseMenu {
 

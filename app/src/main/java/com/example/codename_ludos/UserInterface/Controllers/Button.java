@@ -1,9 +1,8 @@
-package com.example.codename_ludos.Controllers;
+package com.example.codename_ludos.UserInterface.Controllers;
 
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Core.MainActivity;
-import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.UserInterface.Finger;
 
 public class Button extends Controller {

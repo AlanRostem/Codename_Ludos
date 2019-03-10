@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
-import com.example.codename_ludos.Controllers.Button;
+import com.example.codename_ludos.UserInterface.Controllers.Button;
 
 public class Eggrun extends ArcadeGame {
     private Ali ali;

@@ -2,7 +2,7 @@ package com.example.codename_ludos.Games.Surge;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
-import com.example.codename_ludos.Controllers.Controls;
+import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
