@@ -5,7 +5,7 @@ import com.example.codename_ludos.Assets.Graphics.Shapes;
 
 public class Egg extends EggrunEntity {
 
-    private float gravity = 25f;
+    private float gravity = 25f * 800f;
 
     public Egg(){
         super(1000,26*gameMap.tileSize, 80, 80);

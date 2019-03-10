@@ -68,7 +68,11 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        ArcadeMachine.getCurrentGame().togglePause();
+        if (ArcadeMachine.getCurrentGame().isStarted()) {
+            ArcadeMachine.getCurrentGame().togglePause();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

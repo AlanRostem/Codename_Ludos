@@ -66,7 +66,7 @@ public class Player extends BasePlayer {
 
 
     private void step() {
-        accelerateY(25);
+        accelerateY(1700);
         side.reset();
         moveX(mVel.x);
         manageCollisionX();

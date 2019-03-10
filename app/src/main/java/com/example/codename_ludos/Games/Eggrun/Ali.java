@@ -60,7 +60,7 @@ public class Ali extends EggrunEntity {
             if (jumping || djumping)
             {
                 djumpingf = true;
-                mAcc.setY(15f);
+                mAcc.setY(15f * 800);
             }
             else sliding = true;
         } else if (!ArcadeMachine.getCurrentGame().getControls().isTouched("Slide"))
