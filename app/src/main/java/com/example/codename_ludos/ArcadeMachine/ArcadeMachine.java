@@ -1,10 +1,15 @@
 package com.example.codename_ludos.ArcadeMachine;
 
+import android.graphics.Color;
 import android.view.MotionEvent;
 
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.UserInterface.Controllers.Button;
+import com.example.codename_ludos.UserInterface.Controllers.Controls;
+import com.example.codename_ludos.Core.GamePanel;
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
-import com.example.codename_ludos.Games.GameSelect.GameSelect;
 import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.LibraryTools.Constants;
@@ -20,6 +25,7 @@ public class ArcadeMachine {
     private static HashMap<String, ArcadeGame> games;
     private static ArrayList<String> gameIDList;
     private static String currentGameID = "Eggrun";
+    private static Controls controls = new Controls();
     public static SpriteMap arcadeImage;
 
     public enum MachineState {
@@ -72,7 +78,9 @@ public class ArcadeMachine {
         // TODO: Add user friendly ways to stop a game
     }
 
-    private static void exitGame() {
+    public static void exitGame() {
+        setCurrentState(MachineState.in_game_select);
+        getCurrentGame().exit();
         // TODO: Add a way to stop a game and save its changes
     }
 
@@ -95,31 +103,48 @@ public class ArcadeMachine {
         createGame("Eggrun", new Eggrun());
         createGame("Surge", new Surge());
 
-        createGame("GameSelect", new GameSelect());
-        enterGame("GameSelect");
+        int i = 0;
+        for (String n : getGameIDList()) {
+            final String N = n;
+            controls.createController(n, new Button(controls, n, 240, 250 + i * 200, 600, 100) {
+                public void onPressed(float x, float y) {
+                    ArcadeMachine.enterGame(N);
+                }
+
+                public void draw() {
+                    Shapes.setColor(Color.RED);
+                    Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                    MainThread.canvas.drawText(N, this.pos.x, this.pos.y, GamePanel.paint);
+                }
+            });
+            i++;
+        }
 
         rawImageWidth = arcadeImage.getImageWidth();
         rawImageHeight = arcadeImage.getImageHeight();
         relativeWidthFactor = (float)rawScreenWidth / (float)rawImageWidth;
         relativeHeightFactor = (float)rawScreenHeight / (float)rawImageHeight;
 
-
-
         //games.get(currentGameIndex).setup();
     }
 
     public static void draw() {
-        games.get(currentGameID).coreDraw();
-        games.get(currentGameID).controls.draw();
-
-       // GamePanel.paint.setColor(Color.argb(0.5f, 1f, 1f, 1f));
-       // MainThread.canvas.drawRect(new Rect(SCREEN_OFFSET_X, SCREEN_OFFSET_Y, SCREEN_OFFSET_X + SCREEN_WIDTH, SCREEN_OFFSET_Y + SCREEN_HEIGHT), GamePanel.paint);
+        if (games.get(currentGameID).isStarted() && getCurrentState() == MachineState.in_game) {
+            games.get(currentGameID).coreDraw();
+            arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
+            games.get(currentGameID).controls.draw();
+        } else if (getCurrentState() == MachineState.in_game_select) {
+            arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
+            controls.draw();
+        }
     }
 
     public static void update() {
         if (games.get(currentGameID).isStarted() && getCurrentState() == MachineState.in_game) {
             games.get(currentGameID).controls.update();
             games.get(currentGameID).coreUpdate();
+        } else if (getCurrentState() == MachineState.in_game_select) {
+            controls.update();
         }
     }
 

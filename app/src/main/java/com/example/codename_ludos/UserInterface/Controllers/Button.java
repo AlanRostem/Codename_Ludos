@@ -1,16 +1,16 @@
-package com.example.codename_ludos.Controllers;
+package com.example.codename_ludos.UserInterface.Controllers;
 
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Core.MainActivity;
-import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.UserInterface.Finger;
+import com.example.codename_ludos.UserInterface.UIContainer;
 
-public class Button extends Controller {
+public class Button extends Touchable {
     private int holding = 0;
 
-    public Button(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public Button(UIContainer parent, String ID, int x, int y, int width, int height) {
+        super(parent, ID, x, y, width, height);
     }
 
     @Override

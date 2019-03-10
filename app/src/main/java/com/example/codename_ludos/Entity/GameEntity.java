@@ -68,21 +68,21 @@ public class GameEntity {
     }
 
     public void accelerate() {
-        mVel.x += mAcc.x;
-        mVel.y += mAcc.y;
+        mVel.x += mAcc.x * MainThread.getAverageDeltaTime();
+        mVel.y += mAcc.y * MainThread.getAverageDeltaTime();
     }
 
     public void accelerate(float x, float y) {
-        mVel.x += x;
-        mVel.y += y;
+        mVel.x += x * MainThread.getAverageDeltaTime();
+        mVel.y += y * MainThread.getAverageDeltaTime();
     }
 
     public void accelerateX(float x) {
-        mVel.x += x;
+        mVel.x += x * MainThread.getAverageDeltaTime();
     }
 
     public void accelerateY(float y) {
-        mVel.y += y;
+        mVel.y += y * MainThread.getAverageDeltaTime();
     }
 
     /*

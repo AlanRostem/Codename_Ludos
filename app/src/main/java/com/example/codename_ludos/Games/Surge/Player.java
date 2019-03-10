@@ -2,7 +2,7 @@ package com.example.codename_ludos.Games.Surge;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
-import com.example.codename_ludos.Controllers.Controls;
+import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
@@ -48,15 +48,15 @@ public class Player extends BasePlayer {
                 if (djumping)
                     mVel.y += (-300.f);
                 else
-                    mVel.setY(-900.f);
+                    mVel.y = (-900.f);
             }
 
         mVel.setX(0);
         if (controls.isTouched("right"))
-            mVel.setX(400.f);
+            mVel.x = (400.f);
 
         if (controls.isTouched("left"))
-            mVel.setX(-400.f);
+            mVel.x = (-400.f);
     }
 
     public boolean jumping = false;
@@ -66,7 +66,7 @@ public class Player extends BasePlayer {
 
 
     private void step() {
-        accelerateY(25);
+        accelerateY(1700);
         side.reset();
         moveX(mVel.x);
         manageCollisionX();

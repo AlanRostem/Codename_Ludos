@@ -8,7 +8,7 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Audio.Music;
-import com.example.codename_ludos.Controllers.Button;
+import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.R;
 
@@ -21,30 +21,9 @@ public class TestGame extends ArcadeGame {
 
     public TestGame() {
         super("TestGame");
-    }
-
-    @Override
-    public void setup() {
-
-        dude = new Dude();
-        song = new Music(R.raw.music);
+        song = new Music(R.raw.music, this);
         sm = new SpriteMap(R.drawable.worldtiles);
-
-        int [][] array = {
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0},
-                {0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        };
-        tm = new TileMap(32, array);
-
-        controls.createController("jump", new Button( 800, 1500, 200, 200) {
+        controls.createController("jump", new Button( controls, "jump",800, 1500, 200, 200) {
             private int color = Color.GREEN;
 
             public void onPressed(float x, float y) {
@@ -59,10 +38,10 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("left", new Button( 140 , 1500, 100, 100) {
+        controls.createController("left", new Button(controls, "left",140, 1500, 100, 100) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -79,10 +58,10 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("right", new Button(250, 1500, 100, 100) {
+        controls.createController("right", new Button(controls, "left",250, 1500, 100, 100) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -99,15 +78,35 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
             }
         });
+    }
 
+    @Override
+    public void setup() {
+
+        dude = new Dude();
+
+        song.play();
+
+        int [][] array = {
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        };
+        tm = new TileMap(32, array);
     }
 
     @Override
     public void update() {
-        song.play();
         controls.update();
         dude.update();
     }

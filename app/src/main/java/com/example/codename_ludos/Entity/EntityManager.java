@@ -1,4 +1,4 @@
-package com.example.codename_ludos;
+package com.example.codename_ludos.Entity;
 
 import com.example.codename_ludos.Entity.GameEntity;
 
