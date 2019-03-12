@@ -3,6 +3,8 @@ package com.example.codename_ludos.ArcadeMachine;
 import android.graphics.Color;
 
 import com.example.codename_ludos.Assets.Graphics.Shapes;
+import com.example.codename_ludos.Core.GamePanel;
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 
@@ -19,6 +21,8 @@ public class PauseMenu {
             public void draw() {
                 Shapes.setColor(Color.argb(1f, 1f, 0f, 1f));
                 Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                GamePanel.paint.setColor(Color.WHITE);
+                MainThread.canvas.drawText("Return to menu", this.pos.x, this.pos.y, GamePanel.paint);
             }
 
             public void onPressed(float x, float y) {
