@@ -115,15 +115,6 @@ public class ArcadeMachine {
                 boolean enteredGame = false;
 
                 @Override
-                public void onHolding(float eventX, float eventY) {
-                    //color = Color.RED;
-                }
-
-                @Override
-                public void onReleased(float eventX, float eventY) {
-                    //color = Color.WHITE;
-                }
-
                 public void onPressed(float x, float y) {
                     if (!getCurrentGame().isStarted() && selected) {
                         ArcadeMachine.enterGame(N);
