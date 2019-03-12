@@ -110,7 +110,19 @@ public class ArcadeMachine {
         for (String n : getGameIDList()) {
             final String N = n;
             controls.createController(n, new Button(controls, n, 240, 250 + getGameIDList().indexOf(n) * 200, 600, 100) {
-                public void onPressed(float x, float y) {
+                int color = Color.WHITE;
+
+                @Override
+                public void onHolding(float eventX, float eventY) {
+                    color = Color.YELLOW;
+                }
+
+                @Override
+                public void onReleased(float eventX, float eventY) {
+                    color = Color.WHITE;
+                }
+
+                public void onClick(float x, float y) {
                     if (!getCurrentGame().isStarted()) {
                         ArcadeMachine.enterGame(N);
                     }
@@ -119,7 +131,7 @@ public class ArcadeMachine {
                 public void draw() {
                     Shapes.setColor(Color.BLUE);
                     Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
-                    Text.draw(N, Color.WHITE, 60, this.pos.x, this.pos.y);
+                    Text.draw(N, color, 60, this.pos.x, this.pos.y);
                 }
             });
         }

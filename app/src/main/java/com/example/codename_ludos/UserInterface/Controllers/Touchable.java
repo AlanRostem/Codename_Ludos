@@ -35,6 +35,15 @@ public class Touchable extends UIElement {
 
     }
 
+    public boolean fingerOverlap(Finger pos) {
+        float sx = Constants.SCREEN_SCALE_X;
+        float sy = Constants.SCREEN_SCALE_Y;
+        return pos.getY() > this.getY() * sy
+                &&  pos.getY() < (this.getY() + this.height) * sy
+                && pos.getX() > this.getX() * sx
+                &&  pos.getX() < (this.getX() + this.width) * sx;
+    }
+
     public boolean isTouched(Finger pos) {
         float sx = Constants.SCREEN_SCALE_X;
         float sy = Constants.SCREEN_SCALE_Y;
