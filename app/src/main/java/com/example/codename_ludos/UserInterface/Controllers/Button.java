@@ -8,6 +8,7 @@ import com.example.codename_ludos.UserInterface.UIContainer;
 
 public class Button extends Touchable {
     private boolean holding = false;
+    public boolean selected = false;
 
     public Button(UIContainer parent, String ID, int x, int y, int width, int height) {
         super(parent, ID, x, y, width, height);
@@ -16,17 +17,13 @@ public class Button extends Touchable {
     @Override
     public void update() {
         for (Finger pos : MainActivity.gamePanel.getFingers()) {
-            if (fingerOverlap(pos)) {
-                if (pos.isDown()) {
-                    onTouch(pos.getX(), pos.getY());
-                    onHolding(pos.getX(), pos.getY());
-                    if (!holding && pos.getAction() != MotionEvent.ACTION_MOVE) {
-                        onPressed(pos.getX(), pos.getY());
-                    }
-                    holding = true;
-                } else {
-                    onClick(pos.getX(),pos.getY());
+            if(isTouched(pos)) {
+                onTouch(pos.getX(), pos.getY());
+                onHolding(pos.getX(), pos.getY());
+                if (!holding && pos.getAction() != MotionEvent.ACTION_MOVE) {
+                    onPressed(pos.getX(), pos.getY());
                 }
+                holding = true;
                 break;
             } else {
                 onReleased(pos.getX(), pos.getY());

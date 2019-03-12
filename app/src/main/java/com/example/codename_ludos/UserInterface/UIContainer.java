@@ -27,6 +27,10 @@ public class UIContainer extends UIElement {
         childMap.remove(id);
     }
 
+    public ArrayList<UIElement> getChildContainer() {
+        return childContainer;
+    }
+
     @Override
     public void draw() {
         for (UIElement u : childContainer) {
@@ -40,4 +44,6 @@ public class UIContainer extends UIElement {
             u.update();
         }
     }
+
+
 }

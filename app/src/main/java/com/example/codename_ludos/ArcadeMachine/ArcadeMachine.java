@@ -17,6 +17,7 @@ import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.Games.Lodestone.Lodestone;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
+import com.example.codename_ludos.UserInterface.UIElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,24 +112,43 @@ public class ArcadeMachine {
             final String N = n;
             controls.createController(n, new Button(controls, n, 240, 250 + getGameIDList().indexOf(n) * 200, 600, 100) {
                 int color = Color.WHITE;
+                boolean enteredGame = false;
 
                 @Override
                 public void onHolding(float eventX, float eventY) {
-                    color = Color.RED;
+                    //color = Color.RED;
                 }
 
                 @Override
                 public void onReleased(float eventX, float eventY) {
-                    color = Color.WHITE;
+                    //color = Color.WHITE;
                 }
 
-                public void onClick(float x, float y) {
-                    if (!getCurrentGame().isStarted()) {
+                public void onPressed(float x, float y) {
+                    Log.i("Seleced", "" + selected);
+                    if (!getCurrentGame().isStarted() && selected) {
                         ArcadeMachine.enterGame(N);
+                        selected = false;
+                        enteredGame = true;
                     }
+                    for (UIElement b : ArcadeMachine.controls.getChildContainer()) {
+                        if (b != this) {
+                            ((Button) b).selected = false;
+                        }
+                    }
+                    if (!enteredGame) {
+                        selected = true;
+                    }
+                    enteredGame = false;
                 }
 
+                @Override
                 public void draw() {
+                    if (selected) {
+                        color = Color.RED;
+                    } else {
+                        color = Color.WHITE;
+                    }
                     Shapes.setColor(Color.BLUE);
                     Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
                     Text.draw(N, color, 60, this.pos.x, this.pos.y);
