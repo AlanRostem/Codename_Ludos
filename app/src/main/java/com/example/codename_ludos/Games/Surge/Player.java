@@ -45,8 +45,13 @@ public class Player extends BasePlayer {
         if (controls.isTouched("jump"))
             if (!jumping) {
                 jumping = true;
-                if (djumping)
-                    mVel.y += (-300.f);
+                if (djumping) {
+                    if (mVel.y > 0) {
+                        mVel.y = (-300.f);
+                    } else {
+                        jumps = 0;
+                    }
+                }
                 else
                     mVel.y = (-900.f);
             }
