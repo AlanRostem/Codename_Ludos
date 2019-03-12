@@ -7,13 +7,11 @@ import com.example.codename_ludos.UserInterface.Finger;
 import com.example.codename_ludos.UserInterface.UIContainer;
 
 public class Button extends Touchable {
-    private int holding = 0;
+    private boolean holding = false;
 
     public Button(UIContainer parent, String ID, int x, int y, int width, int height) {
         super(parent, ID, x, y, width, height);
     }
-
-
 
     @Override
     public void update() {
@@ -22,17 +20,17 @@ public class Button extends Touchable {
                 if (pos.isDown()) {
                     onTouch(pos.getX(), pos.getY());
                     onHolding(pos.getX(), pos.getY());
-                    if (holding < 1 && pos.getAction() != MotionEvent.ACTION_MOVE) {
+                    if (!holding && pos.getAction() != MotionEvent.ACTION_MOVE) {
                         onPressed(pos.getX(), pos.getY());
                     }
-                    holding++;
+                    holding = true;
                 } else {
                     onClick(pos.getX(),pos.getY());
                 }
                 break;
             } else {
                 onReleased(pos.getX(), pos.getY());
-                holding = 0;
+                holding = false;
             }
         }
     }

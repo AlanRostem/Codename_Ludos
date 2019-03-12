@@ -114,7 +114,7 @@ public class ArcadeMachine {
 
                 @Override
                 public void onHolding(float eventX, float eventY) {
-                    color = Color.YELLOW;
+                    color = Color.RED;
                 }
 
                 @Override
