@@ -6,6 +6,5 @@ public class Stone extends GameEntity {
     public Stone(){ super(10,10);} // Start Position
 
     enum Type {LODE, ORB, MOVE, BUTTON, STATIC, GOAL}
-
-
+    
 }
