@@ -125,7 +125,6 @@ public class ArcadeMachine {
                 }
 
                 public void onPressed(float x, float y) {
-                    Log.i("Seleced", "" + selected);
                     if (!getCurrentGame().isStarted() && selected) {
                         ArcadeMachine.enterGame(N);
                         selected = false;
