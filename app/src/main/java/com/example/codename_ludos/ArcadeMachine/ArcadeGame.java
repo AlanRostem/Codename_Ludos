@@ -1,5 +1,6 @@
 package com.example.codename_ludos.ArcadeMachine;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.Audio.Music;
@@ -35,6 +36,7 @@ public class ArcadeGame extends EntityManager {
     public void start() {
         mStarted = true;
         setup();
+        //Log.i("Game started", id);
     }
 
     public void onExit() {

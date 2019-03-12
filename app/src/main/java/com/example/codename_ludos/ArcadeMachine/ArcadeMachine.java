@@ -1,6 +1,7 @@
 package com.example.codename_ludos.ArcadeMachine;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.Graphics.Shapes;
@@ -76,7 +77,7 @@ public class ArcadeMachine {
         currentGameID = gameID;
         setCurrentState(MachineState.in_game);
         games.get(currentGameID).start();
-        // TODO: Add user friendly ways to stop a game
+        Log.i("Game entered", gameID);
     }
 
     public static void exitGame() {
@@ -109,7 +110,9 @@ public class ArcadeMachine {
             final String N = n;
             controls.createController(n, new Button(controls, n, 240, 250 + getGameIDList().indexOf(n) * 200, 600, 100) {
                 public void onPressed(float x, float y) {
-                    ArcadeMachine.enterGame(N);
+                    if (!getCurrentGame().isStarted()) {
+                        ArcadeMachine.enterGame(N);
+                    }
                 }
 
                 public void draw() {

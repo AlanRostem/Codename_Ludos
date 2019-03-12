@@ -1,6 +1,7 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
@@ -73,12 +74,10 @@ public class Surge extends ArcadeGame {
 
             public void onPressed(float x, float y) {
                 color = Color.BLUE;
-                //dude.jumpNow = true;
             }
 
             public void onReleased(float x, float y) {
                 color = Color.GREEN;
-                //dude.jumpNow = false;
             }
 
             public void draw() {
@@ -91,10 +90,6 @@ public class Surge extends ArcadeGame {
 
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
-                //dude.addX(speed);
-                //dude.right = true;
-                //dude.left = false;
-                //dude.walk = true;
             }
 
             public void onReleased(float x, float y) {
@@ -111,10 +106,6 @@ public class Surge extends ArcadeGame {
 
             public void onHolding(float x, float y) {
                 color = Color.BLUE;
-                //dude.addX(-speed);
-                //dude.left = true;
-                //dude.right = false;
-                //dude.walk = true;
             }
 
             public void onReleased(float x, float y) {
