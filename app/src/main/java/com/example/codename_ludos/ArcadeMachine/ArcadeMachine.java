@@ -105,10 +105,9 @@ public class ArcadeMachine {
         createGame("Surge", new Surge());
         createGame("Lodestone", new Lodestone());
 
-        int i = 0;
         for (String n : getGameIDList()) {
             final String N = n;
-            controls.createController(n, new Button(controls, n, 240, 250 + i * 200, 600, 100) {
+            controls.createController(n, new Button(controls, n, 240, 250 + getGameIDList().indexOf(n) * 200, 600, 100) {
                 public void onPressed(float x, float y) {
                     ArcadeMachine.enterGame(N);
                 }
@@ -120,7 +119,6 @@ public class ArcadeMachine {
                     MainThread.canvas.drawText(N, this.pos.x, this.pos.y, GamePanel.paint);
                 }
             });
-            i++;
         }
 
         rawImageWidth = arcadeImage.getImageWidth();
