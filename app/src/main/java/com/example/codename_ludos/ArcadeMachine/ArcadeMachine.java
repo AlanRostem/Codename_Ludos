@@ -114,8 +114,9 @@ public class ArcadeMachine {
                 }
 
                 public void draw() {
-                    Shapes.setColor(Color.RED);
+                    Shapes.setColor(Color.BLUE);
                     Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                    GamePanel.paint.setColor(Color.WHITE);
                     MainThread.canvas.drawText(N, this.pos.x, this.pos.y, GamePanel.paint);
                 }
             });
