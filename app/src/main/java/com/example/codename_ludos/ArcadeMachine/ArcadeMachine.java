@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Assets.Graphics.Text;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Core.GamePanel;
@@ -118,8 +119,7 @@ public class ArcadeMachine {
                 public void draw() {
                     Shapes.setColor(Color.BLUE);
                     Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
-                    GamePanel.paint.setColor(Color.WHITE);
-                    MainThread.canvas.drawText(N, this.pos.x, this.pos.y, GamePanel.paint);
+                    Text.draw(N, Color.WHITE, 60, this.pos.x, this.pos.y);
                 }
             });
         }
