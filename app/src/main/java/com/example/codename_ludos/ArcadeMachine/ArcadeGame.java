@@ -1,12 +1,12 @@
 package com.example.codename_ludos.ArcadeMachine;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.Audio.Music;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Entity.EntityManager;
+import com.example.codename_ludos.UserInterface.PauseMenu;
 
 import java.util.ArrayList;
 

@@ -1,28 +1,28 @@
-package com.example.codename_ludos.ArcadeMachine;
+package com.example.codename_ludos.UserInterface;
 
 import android.graphics.Color;
 
+import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
+import com.example.codename_ludos.Assets.Graphics.Text;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 
-public class PauseMenu {
+public class PauseMenu extends Controls {
 
-    Controls controls;
     ArcadeGame myGame;
 
     public PauseMenu(ArcadeGame game) {
-        controls = new Controls();
         myGame = game;
         // TODO: Make a real button dude
-        controls.createController("returnToArcadeMachine", new Button(controls, "returnToArcadeMachine",100 + 900/2 - 700/2, 320 + 50, 700, 100) {
+        createController("returnToArcadeMachine", new Button(this, "returnToArcadeMachine",100 + 900/2 - 700/2, 320 + 50, 700, 100) {
             public void draw() {
                 Shapes.setColor(Color.argb(1f, 1f, 0f, 1f));
                 Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
-                GamePanel.paint.setColor(Color.WHITE);
-                MainThread.canvas.drawText("Return to menu", this.pos.x, this.pos.y, GamePanel.paint);
+                Text.draw("Return to menu", Color.WHITE, 60, this.pos.x, this.pos.y);
             }
 
             public void onPressed(float x, float y) {
@@ -34,7 +34,7 @@ public class PauseMenu {
 
     public void update() {
         if (myGame.isPaused()) {
-            controls.update();
+            super.update();
         }
     }
 
@@ -42,7 +42,7 @@ public class PauseMenu {
         if (myGame.isPaused()) {
             Shapes.setColor(Color.argb(0.5f, 1f, 1f, 1f));
             Shapes.drawRect(100, 320, 900, 500);
-            controls.draw();
+            super.draw();
         }
     }
 }
