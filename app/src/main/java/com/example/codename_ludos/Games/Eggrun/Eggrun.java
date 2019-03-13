@@ -34,7 +34,7 @@ public class Eggrun extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(pos.x, pos.y, getWidth(), getHeight());
+                Shapes.drawRect(outPutPos.x, outPutPos.y, getWidth(), getHeight());
             }
         });
 
@@ -51,7 +51,7 @@ public class Eggrun extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(pos.x, pos.y, getWidth(), getHeight());
+                Shapes.drawRect(outPutPos.x, outPutPos.y, getWidth(), getHeight());
             }
         });
 
@@ -69,7 +69,7 @@ public class Eggrun extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(pos.x, pos.y, getWidth(), getHeight());
+                Shapes.drawRect(outPutPos.x, outPutPos.y, getWidth(), getHeight());
             }
         });
 
@@ -87,7 +87,7 @@ public class Eggrun extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(pos.x, pos.y, getWidth(), getHeight());
+                Shapes.drawRect(outPutPos.x, outPutPos.y, getWidth(), getHeight());
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
@@ -82,7 +81,7 @@ public class Surge extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
         controls.createController("left", new Button(controls, "left", 140 , 1500, 100, 100) {
@@ -98,7 +97,7 @@ public class Surge extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
         controls.createController("right", new Button(controls, "right",250, 1500, 100, 100) {
@@ -114,7 +113,7 @@ public class Surge extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
     }

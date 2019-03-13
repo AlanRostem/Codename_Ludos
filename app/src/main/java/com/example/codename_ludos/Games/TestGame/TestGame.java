@@ -38,7 +38,7 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
         controls.createController("left", new Button(controls, "left",140, 1500, 100, 100) {
@@ -58,7 +58,7 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
         controls.createController("right", new Button(controls, "left",250, 1500, 100, 100) {
@@ -78,7 +78,7 @@ public class TestGame extends ArcadeGame {
 
             public void draw() {
                 Shapes.setColor(color);
-                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
+                Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
     }

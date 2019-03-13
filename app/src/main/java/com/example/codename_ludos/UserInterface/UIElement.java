@@ -2,11 +2,10 @@ package com.example.codename_ludos.UserInterface;
 
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
-import java.util.ArrayList;
-
 public class UIElement {
 
-    protected Vector2D pos;
+    protected Vector2D outPutPos;
+    protected Vector2D initalPos;
     protected UIContainer parent;
     protected String ID;
     protected int width;
@@ -16,7 +15,8 @@ public class UIElement {
     float margin = 0;
 
     public UIElement(UIContainer parent, String id, float x, float y, int width, int height) {
-        pos = new Vector2D(parent.pos.x + x, parent.pos.y + y);
+        initalPos = new Vector2D(x, y);
+        outPutPos = new Vector2D(parent.outPutPos.x + x, parent.outPutPos.y + y);
         this.parent = parent;
         ID = id;
         this.width = width;
@@ -24,7 +24,8 @@ public class UIElement {
     }
 
     public UIElement(String id, float x, float y, int width, int height) {
-        pos = new Vector2D(x, y);
+        initalPos = new Vector2D(x, y);
+        outPutPos = new Vector2D(x, y);
         ID = id;
         this.width = width;
         this.height = height;
@@ -42,8 +43,8 @@ public class UIElement {
         return width;
     }
 
-    public Vector2D getPos() {
-        return pos;
+    public Vector2D getOutPutPos() {
+        return outPutPos;
     }
 
     public String getID() {
@@ -63,11 +64,11 @@ public class UIElement {
     }
 
     public void setX(float x) {
-        pos.x = x + margin;
+        outPutPos.x = x + margin;
     }
 
     public void setY(float y) {
-        pos.y = y + margin;
+        outPutPos.y = y + margin;
     }
 
     public void setParent(UIContainer parent) {
@@ -76,12 +77,12 @@ public class UIElement {
 
     public void setPos(float x, float y) {
         if (hasParent()) {
-            pos.x = parent.pos.x + parent.padding + x + margin;
-            pos.y = parent.pos.y + parent.padding + y + margin;
+            outPutPos.x = parent.outPutPos.x + parent.padding + x + margin;
+            outPutPos.y = parent.outPutPos.y + parent.padding + y + margin;
             return;
         }
-        pos.x = x + margin;
-        pos.y = y + margin;
+        outPutPos.x = x + margin;
+        outPutPos.y = y + margin;
     }
 
     public float getMargin() {
@@ -105,6 +106,6 @@ public class UIElement {
     }
 
     public void update() {
-
+        
     }
 }

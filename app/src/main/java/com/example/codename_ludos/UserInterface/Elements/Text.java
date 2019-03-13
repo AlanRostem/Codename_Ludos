@@ -1,15 +1,10 @@
 package com.example.codename_ludos.UserInterface.Elements;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
 
 import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.Core.GamePanel;
-import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.UserInterface.UIContainer;
 import com.example.codename_ludos.UserInterface.UIElement;
 
@@ -37,7 +32,7 @@ public class Text extends UIElement {
 
     @Override
     public void draw() {
-        TextDrawer.draw(diplayText, color, fontSize, pos.x, pos.y);
+        TextDrawer.draw(diplayText, color, fontSize, outPutPos.x, outPutPos.y);
         GamePanel.paint.getTextBounds(diplayText, 0, diplayText.length(), bounds);
         width = bounds.right;
         height = (int)fontSize;

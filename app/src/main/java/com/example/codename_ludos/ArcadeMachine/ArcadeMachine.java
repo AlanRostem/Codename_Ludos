@@ -1,14 +1,12 @@
 package com.example.codename_ludos.ArcadeMachine;
 
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Graphics.TextDrawer;
-import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
@@ -18,8 +16,6 @@ import com.example.codename_ludos.Games.Lodestone.Lodestone;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
 import com.example.codename_ludos.UserInterface.Elements.ScrollList;
-import com.example.codename_ludos.UserInterface.Elements.Text;
-import com.example.codename_ludos.UserInterface.UIContainer;
 import com.example.codename_ludos.UserInterface.UIElement;
 
 import java.util.ArrayList;
@@ -153,8 +149,8 @@ public class ArcadeMachine {
                         color = Color.WHITE;
                     }
                     Shapes.setColor(Color.BLUE);
-                    Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
-                    TextDrawer.draw(N, color, 60, this.pos.x, this.pos.y);
+                    Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
+                    TextDrawer.draw(N, color, 60, this.outPutPos.x, this.outPutPos.y);
                 }
             });
         }
@@ -164,7 +160,7 @@ public class ArcadeMachine {
         for (String n : getGameIDList()) {
             final String N = n;
             scrollList.append(n, new Button(controls, n, 240,
-                    (int)scrollList.getPos().y + getGameIDList().indexOf(n) * ((int)scrollList.getElementDistance() + 100),
+                    (int)scrollList.getOutPutPos().y + getGameIDList().indexOf(n) * ((int)scrollList.getElementDistance() + 100),
                             600, 100) {
                 int color = Color.WHITE;
                 boolean enteredGame = false;
@@ -195,8 +191,8 @@ public class ArcadeMachine {
                         color = Color.WHITE;
                     }
                     Shapes.setColor(Color.BLUE);
-                    Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
-                    TextDrawer.draw(N, color, 60, this.pos.x, this.pos.y);
+                    Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
+                    TextDrawer.draw(N, color, 60, this.outPutPos.x, this.outPutPos.y);
                 }
             });
         }

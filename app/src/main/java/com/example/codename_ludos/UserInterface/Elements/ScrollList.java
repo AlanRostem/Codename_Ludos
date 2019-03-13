@@ -1,15 +1,8 @@
 package com.example.codename_ludos.UserInterface.Elements;
 
-import android.graphics.Color;
-import android.util.Log;
-import android.view.MotionEvent;
-
-import com.example.codename_ludos.Assets.Graphics.Shapes;
-import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
-import com.example.codename_ludos.UserInterface.Controllers.Touchable;
 import com.example.codename_ludos.UserInterface.Finger;
 import com.example.codename_ludos.UserInterface.UIContainer;
 import com.example.codename_ludos.UserInterface.UIElement;
@@ -26,10 +19,10 @@ public class ScrollList extends UIContainer {
     public boolean oneFingerOverlap(Finger pos) {
         float sx = Constants.SCREEN_SCALE_X;
         float sy = Constants.SCREEN_SCALE_Y;
-        return pos.getY() > this.pos.y * sy
-                &&  pos.getY() < (this.pos.y + this.height) * sy
-                && pos.getX() > this.pos.x * sx
-                &&  pos.getX() < (this.pos.x + this.width) * sx
+        return pos.getY() > this.outPutPos.y * sy
+                &&  pos.getY() < (this.outPutPos.y + this.height) * sy
+                && pos.getX() > this.outPutPos.x * sx
+                &&  pos.getX() < (this.outPutPos.x + this.width) * sx
                 && pos.isDown();
     }
 
@@ -47,7 +40,7 @@ public class ScrollList extends UIContainer {
                 startPos.set(f.x, f.y);
                 fingOnScreen = true;
                 for (UIElement u : childContainer) {
-                    oldPositions.add(u.getPos().y);
+                    oldPositions.add(u.getOutPutPos().y);
                 }
             } else {
                 UIElement first = childContainer.get(0);
@@ -58,27 +51,11 @@ public class ScrollList extends UIContainer {
                     u.setY(oldPositions.get(i) + (f.y - startPos.y));
                     i++;
                 }
-                if (last.getPos().y + last.getHeight() < pos.y + height) {
-                    last.setY(pos.y + height - last.getHeight());
-                    if (first.getPos().y < pos.y)
-                        try {
-                            for (int j = childContainer.size() - 1; j > 0; j--) {
-                            childContainer.get(j).setY(
-                                    childContainer.get(j + 1).getPos().y -
-                                            childContainer.get(j + 1).getHeight() -
-                                            elementDistance);
-                            }
-                        } catch (Exception e) { }
+                if (last.getOutPutPos().y + last.getHeight() < outPutPos.y + height) {
+                    last.setY(outPutPos.y + height - last.getHeight());
                 }
-                if (first.getPos().y > pos.y) {
-                    first.setY(pos.y);
-                    if (last.getPos().y + last.getHeight() > pos.y + height)
-                        for (int j = 1; j < childContainer.size(); j++) {
-                            childContainer.get(j).setY(
-                                    childContainer.get(j-1).getPos().y +
-                                            childContainer.get(j-1).getHeight() +
-                                            elementDistance);
-                        }
+                if (first.getOutPutPos().y > outPutPos.y) {
+                    first.setY(outPutPos.y);
                 }
             }
         } else {
@@ -103,6 +80,6 @@ public class ScrollList extends UIContainer {
     public void draw() {
         super.draw();
         //Shapes.setColor(Color.argb(0.5f, 1f,1f,1f));
-        //Shapes.drawRect(this.pos.x, this.pos.y, this.width, this.height);
+        //Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.width, this.height);
     }
 }

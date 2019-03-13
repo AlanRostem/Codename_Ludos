@@ -3,9 +3,7 @@ package com.example.codename_ludos.UserInterface.Controllers;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.UserInterface.Finger;
 import com.example.codename_ludos.LibraryTools.Constants;
-import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.UserInterface.UIContainer;
-import com.example.codename_ludos.UserInterface.UIElement;
 
 public class Touchable extends UIContainer {
     // Subclass for buttons, joysticks, etc.
@@ -19,9 +17,9 @@ public class Touchable extends UIContainer {
         this.height = height;
     }
 
-    public float getX() { return pos.x; }
+    public float getX() { return outPutPos.x; }
 
-    public float getY() { return pos.y; }
+    public float getY() { return outPutPos.y; }
 
     public int getHeight() {
         return height;

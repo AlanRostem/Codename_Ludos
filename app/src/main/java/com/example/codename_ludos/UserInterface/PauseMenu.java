@@ -19,8 +19,8 @@ public class PauseMenu extends Controls {
         createController("returnToArcadeMachine", new Button(this, "returnToArcadeMachine",100 + 900/2 - 700/2, 320 + 50, 700, 100) {
             public void draw() {
                 Shapes.setColor(Color.argb(1f, 1f, 0f, 1f));
-                Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
-                TextDrawer.draw("Return to menu", Color.WHITE, 60, this.pos.x, this.pos.y);
+                Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
+                TextDrawer.draw("Return to menu", Color.WHITE, 60, this.outPutPos.x, this.outPutPos.y);
             }
 
             public void onPressed(float x, float y) {

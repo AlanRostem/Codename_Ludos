@@ -12,18 +12,18 @@ public class Divider extends UIContainer {
     public void update() {
         for (UIElement u : childContainer) {
             u.update();
-            if (u.getPos().x + u.getWidth() > pos.x + width) {
-                u.setX(pos.x + width - u.getWidth());
+            if (u.getOutPutPos().x + u.getWidth() > outPutPos.x + width) {
+                u.setX(outPutPos.x + width - u.getWidth());
             }
-            if (u.getPos().x < pos.x) {
-                u.setX(pos.x);
+            if (u.getOutPutPos().x < outPutPos.x) {
+                u.setX(outPutPos.x);
             }
 
-            if (u.getPos().y + u.getHeight() > pos.y + height) {
-                u.setY(pos.y + height - u.getHeight());
+            if (u.getOutPutPos().y + u.getHeight() > outPutPos.y + height) {
+                u.setY(outPutPos.y + height - u.getHeight());
             }
-            if (u.getPos().y < pos.y) {
-                u.setY(pos.y);
+            if (u.getOutPutPos().y < outPutPos.y) {
+                u.setY(outPutPos.y);
             }
         }
     }
