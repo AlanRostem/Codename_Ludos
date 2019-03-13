@@ -1,22 +1,24 @@
 package com.example.codename_ludos.ArcadeMachine;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
-import com.example.codename_ludos.Assets.Graphics.Text;
+import com.example.codename_ludos.Assets.Graphics.TextDrawer;
+import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
-import com.example.codename_ludos.Core.GamePanel;
-import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.Games.TestGame.TestGame;
 import com.example.codename_ludos.Games.Lodestone.Lodestone;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
+import com.example.codename_ludos.UserInterface.Elements.Text;
+import com.example.codename_ludos.UserInterface.UIContainer;
 import com.example.codename_ludos.UserInterface.UIElement;
 
 import java.util.ArrayList;
@@ -108,6 +110,8 @@ public class ArcadeMachine {
         createGame("Surge", new Surge());
         createGame("Lodestone", new Lodestone());
 
+        //controls.append("oisk", new Text(controls, "oisk", "BOOBS!", 320, 320, 100));
+
         for (String n : getGameIDList()) {
             final String N = n;
             controls.createController(n, new Button(controls, n, 240, 250 + getGameIDList().indexOf(n) * 200, 600, 100) {
@@ -121,7 +125,7 @@ public class ArcadeMachine {
                         selected = false;
                         enteredGame = true;
                     }
-                    for (UIElement b : ArcadeMachine.controls.getChildContainer()) {
+                    for (UIElement b : ArcadeMachine.controls.getChildNodes()) {
                         if (b != this) {
                             ((Button) b).selected = false;
                         }
@@ -141,7 +145,7 @@ public class ArcadeMachine {
                     }
                     Shapes.setColor(Color.BLUE);
                     Shapes.drawRect(this.pos.x, this.pos.y, this.getWidth(), this.getHeight());
-                    Text.draw(N, color, 60, this.pos.x, this.pos.y);
+                    TextDrawer.draw(N, color, 60, this.pos.x, this.pos.y);
                 }
             });
         }

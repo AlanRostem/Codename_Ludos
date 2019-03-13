@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class UIElement {
 
     protected Vector2D pos;
-    protected UIElement parent;
+    protected UIContainer parent;
     protected String ID;
     protected int width;
     protected int height;
@@ -49,6 +49,36 @@ public class UIElement {
 
     public boolean hasParent() {
         return parent == null;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setX(float x) {
+        pos.x = x;
+    }
+
+    public void setY(float y) {
+        pos.y = y;
+    }
+
+    public void setParent(UIContainer parent) {
+        this.parent = parent;
+    }
+
+    public void setPos(float x, float y) {
+        if (hasParent()) {
+            pos.x = parent.pos.x + x;
+            pos.y = parent.pos.y + y;
+            return;
+        }
+        pos.x = x;
+        pos.y = y;
     }
 
     public void draw() {

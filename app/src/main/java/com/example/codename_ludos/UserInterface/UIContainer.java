@@ -13,13 +13,16 @@ public class UIContainer extends UIElement {
         childMap = new HashMap<>();
     }
 
-    public UIElement get(String id) {
-        return childMap.get(id);
+    public UIContainer(UIContainer parent, String id, float x, float y, int width, int height) {
+        super(parent, id, x, y, width, height);
+        childContainer = new ArrayList<>();
+        childMap = new HashMap<>();
     }
 
     public void append(String id, UIElement element) {
         childContainer.add(element);
         childMap.put(id, element);
+        element.setParent(this);
     }
 
     public void remove(String id) {
@@ -27,7 +30,11 @@ public class UIContainer extends UIElement {
         childMap.remove(id);
     }
 
-    public ArrayList<UIElement> getChildContainer() {
+    public UIElement getElementByID(String id) {
+        return childMap.get(id);
+    }
+
+    public ArrayList<UIElement> getChildNodes() {
         return childContainer;
     }
 
@@ -44,6 +51,4 @@ public class UIContainer extends UIElement {
             u.update();
         }
     }
-
-
 }

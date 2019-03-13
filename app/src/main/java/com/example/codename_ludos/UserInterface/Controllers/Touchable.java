@@ -7,7 +7,7 @@ import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.UserInterface.UIContainer;
 import com.example.codename_ludos.UserInterface.UIElement;
 
-public class Touchable extends UIElement {
+public class Touchable extends UIContainer {
     // Subclass for buttons, joysticks, etc.
 
     private int width;
