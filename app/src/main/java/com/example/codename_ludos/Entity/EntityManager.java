@@ -23,7 +23,9 @@ public class EntityManager {
     }
 
     // Returns GameEntity in objects
-    public GameEntity getEntity(int index){ return objects.get(index); }
+    public GameEntity getEntity(int index) {
+        return objects.get(index);
+    }
 
     // Calls the 'update' methods of all GameObjects
     public void updateEntities() {

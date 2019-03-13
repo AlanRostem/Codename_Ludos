@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class ScrollList extends UIContainer {
     public ScrollList(UIContainer parent, String id, float x, float y, int width, int height) {
         super(parent, id, x, y, width, height);
-
     }
 
     private float elementDistance;
@@ -36,6 +35,7 @@ public class ScrollList extends UIContainer {
 
 
     boolean fingOnScreen = false;
+    boolean canScroll = true;
     Vector2D startPos = new Vector2D(-1, -1);
     ArrayList<Float> oldPositions = new ArrayList<>();
 
@@ -50,26 +50,35 @@ public class ScrollList extends UIContainer {
                     oldPositions.add(u.getPos().y);
                 }
             } else {
-                int i = 0;
                 UIElement first = childContainer.get(0);
                 UIElement last = childContainer.get(childContainer.size() - 1);
 
-                if (first.getPos().y < pos.y &&
-                        last.getPos().y + last.getHeight() > pos.y + height) {
-                    for (UIElement u : childContainer) {
-                        u.setY(oldPositions.get(i) + (f.y - startPos.y));
-                        i++;
-                    }
-                } else {
-                    if (first.getPos().y > pos.y) {
-                        first.setY(pos.y+1);
+                int i = 0;
+                for (UIElement u : childContainer) {
+                    u.setY(oldPositions.get(i) + (f.y - startPos.y));
+                    i++;
+                }
+                if (last.getPos().y + last.getHeight() < pos.y + height) {
+                    last.setY(pos.y + height - last.getHeight());
+                    if (first.getPos().y < pos.y)
+                        try {
+                            for (int j = childContainer.size() - 1; j > 0; j--) {
+                            childContainer.get(j).setY(
+                                    childContainer.get(j + 1).getPos().y -
+                                            childContainer.get(j + 1).getHeight() -
+                                            elementDistance);
+                            }
+                        } catch (Exception e) { }
+                }
+                if (first.getPos().y > pos.y) {
+                    first.setY(pos.y);
+                    if (last.getPos().y + last.getHeight() > pos.y + height)
                         for (int j = 1; j < childContainer.size(); j++) {
                             childContainer.get(j).setY(
                                     childContainer.get(j-1).getPos().y +
-                                    childContainer.get(j-1).getHeight() +
-                                    elementDistance);
+                                            childContainer.get(j-1).getHeight() +
+                                            elementDistance);
                         }
-                    }
                 }
             }
         } else {
@@ -93,7 +102,7 @@ public class ScrollList extends UIContainer {
     @Override
     public void draw() {
         super.draw();
-        Shapes.setColor(Color.argb(0.5f, 1f,1f,1f));
-        Shapes.drawRect(this.pos.x, this.pos.y, this.width, this.height);
+        //Shapes.setColor(Color.argb(0.5f, 1f,1f,1f));
+        //Shapes.drawRect(this.pos.x, this.pos.y, this.width, this.height);
     }
 }

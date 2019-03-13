@@ -164,7 +164,7 @@ public class ArcadeMachine {
         for (String n : getGameIDList()) {
             final String N = n;
             scrollList.append(n, new Button(controls, n, 240,
-                            240 + getGameIDList().indexOf(n) * ((int)scrollList.getElementDistance() + 100),
+                    (int)scrollList.getPos().y + getGameIDList().indexOf(n) * ((int)scrollList.getElementDistance() + 100),
                             600, 100) {
                 int color = Color.WHITE;
                 boolean enteredGame = false;
