@@ -12,6 +12,9 @@ public class UIElement {
     protected int width;
     protected int height;
 
+    float padding = 0;
+    float margin = 0;
+
     public UIElement(UIContainer parent, String id, float x, float y, int width, int height) {
         pos = new Vector2D(parent.pos.x + x, parent.pos.y + y);
         this.parent = parent;
@@ -60,11 +63,11 @@ public class UIElement {
     }
 
     public void setX(float x) {
-        pos.x = x;
+        pos.x = x + margin;
     }
 
     public void setY(float y) {
-        pos.y = y;
+        pos.y = y + margin;
     }
 
     public void setParent(UIContainer parent) {
@@ -73,12 +76,28 @@ public class UIElement {
 
     public void setPos(float x, float y) {
         if (hasParent()) {
-            pos.x = parent.pos.x + x;
-            pos.y = parent.pos.y + y;
+            pos.x = parent.pos.x + parent.padding + x + margin;
+            pos.y = parent.pos.y + parent.padding + y + margin;
             return;
         }
-        pos.x = x;
-        pos.y = y;
+        pos.x = x + margin;
+        pos.y = y + margin;
+    }
+
+    public float getMargin() {
+        return margin;
+    }
+
+    public float getPadding() {
+        return padding;
+    }
+
+    public void setMargin(float margin) {
+        this.margin = margin;
+    }
+
+    public void setPadding(float padding) {
+        this.padding = padding;
     }
 
     public void draw() {

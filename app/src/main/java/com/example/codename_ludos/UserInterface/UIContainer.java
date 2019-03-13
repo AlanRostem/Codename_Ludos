@@ -7,6 +7,8 @@ public class UIContainer extends UIElement {
     protected ArrayList<UIElement> childContainer;
     protected HashMap<String, UIElement> childMap;
 
+
+
     public UIContainer(String id, float x, float y, int width, int height) {
         super(id, x, y, width, height);
         childContainer = new ArrayList<>();

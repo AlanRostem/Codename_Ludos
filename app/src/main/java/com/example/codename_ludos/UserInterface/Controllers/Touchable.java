@@ -13,7 +13,7 @@ public class Touchable extends UIContainer {
     private int width;
     private int height;
 
-    public Touchable(UIContainer parent, String ID, int x, int y, int width, int height) {
+    public Touchable(UIContainer parent, String ID, float x, float y, int width, int height) {
         super(parent, ID, x, y, width, height);
         this.width = width;
         this.height = height;
