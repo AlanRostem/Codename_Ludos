@@ -8,7 +8,8 @@ public class Egg extends EggrunEntity {
     private float gravity = 25f * 800f;
 
     public Egg(){
-        super(20*gameMap.tileSize,1*gameMap.tileSize, 80, 80);
+        super(20*gameMap.tileSize,2*gameMap.tileSize, 80, 80);
+        mVel.setX(-500f);
     }
 
     private void outOfScreen(){
@@ -18,17 +19,10 @@ public class Egg extends EggrunEntity {
     }
 
     public void update() {
-
-        mVel.setX(-500f);
-        mVel.addY(gravity);
-
-
-
-            mVel.x = -500f;
-
         side.reset();
+        mVel.setX(-500f);
 
-        accelerate();
+        accelerateY(gravity);
 
         moveX(mVel.x);
         manageTileCollisionX(gameMap.level,1);
