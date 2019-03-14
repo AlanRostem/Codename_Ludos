@@ -56,13 +56,14 @@ public class EggrunEntity extends GameEntity {
 
                 if (tile.ID >= minSolidTileID) {
                     if (overlap(tile, map.getTileSize())) {
-                            if (mPos.x + width > tile.x(map.getTileSize(), offSettX) && x >= (width/map.getTileSize() + 2)/2) {
+                        if(mVel.x >= 0)
+                            if (mPos.x + width > tile.x(map.getTileSize(), offSettX)) {
                                 mVel.x = 0;
                                 mPos.x = tile.x(map.getTileSize(), offSettX) - width;
                                 side.right = true;
                             }
-
-                            if (mPos.x <= tile.x(map.getTileSize(), offSettX) + map.getTileSize() && x < (width/map.getTileSize() + 2)/2) {
+                        if(mVel.x < 0)
+                            if (mPos.x < tile.x(map.getTileSize(), offSettX) + map.getTileSize()) {
                                 mVel.x = 0;
                                 mPos.x = tile.x(map.getTileSize(), offSettX) + map.getTileSize();
                                 side.left = true;
@@ -100,14 +101,14 @@ public class EggrunEntity extends GameEntity {
                 if (tile.ID >= minSolidTileID) {
                     if (overlap(tile, map.getTileSize())) {
                         if (mVel.y > 0.f)
-                            if (mPos.y + height >= tile.y(map.getTileSize(), offSettY) && y >= (height/map.getTileSize() + 2)/2) {
-                                mPos.y = tile.y(map.getTileSize(), offSettY) - height;
+                            if (mPos.y + height > tile.y(map.getTileSize(), offSettY)) {
                                 mVel.y = 0;
+                                mPos.y = tile.y(map.getTileSize(), offSettY) - height;
                                 side.bottom = true;
                             }
 
                        if (mVel.y < 0.f)
-                            if (mPos.y <= tile.y(map.getTileSize(), offSettY) + map.getTileSize() && y < (height/map.getTileSize() + 2)/2) {
+                            if (mPos.y < tile.y(map.getTileSize(), offSettY) + map.getTileSize()) {
                                 mVel.y = 0;
                                 mPos.y = tile.y(map.getTileSize(), offSettY) + map.getTileSize();
                                 side.top = true;
