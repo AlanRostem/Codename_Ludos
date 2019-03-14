@@ -43,6 +43,10 @@ public class GameEntity {
 
     public void remove() {
         toRemove = true;
+        onRemoved();
+    }
+    public void onRemoved() {
+
     }
 
     public boolean isRemoved() {

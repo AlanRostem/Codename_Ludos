@@ -5,14 +5,13 @@ import com.example.codename_ludos.Assets.Graphics.Shapes;
 
 public class Egg extends EggrunEntity {
 
-    private float gravity = 25f * 800f;
+    private float gravity = 25f * 400f;
 
     public Egg(){
-        super(20*gameMap.tileSize,2*gameMap.tileSize, 80, 80);
-        mVel.setX(-500f);
+        super(26*gameMap.tileSize,0, 80, 80);
     }
 
-    private void outOfScreen(){
+    private void outOfScreen() {
         if (mPos.x < 0) {
             remove();
         }
@@ -20,7 +19,7 @@ public class Egg extends EggrunEntity {
 
     public void update() {
         side.reset();
-        mVel.setX(-500f);
+        mVel.setX(-800f);
 
         accelerateY(gravity);
 
