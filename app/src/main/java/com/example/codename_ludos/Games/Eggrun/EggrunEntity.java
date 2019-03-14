@@ -36,15 +36,13 @@ public class EggrunEntity extends GameEntity {
         int offSettY = ArcadeMachine.SCREEN_OFFSET_Y;
         int cx = (int)(mPos.x - offSettX) / map.getTileSize();
         int cy = (int)(mPos.y - offSettY) / map.getTileSize();
-        int ox = -1;
-        int oy = 0;
 
         GameTile tile = new GameTile(0, 0);
 
         for (int y = -1; y < height/map.getTileSize() + 1; y++) {
             for (int x = -1; x < width/map.getTileSize() + 1; x++) {
-                int xx = cx + ox;
-                int yy = cy + oy;
+                int xx = cx + x;
+                int yy = cy + y;
 
                 tile.cx = xx;
                 tile.cy = yy;
@@ -56,10 +54,7 @@ public class EggrunEntity extends GameEntity {
                     tile.ID = 0;
                 }
 
-
-
                 if (tile.ID >= minSolidTileID) {
-
                     if (overlap(tile, map.getTileSize())) {
                             if (mPos.x + width > tile.x(map.getTileSize(), offSettX) && x >= (width/map.getTileSize() + 2)/2) {
                                 mVel.x = 0;
@@ -74,9 +69,7 @@ public class EggrunEntity extends GameEntity {
                             }
                     }
                 }
-                ox++;
             }
-            ox = -1; oy++;
         }
     }
 
@@ -86,15 +79,13 @@ public class EggrunEntity extends GameEntity {
         int offSettY = ArcadeMachine.SCREEN_OFFSET_Y;
         int cx = (int)(mPos.x - offSettX) / map.getTileSize();
         int cy = (int)(mPos.y - offSettY) / map.getTileSize();
-        int ox = 0;
-        int oy = -1;
 
         GameTile tile = new GameTile(0, 0);
 
         for (int y = -1; y < height/map.getTileSize() + 1; y++) {
             for (int x = -1; x < width/map.getTileSize() + 1; x++) {
-                int xx = cx + ox;
-                int yy = cy + oy;
+                int xx = cx + x;
+                int yy = cy + y;
 
                 tile.cx = xx;
                 tile.cy = yy;
@@ -107,7 +98,6 @@ public class EggrunEntity extends GameEntity {
                 }
 
                 if (tile.ID >= minSolidTileID) {
-
                     if (overlap(tile, map.getTileSize())) {
                         if (mVel.y > 0.f)
                             if (mPos.y + height >= tile.y(map.getTileSize(), offSettY) && y >= (height/map.getTileSize() + 2)/2) {
@@ -115,6 +105,7 @@ public class EggrunEntity extends GameEntity {
                                 mVel.y = 0;
                                 side.bottom = true;
                             }
+
                        if (mVel.y < 0.f)
                             if (mPos.y <= tile.y(map.getTileSize(), offSettY) + map.getTileSize() && y < (height/map.getTileSize() + 2)/2) {
                                 mVel.y = 0;
@@ -123,9 +114,7 @@ public class EggrunEntity extends GameEntity {
                             }
                     }
                 }
-                ox++;
             }
-            ox = 0; oy++;
         }
     }
 
