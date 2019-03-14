@@ -22,7 +22,6 @@ public class GameMap {
     }
 
     SpriteMap tilemap = new SpriteMap(R.drawable.worldtiles);
-
     SpriteMap sky = new SpriteMap(R.drawable.sky);
     SpriteMap sky2 = new SpriteMap(R.drawable.sky2);
 
@@ -108,12 +107,10 @@ public class GameMap {
                 if(level.get(i).get(j)==0 && j<level.get(0).size()-1 && j>chunkWidth  && i < height-1)
                     if (level.get(i).get(j + 1) >  0 && level.get(i).get(j - 1) >  0) level.get(i).set(j, 1);
 
-
                 if(j==chunkWidth && i < height-1) {
                     if (level.get(i).get(j) == 0 && level.get(i).get(j + 1) >  0) level.get(i).set(j, 1);
                     if (level.get(i).get(j) >  0 && level.get(i + 1).get(j) == 0) level.get(i + 1).set(j, 1);
                     if (level.get(i).get(j) >  0 && level.get(i).get(j - 1) == 0) level.get(i).set(j, 0);
-
                 }
 
                 if(j==level.get(0).size()-1 &&  i < height-1) {

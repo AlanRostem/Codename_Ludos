@@ -109,7 +109,7 @@ public class EggrunEntity extends GameEntity {
                 try {
                     tile.ID = map.get(yy).get(xx);
                 }
-                catch (Exception e){
+                catch (Exception e) {
                     tile.ID = 0;
                 }
 
