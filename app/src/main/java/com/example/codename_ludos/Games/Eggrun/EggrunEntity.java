@@ -41,8 +41,8 @@ public class EggrunEntity extends GameEntity {
 
         GameTile tile = new GameTile(0, 0);
 
-        for (int y = 0; y < height/map.getTileSize(); y++) {
-            for (int x = 0; x < width/map.getTileSize() + 2; x++) {
+        for (int y = -1; y < height/map.getTileSize() + 1; y++) {
+            for (int x = -1; x < width/map.getTileSize() + 1; x++) {
                 int xx = cx + ox;
                 int yy = cy + oy;
 
@@ -56,26 +56,19 @@ public class EggrunEntity extends GameEntity {
                     tile.ID = 0;
                 }
 
-                Shapes.setColor(Color.DKGRAY);
-                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
-                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+
 
                 if (tile.ID >= minSolidTileID) {
 
                     if (overlap(tile, map.getTileSize())) {
-                       if (mVel.x >= 0)
-                            if (mPos.x + width >= tile.x(map.getTileSize(), offSettX) && x >= (width/map.getTileSize() + 2)/2) {
-                                Shapes.setColor(Color.RED);
-                                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
-                                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                            if (mPos.x + width > tile.x(map.getTileSize(), offSettX) && x >= (width/map.getTileSize() + 2)/2) {
+                                mVel.x = 0;
                                 mPos.x = tile.x(map.getTileSize(), offSettX) - width;
                                 side.right = true;
                             }
-                       if (mVel.x < 0)
+
                             if (mPos.x <= tile.x(map.getTileSize(), offSettX) + map.getTileSize() && x < (width/map.getTileSize() + 2)/2) {
-                                Shapes.setColor(Color.CYAN);
-                                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
-                                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                                mVel.x = 0;
                                 mPos.x = tile.x(map.getTileSize(), offSettX) + map.getTileSize();
                                 side.left = true;
                             }
@@ -98,8 +91,8 @@ public class EggrunEntity extends GameEntity {
 
         GameTile tile = new GameTile(0, 0);
 
-        for (int y = 0; y < height/map.getTileSize() + 2; y++) {
-            for (int x = 0; x < width/map.getTileSize(); x++) {
+        for (int y = -1; y < height/map.getTileSize() + 1; y++) {
+            for (int x = -1; x < width/map.getTileSize() + 1; x++) {
                 int xx = cx + ox;
                 int yy = cy + oy;
 
@@ -113,27 +106,18 @@ public class EggrunEntity extends GameEntity {
                     tile.ID = 0;
                 }
 
-                Shapes.setColor(Color.GRAY);
-                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
-                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
-
-
                 if (tile.ID >= minSolidTileID) {
 
                     if (overlap(tile, map.getTileSize())) {
-                       // if (mVel.y > 0.f)
+                        if (mVel.y > 0.f)
                             if (mPos.y + height >= tile.y(map.getTileSize(), offSettY) && y >= (height/map.getTileSize() + 2)/2) {
-                                Shapes.setColor(Color.MAGENTA);
-                                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
-                                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
                                 mPos.y = tile.y(map.getTileSize(), offSettY) - height;
+                                mVel.y = 0;
                                 side.bottom = true;
                             }
-                       // if (mVel.y < 0.f)
+                       if (mVel.y < 0.f)
                             if (mPos.y <= tile.y(map.getTileSize(), offSettY) + map.getTileSize() && y < (height/map.getTileSize() + 2)/2) {
-                                Shapes.setColor(Color.YELLOW);
-                                Shapes.drawRect(tile.cx * map.getTileSize() + offSettX,
-                                        tile.cy * map.getTileSize() + offSettY, map.getTileSize(), map.getTileSize());
+                                mVel.y = 0;
                                 mPos.y = tile.y(map.getTileSize(), offSettY) + map.getTileSize();
                                 side.top = true;
                             }
