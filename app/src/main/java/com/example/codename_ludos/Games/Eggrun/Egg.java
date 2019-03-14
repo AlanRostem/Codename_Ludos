@@ -8,11 +8,11 @@ public class Egg extends EggrunEntity {
     private float gravity = 25f * 800f;
 
     public Egg(){
-        super(1000,26*gameMap.tileSize, 80, 80);
+        super(20*gameMap.tileSize,1*gameMap.tileSize, 80, 80);
     }
 
     private void outOfScreen(){
-        if (mPos.x < 0){
+        if (mPos.x < 0) {
             remove();
         }
     }
@@ -24,9 +24,6 @@ public class Egg extends EggrunEntity {
 
 
 
-        if (side.right)
-            mVel.x = 0f;
-        else
             mVel.x = -500f;
 
         side.reset();
