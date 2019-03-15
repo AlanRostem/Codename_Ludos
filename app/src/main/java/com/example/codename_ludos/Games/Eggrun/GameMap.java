@@ -2,6 +2,7 @@ package com.example.codename_ludos.Games.Eggrun;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Entity.EntitySpawner;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.R;
 
@@ -10,8 +11,10 @@ import java.util.Random;
 
 
 public class GameMap {
+
     public GameMap()
     {
+
         for (int i = 0; i < height; i++) {
             level.add(new ArrayList<Integer>(width));
             for (int j = 0; j < width; j++) level.get(i).add(0);

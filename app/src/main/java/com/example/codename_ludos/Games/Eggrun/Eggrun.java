@@ -9,14 +9,30 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.BaseGummyCash;
+import com.example.codename_ludos.Entity.EntitySpawner;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
+
+import java.util.ArrayList;
 
 public class Eggrun extends ArcadeGame {
     private Ali ali;
     private GameMap map;
 
-    public Eggrun(){ super("Eggrun"); }
+    private EntitySpawner birdSpawner;
+
+
+    public Eggrun() {
+        super("Eggrun");
+        birdSpawner = new EntitySpawner(this, 0.5f,
+            0, ArcadeMachine.SCREEN_HEIGHT) {
+            @Override
+            public GameEntity create(float x, float y) {
+                return new Bird(x, y);
+            }
+        };
+
+    }
 
     @Override
     public void setup() {
@@ -25,6 +41,7 @@ public class Eggrun extends ArcadeGame {
 
         EggrunEntity.gameMap = map;
         spawnEntity(ali);
+        birdSpawner.setSpawnOffset(ArcadeMachine.SCREEN_OFFSET_X + ArcadeMachine.SCREEN_WIDTH, ArcadeMachine.SCREEN_OFFSET_Y);
 
         controls.createController("Jump", new Button(controls, "Jump",100, 1400, 200, 200){
             private int color = Color.GRAY;
@@ -84,6 +101,7 @@ public class Eggrun extends ArcadeGame {
             public void onPressed(float x, float y) {
                 color = Color.rgb(190,190,190);
                 spawnEntity(new Egg());
+                spawnEntity(new Bird(26*EggrunEntity.gameMap.tileSize, 200));
             }
 
             public void onReleased(float x, float y) {
@@ -97,20 +115,18 @@ public class Eggrun extends ArcadeGame {
         });
     }
 
-    float seconds = 10;
-
     @Override
     public void update() {
-        seconds += MainThread.getAverageDeltaTime();
-        if (seconds > 10f) {
-            seconds = 0;
-            BaseGummyCash cash = new BaseGummyCash(ArcadeMachine.SCREEN_OFFSET_X + ArcadeMachine.SCREEN_WIDTH,
-                    ArcadeMachine.SCREEN_OFFSET_Y + 300 * (float)Math.random());
-            cash.mVel.x = -70;
-            Log.i("GUMMY", "" + cash.mPos.x + "," + cash.mPos.y);
-            spawnEntity(cash);
+        float yPos = 0;
+        for (ArrayList<Integer> i : EggrunEntity.gameMap.level) {
+            if (i.get(i.size()-1) <= 1) {
+                yPos += EggrunEntity.gameMap.level.getTileSize();
+            }
         }
+        birdSpawner.setSpawnRegion(0,
+                yPos - 80);
 
+        birdSpawner.update();
         controls.update();
         map.update();
         updateEntities();

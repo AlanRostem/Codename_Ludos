@@ -133,7 +133,7 @@ public class SpriteMap {
         offsetRects.get(name).bottom = offsetRects.get(name).top + height;
     }
 
-    public void drawAt(String name, int x, int y, int width, int height) {
+    public void drawAt(String name, float x, float y, int width, int height) {
         positionRect.set(
                 (int)(x * Constants.SCREEN_SCALE_X),
                 (int)(y * Constants.SCREEN_SCALE_Y),
