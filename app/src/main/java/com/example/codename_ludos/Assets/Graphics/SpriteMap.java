@@ -97,7 +97,13 @@ public class SpriteMap {
 
     // Bind a location on the sprite sheet to a name
     public void bindSprite(String name, int offsetX, int offsetY, int frameWidth, int frameHeight) {
-        offsetRects.put(name, new Rect(offsetX, offsetY, frameWidth + offsetX, frameHeight + offsetY));
+        if (!hasBinding(name)) {
+            offsetRects.put(name, new Rect(offsetX, offsetY, frameWidth + offsetX, frameHeight + offsetY));
+        }
+    }
+
+    public boolean hasBinding(String name) {
+        return offsetRects.containsKey(name);
     }
 
     public void Animate(String name, Animation anim) {
