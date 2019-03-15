@@ -5,7 +5,7 @@ import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 public class UIElement {
 
     protected Vector2D outPutPos;
-    protected Vector2D initalPos;
+    protected Vector2D initialPos;
     protected UIContainer parent;
     protected String ID;
     protected int width;
@@ -15,7 +15,7 @@ public class UIElement {
     float margin = 0;
 
     public UIElement(UIContainer parent, String id, float x, float y, int width, int height) {
-        initalPos = new Vector2D(x, y);
+        initialPos = new Vector2D(x, y);
         outPutPos = new Vector2D(parent.outPutPos.x + x, parent.outPutPos.y + y);
         this.parent = parent;
         ID = id;
@@ -24,7 +24,7 @@ public class UIElement {
     }
 
     public UIElement(String id, float x, float y, int width, int height) {
-        initalPos = new Vector2D(x, y);
+        initialPos = new Vector2D(x, y);
         outPutPos = new Vector2D(x, y);
         ID = id;
         this.width = width;
@@ -106,6 +106,6 @@ public class UIElement {
     }
 
     public void update() {
-        
+
     }
 }
