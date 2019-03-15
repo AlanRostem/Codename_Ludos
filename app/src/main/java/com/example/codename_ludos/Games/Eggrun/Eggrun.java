@@ -1,10 +1,15 @@
 package com.example.codename_ludos.Games.Eggrun;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
+import com.example.codename_ludos.Core.MainThread;
+import com.example.codename_ludos.Entity.BaseGummyCash;
+import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 
 public class Eggrun extends ArcadeGame {
@@ -92,8 +97,20 @@ public class Eggrun extends ArcadeGame {
         });
     }
 
+    float seconds = 10;
+
     @Override
     public void update() {
+        seconds += MainThread.getAverageDeltaTime();
+        if (seconds > 10f) {
+            seconds = 0;
+            BaseGummyCash cash = new BaseGummyCash(ArcadeMachine.SCREEN_OFFSET_X + ArcadeMachine.SCREEN_WIDTH,
+                    ArcadeMachine.SCREEN_OFFSET_Y + 300 * (float)Math.random());
+            cash.mVel.x = -70;
+            Log.i("GUMMY", "" + cash.mPos.x + "," + cash.mPos.y);
+            spawnEntity(cash);
+        }
+
         controls.update();
         map.update();
         updateEntities();

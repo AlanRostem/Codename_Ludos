@@ -20,7 +20,6 @@ public class GameMap {
     }
 
     SpriteMap tilemap = new SpriteMap(R.drawable.worldtiles);
-
     SpriteMap sky = new SpriteMap(R.drawable.sky);
     SpriteMap sky2 = new SpriteMap(R.drawable.sky2);
 
@@ -33,7 +32,7 @@ public class GameMap {
     int parallaxW = 2160;
     int parallaxH = 1920;
 
-    int speed = 8;
+    public int speed = 8;
 
     int height = 30;
     int width  = 48;
@@ -124,12 +123,10 @@ public class GameMap {
                 if(level.get(i).get(j)==0 && j<level.get(0).size()-1 && j>chunkWidth  && i < height-1)
                     if (level.get(i).get(j + 1) >  0 && level.get(i).get(j - 1) >  0) level.get(i).set(j, 1);
 
-
                 if(j==chunkWidth && i < height-1) {
                     if (level.get(i).get(j) == 0 && level.get(i).get(j + 1) >  0) level.get(i).set(j, 1);
                     if (level.get(i).get(j) >  0 && level.get(i + 1).get(j) == 0 && (i<maxTop-5 || i >maxTop)) level.get(i + 1).set(j, 1); // Check if block under is empty
                     if (level.get(i).get(j) >  0 && level.get(i).get(j - 1) == 0) level.get(i).set(j, 0);
-
                 }
 
                 if(j==level.get(0).size()-1 &&  i < height-1) {
@@ -152,9 +149,9 @@ public class GameMap {
         for (int i = 0; i < level.size(); i++)
             for (int j = chunkWidth - 1; j < level.get(0).size(); j++)
             {
-                if(level.get(i).get(j) > 0)
+                if (level.get(i).get(j) > 0)
                 {
-                    if(j<level.get(0).size()-1 && i < height - 1) {
+                    if (j<level.get(0).size()-1 && i < height - 1) {
                         if(level.get(i).get(j-1) == 0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 1);
                         if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) >  0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 2);
                         if(level.get(i).get(j-1) >  0 && level.get(i).get(j+1) == 0 && level.get(i-1).get(j) == 0 && level.get(i+1).get(j) >  0) level.get(i).set(j, 3);

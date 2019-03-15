@@ -43,6 +43,10 @@ public class GameEntity {
 
     public void remove() {
         toRemove = true;
+        onRemoved();
+    }
+    public void onRemoved() {
+
     }
 
     public boolean isRemoved() {
@@ -140,23 +144,20 @@ public class GameEntity {
         int cx = (int)(mPos.x) / map.getTileSize();
         int cy = (int)(mPos.y) / map.getTileSize();
 
-        int tileX = width / map.getTileSize() + 2;
-        int tileY = height / map.getTileSize() + 2;
+        int tileX = width / map.getTileSize() + 1;
+        int tileY = height / map.getTileSize() + 1;
 
-        int ox = -1;
-        int oy = -1;
-
-        for (int y = 0; y < tileY; y++) {
-            for (int x = 0; x < tileX; x++) {
-                int xx = cx + ox;
-                int yy = cy + oy;
+        for (int y = -1; y < tileY; y++) {
+            for (int x = -1; x < tileX; x++) {
+                int xx = cx + x;
+                int yy = cy + y;
 
                 GameTile tile = new GameTile(xx, yy);
 
                 try {
                     tile.ID = map.get(yy).get(xx);
                 }
-                catch (Exception e){
+                catch (Exception e) {
                     tile.ID = 0;
                 }
 
@@ -176,10 +177,7 @@ public class GameEntity {
                         }
                     }
                 }
-                ox++;
             }
-            oy++;
-            ox = -1;
         }
     }
 
@@ -187,16 +185,13 @@ public class GameEntity {
         int cx = (int)(mPos.x) / map.getTileSize();
         int cy = (int)(mPos.y) / map.getTileSize();
 
-        int tileX = width / map.getTileSize() + 2;
-        int tileY = height / map.getTileSize() + 2;
+        int tileX = width / map.getTileSize() + 1;
+        int tileY = height / map.getTileSize() + 1;
 
-        int ox = -1;
-        int oy = -1;
-
-        for (int y = 0; y < tileY; y++) {
-            for (int x = 0; x < tileX; x++) {
-                int xx = cx + ox;
-                int yy = cy + oy;
+        for (int y = -1; y < tileY; y++) {
+            for (int x = -1; x < tileX; x++) {
+                int xx = cx + x;
+                int yy = cy + y;
 
                 GameTile tile = new GameTile(xx, yy);
                 tile.tileSize = map.getTileSize();
@@ -225,10 +220,7 @@ public class GameEntity {
                         }
                     }
                 }
-                ox++;
             }
-            oy++;
-            ox = -1;
         }
     }
 

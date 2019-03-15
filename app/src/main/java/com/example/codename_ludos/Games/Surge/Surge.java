@@ -6,6 +6,8 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Entity.BaseGummyCash;
+import com.example.codename_ludos.Games.Surge.Objects.SurgeGummyCash;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
 import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
@@ -40,6 +42,7 @@ public class Surge extends ArcadeGame {
 
         player = new Player();
         spawnEntity(new DoubleJump(320, 320));
+        spawnEntity(new SurgeGummyCash(600, 320));
         for (int i = 0; i < 10; i++) {
             spawnEntity(new UnderPassObject(
                     "grassFloor", (float)Math.random() * (ArcadeMachine.SCREEN_WIDTH - 90*3) + ArcadeMachine.SCREEN_OFFSET_X ,

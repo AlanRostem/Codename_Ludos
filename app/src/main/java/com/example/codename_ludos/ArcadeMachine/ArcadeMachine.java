@@ -58,7 +58,6 @@ public class ArcadeMachine {
     private static float relativeWidthFactor;
     private static float relativeHeightFactor;
 
-    private static ScrollList scrollList = new ScrollList(controls, "list", SCREEN_OFFSET_X, SCREEN_OFFSET_Y, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     public static void calibrateScreen() {
         SCREEN_WIDTH = rawScreenWidth;//(int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
@@ -71,9 +70,6 @@ public class ArcadeMachine {
         Constants.SCREEN_SCALE_X = (float)Constants.SCREEN_WIDTH / (float)rawImageWidth;
         Constants.SCREEN_SCALE_Y = (float)Constants.SCREEN_HEIGHT / (float)rawImageHeight;
 
-        scrollList.setPos(SCREEN_OFFSET_X, SCREEN_OFFSET_Y);
-        scrollList.setWidth(SCREEN_WIDTH);
-        scrollList.setHeight(SCREEN_HEIGHT);
     }
 
     private static void createGame(String name, ArcadeGame game) {
@@ -114,53 +110,10 @@ public class ArcadeMachine {
         createGame("Surge", new Surge());
         createGame("Lodestone", new Lodestone());
 
-        //controls.append("oisk", new Text(controls, "oisk", "BOOBS!", 320, 320, 100));
-
-        /*
         for (String n : getGameIDList()) {
             final String N = n;
-            controls.createController(n, new Button(controls, n, 240, 250 + getGameIDList().indexOf(n) * 200, 600, 100) {
-                int color = Color.WHITE;
-                boolean enteredGame = false;
-
-                @Override
-                public void onPressed(float x, float y) {
-                    if (!getCurrentGame().isStarted() && selected) {
-                        ArcadeMachine.enterGame(N);
-                        selected = false;
-                        enteredGame = true;
-                    }
-                    for (UIElement b : ArcadeMachine.controls.getChildNodes()) {
-                        if (b != this) {
-                            ((Button) b).selected = false;
-                        }
-                    }
-                    if (!enteredGame) {
-                        selected = true;
-                    }
-                    enteredGame = false;
-                }
-
-                @Override
-                public void draw() {
-                    if (selected) {
-                        color = Color.RED;
-                    } else {
-                        color = Color.WHITE;
-                    }
-                    Shapes.setColor(Color.BLUE);
-                    Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
-                    TextDrawer.draw(N, color, 60, this.outPutPos.x, this.outPutPos.y);
-                }
-            });
-        }
-        */
-        scrollList.setElementDistance(200);
-
-        for (String n : getGameIDList()) {
-            final String N = n;
-            scrollList.append(n, new Button(controls, n, 240,
-                    (int)scrollList.getOutPutPos().y + getGameIDList().indexOf(n) * ((int)scrollList.getElementDistance() + 100),
+            controls.append(n, new Button(controls, n, 240,
+                    240 + getGameIDList().indexOf(n) * 200,
                             600, 100) {
                 int color = Color.WHITE;
                 boolean enteredGame = false;
@@ -172,7 +125,7 @@ public class ArcadeMachine {
                         selected = false;
                         enteredGame = true;
                     }
-                    for (UIElement b : ArcadeMachine.scrollList.getChildNodes()) {
+                    for (UIElement b : ArcadeMachine.controls.getChildNodes()) {
                         if (b != this) {
                             ((Button) b).selected = false;
                         }
@@ -213,7 +166,6 @@ public class ArcadeMachine {
         } else if (getCurrentState() == MachineState.in_game_select) {
             arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
             controls.draw();
-            scrollList.draw();
         }
     }
 
@@ -223,7 +175,6 @@ public class ArcadeMachine {
             games.get(currentGameID).coreUpdate();
         } else if (getCurrentState() == MachineState.in_game_select) {
             controls.update();
-            scrollList.update();
         }
     }
 
