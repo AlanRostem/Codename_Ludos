@@ -124,7 +124,7 @@ public class GameEntity {
     public boolean overlap(GameTile t, int tileSize) {
         int ox = ArcadeMachine.SCREEN_OFFSET_X;
         int oy = ArcadeMachine.SCREEN_OFFSET_Y;
-        return mPos.x < t.cx + ox * tileSize + tileSize + ox
+        return mPos.x < t.cx * tileSize + tileSize + ox
                 && mPos.x + width > t.cx * tileSize + ox
                 && mPos.y < t.cy * tileSize + tileSize + oy
                 && mPos.y + height  > t.cy * tileSize + oy;

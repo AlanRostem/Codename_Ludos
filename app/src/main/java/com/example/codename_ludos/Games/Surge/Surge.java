@@ -7,6 +7,7 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Entity.BaseGummyCash;
+import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeGummyCash;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
@@ -24,6 +25,7 @@ public class Surge extends ArcadeGame {
     public static Camera camera = new Camera(0, 0);
 
     private SpriteMap bg;
+    private SpriteMap tileSet = new SpriteMap(R.drawable.surge_tiles);
 
     public Surge() {
         super("Surge");
@@ -35,6 +37,8 @@ public class Surge extends ArcadeGame {
 
         bg = new SpriteMap(R.drawable.bg);
 
+        TileManager.tileMap.setOffset(ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
+
         PowerUp.sprite.bindSprite("doublejump", 0, 0, 20, 20);
 
         objects.bindSprite("metalWall", 0, 0, 10, 50);
@@ -43,11 +47,6 @@ public class Surge extends ArcadeGame {
         player = new Player();
         spawnEntity(new DoubleJump(320, 320));
         spawnEntity(new SurgeGummyCash(600, 320));
-        for (int i = 0; i < 10; i++) {
-            spawnEntity(new UnderPassObject(
-                    "grassFloor", (float)Math.random() * (ArcadeMachine.SCREEN_WIDTH - 90*3) + ArcadeMachine.SCREEN_OFFSET_X ,
-                     i*-200 + 1220 , 90*3, 12*3));
-        }
         spawnEntity(player);
     }
 
@@ -62,6 +61,9 @@ public class Surge extends ArcadeGame {
     @Override
     public void draw() {
         bg.drawAt("full", 0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+        tileSet.drawTileMap(TileManager.tileMap, 32, 6, 0,
+                TileManager.tileMap.getOffset().x,
+                TileManager.tileMap.getOffset().y);
         drawEntities();
     }
 

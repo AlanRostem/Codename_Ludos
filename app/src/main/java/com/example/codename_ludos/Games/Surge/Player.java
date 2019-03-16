@@ -1,7 +1,13 @@
 package com.example.codename_ludos.Games.Surge;
 
+import android.graphics.Color;
+import android.util.Log;
+
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Entity.GameTile;
+import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.Entity.GameEntity;
@@ -73,10 +79,14 @@ public class Player extends BasePlayer {
     private void step() {
         accelerateY(1700);
         side.reset();
+
         moveX(mVel.x);
         manageCollisionX();
+        manageTileCollisionX(TileManager.tileMap, 0);
+
         moveY(mVel.y);
         manageCollisionY();
+        manageTileCollisionY(TileManager.tileMap, 0);
 
         for (int i = 0; i < activePowerUps.length; i++) {
             if (activePowerUps[i].isUsing() && !activePowerUps[i].isDone()) {
@@ -102,7 +112,90 @@ public class Player extends BasePlayer {
 
     @Override
     public void draw() {
+        /*int cx = (int)(mPos.x) / TileManager.tileMap.getTileSize();
+        int cy = (int)(mPos.y) / TileManager.tileMap.getTileSize();
+
+        int tileX = width / TileManager.tileMap.getTileSize() + 2;
+        int tileY = height / TileManager.tileMap.getTileSize() + 2;
+        for (int y = -1; y < tileY; y++) {
+            for (int x = -1; x < tileX; x++) {
+                int xx = cx + x;
+                int yy = cy + y;
+                Shapes.drawRect(xx * TileManager.tileMap.getTileSize(), yy * TileManager.tileMap.getTileSize(),
+                        TileManager.tileMap.getTileSize(), TileManager.tileMap.getTileSize());
+            }
+        }*/
+
+
+        Shapes.setColor(Color.YELLOW);
+        Shapes.drawRect(
+                mPos.x,
+                mPos.y,
+                width, height
+        );
         sprite.drawAt("a1", (int) mPos.x, (int) mPos.y + (int) Surge.camera.y, width, height);
+    }
+
+    @Override
+    public void manageTileCollisionX(TileMap map, int minSolidTileID) {
+        int cx = (int)(mPos.x) / map.getTileSize();
+        int cy = (int)(mPos.y) / map.getTileSize();
+
+        int tileX = width / map.getTileSize() + 1;
+        int tileY = height / map.getTileSize();
+
+        for (int y = -3; y < tileY; y++) {
+            for (int x = -2; x < tileX; x++) {
+                int xx = cx + x;
+                int yy = cy + y;
+
+                GameTile tile = new GameTile(xx, yy);
+                tile.tileSize = map.getTileSize();
+
+                try {
+                    tile.ID = map.get(yy).get(xx);
+                }
+                catch (Exception e) {
+                    tile.ID = 0;
+                }
+
+                if (overlap(tile, map.getTileSize())) {
+                    TileManager.callXCollision(tile, this);
+                }
+
+
+            }
+        }
+    }
+
+    @Override
+    public void manageTileCollisionY(TileMap map, int minSolidTileID) {
+        int cx = (int)(mPos.x) / map.getTileSize();
+        int cy = (int)(mPos.y) / map.getTileSize();
+
+        int tileX = width / map.getTileSize() + 1;
+        int tileY = height / map.getTileSize();
+
+        for (int y = -3; y < tileY; y++) {
+            for (int x = -2; x < tileX; x++) {
+                int xx = cx + x;
+                int yy = cy + y;
+
+                GameTile tile = new GameTile(xx, yy);
+                tile.tileSize = map.getTileSize();
+
+                try {
+                    tile.ID = map.get(yy).get(xx);
+                }
+                catch (Exception e) {
+                    tile.ID = 0;
+                }
+
+                if (overlap(tile, map.getTileSize())) {
+                    TileManager.callYCollision(tile, this);
+                }
+            }
+        }
     }
 
     public void manageCollisionX() {

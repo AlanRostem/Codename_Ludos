@@ -151,7 +151,7 @@ public class SpriteMap {
                 GamePanel.paint);
     }
 
-    public void drawTileMap(TileMap map, int tilesPerRow, int dontDrawID, int offsetX, int offsetY) {
+    public void drawTileMap(TileMap map, int tilesPerRow, int dontDrawID, float offsetX, float offsetY) {
         int cols = imageWidth / map.getTileSize();
         int rows = imageHeight / map.getTileSize();
         int tileSize = map.getTileSize();
@@ -174,6 +174,31 @@ public class SpriteMap {
             }
         }
     }
+
+    public void drawTileMap(TileMap map, int frameSize, int tilesPerRow, int dontDrawID, float offsetX, float offsetY) {
+        int cols = imageWidth / map.getTileSize();
+        int rows = imageHeight / map.getTileSize();
+        int tileSize = map.getTileSize();
+
+        for (int i = 0; i < map.size(); i++) {
+            for (int j = 0; j < map.get(i).size(); j++) {
+                int tile = map.get(i).get(j) - 1;
+                if (tile < dontDrawID)
+                    continue;
+                int tileRow = tile / tilesPerRow;
+                int tileCol = tile % tilesPerRow;
+                positionRect.set(
+                        (int)((map.getTileSize() * j + offsetX) * Constants.SCREEN_SCALE_X),
+                        (int)((map.getTileSize() * i + offsetY) * Constants.SCREEN_SCALE_Y),
+                        (int)((map.getTileSize() * (j + 1) + offsetX) * Constants.SCREEN_SCALE_X),
+                        (int)((map.getTileSize() * (i + 1) + offsetY) * Constants.SCREEN_SCALE_Y));
+                offsetTileRect.set((tileCol * frameSize), (tileRow * frameSize), frameSize * (tileCol + 1),
+                        frameSize * (tileRow + 1));
+                MainThread.canvas.drawBitmap(bitmap, offsetTileRect, positionRect, GamePanel.paint);
+            }
+        }
+    }
+
 
     public int getImageHeight() {
         return imageHeight;
