@@ -127,12 +127,13 @@ public class Player extends BasePlayer {
         }*/
 
 
-        Shapes.setColor(Color.YELLOW);
+        Shapes.setColor(Color.argb(0.5f, 1f,0f,0f));
         Shapes.drawRect(
                 mPos.x,
                 mPos.y,
                 width, height
         );
+        Shapes.setColor(Color.argb(1f, 1f,1f,1f));
         sprite.drawAt("a1", (int) mPos.x, (int) mPos.y + (int) Surge.camera.y, width, height);
     }
 
@@ -162,8 +163,6 @@ public class Player extends BasePlayer {
                 if (overlap(tile, map.getTileSize())) {
                     TileManager.callXCollision(tile, this);
                 }
-
-
             }
         }
     }
