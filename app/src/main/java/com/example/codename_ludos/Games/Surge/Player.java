@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.Entity.GameTile;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
@@ -20,12 +21,7 @@ import java.util.ArrayList;
 public class Player extends BasePlayer {
     private SpriteMap sprite;
 
-    PowerUp[] activePowerUps = {
-            new PowerUp("none", 0, 0, 0, 0),
-            new PowerUp("none", 0, 0, 0, 0),
-            new PowerUp("none", 0, 0, 0, 0),
-            new PowerUp("none", 0, 0, 0, 0)
-    };
+    private ArrayList<PowerUp> activePowerUps = new ArrayList<>();
 
 
     public Player() {
@@ -36,6 +32,12 @@ public class Player extends BasePlayer {
         height = 64 * 2;
         for (PowerUp p : activePowerUps) {
             p.setInactive();
+        }
+    }
+
+    public void setPowerUp(int i, PowerUp p) {
+        if (i < activePowerUps.size()) {
+            activePowerUps.set(i, p);
         }
     }
 
@@ -88,9 +90,15 @@ public class Player extends BasePlayer {
         manageCollisionY();
         manageTileCollisionY(TileManager.tileMap, 0);
 
-        for (int i = 0; i < activePowerUps.length; i++) {
-            if (activePowerUps[i].isUsing() && !activePowerUps[i].isDone()) {
-                activePowerUps[i].buff(this);
+        for (int i = 0; i < activePowerUps.size(); i++) {
+            if (activePowerUps.get(i).isRemoved()) {
+                activePowerUps.remove(i);
+            }
+            if (activePowerUps.get(i).isUsing() && !activePowerUps.get(i).isDone()) {
+                activePowerUps.get(i).buff(this);
+            } else {
+                activePowerUps.get(i).remove();
+                activePowerUps.remove(activePowerUps.get(i));
             }
         }
 
@@ -112,27 +120,23 @@ public class Player extends BasePlayer {
 
     @Override
     public void draw() {
-        /*int cx = (int)(mPos.x) / TileManager.tileMap.getTileSize();
-        int cy = (int)(mPos.y) / TileManager.tileMap.getTileSize();
+        Shapes.setColor(Color.argb(0.5f, 0f,1f,1f));
 
-        int tileX = width / TileManager.tileMap.getTileSize() + 2;
-        int tileY = height / TileManager.tileMap.getTileSize() + 2;
-        for (int y = -1; y < tileY; y++) {
-            for (int x = -1; x < tileX; x++) {
-                int xx = cx + x;
-                int yy = cy + y;
-                Shapes.drawRect(xx * TileManager.tileMap.getTileSize(), yy * TileManager.tileMap.getTileSize(),
-                        TileManager.tileMap.getTileSize(), TileManager.tileMap.getTileSize());
+        for (int i = 0; i < activePowerUps.size(); i++) {
+            if (activePowerUps.get(i).isUsing() && !activePowerUps.get(i).isDone()) {
+                Shapes.drawRect(
+                        Surge.camera.x + mPos.x + i * width / 2 - activePowerUps.get(i).width / 2 - i * (activePowerUps.get(i).width) + (activePowerUps.size() - i) * activePowerUps.get(i).width / 2,
+                        Surge.camera.y + mPos.y - activePowerUps.get(i).height - 10,
+                        (int)(activePowerUps.get(i).width * (activePowerUps.get(i).getDuration() / activePowerUps.get(i).getMaxDuration())),
+                        10);
+                activePowerUps.get(i).draw(
+                        mPos.x + i * width / 2 - activePowerUps.get(i).width / 2 - i * (activePowerUps.get(i).width)
+                            + (activePowerUps.size() - i) * activePowerUps.get(i).width / 2,
+                        mPos.y - activePowerUps.get(i).height);
+
             }
-        }*/
+        }
 
-
-        Shapes.setColor(Color.argb(0.5f, 1f,0f,0f));
-        Shapes.drawRect(
-                mPos.x,
-                mPos.y,
-                width, height
-        );
         Shapes.setColor(Color.argb(1f, 1f,1f,1f));
         sprite.drawAt("a1", (int) mPos.x, (int) mPos.y + (int) Surge.camera.y, width, height);
     }
@@ -216,11 +220,22 @@ public class Player extends BasePlayer {
                 if (overlap(e)) {
                     if (e instanceof SurgeEntity) {
                         if (e instanceof PowerUp) {
-                            for (int i = 0; i < activePowerUps.length; i++) {
-                                if (!activePowerUps[i].isUsing() && activePowerUps[i].isDone()) {
-                                    activePowerUps[i] = (PowerUp) e;
-                                    activePowerUps[i].use();
-                                    break;
+                            if (activePowerUps.size() < 4) {
+                                PowerUp p = (PowerUp) e;
+                                boolean remove = false;
+                                if (!p.isUsing()) {
+                                    for (PowerUp a : activePowerUps) {
+                                        if (a.getClass().equals(p.getClass())) {
+                                            a.setDuration(p.getDuration());
+                                            remove = true;
+                                        }
+                                    }
+                                    activePowerUps.add(p);
+                                    if (!remove) {
+                                        p.use();
+                                    } else {
+                                        p.remove();
+                                    }
                                 }
                             }
                         } else {

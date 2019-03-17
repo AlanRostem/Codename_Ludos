@@ -8,7 +8,7 @@ import com.example.codename_ludos.Games.Surge.Player;
 
 public class DoubleJump extends PowerUp {
     public DoubleJump(float x, float y) {
-        super("doublejump", x, y, 0.7f, 60);
+        super("doublejump", x, y, 0.7f, 6);
     }
 
     @Override

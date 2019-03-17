@@ -5,9 +5,12 @@ import android.graphics.Color;
 import android.service.quicksettings.Tile;
 import android.util.Log;
 
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Entity.GameTile;
 import com.example.codename_ludos.Entity.TileMap;
+import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
+import com.example.codename_ludos.Games.Surge.Objects.Prefab;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
 import java.util.ArrayList;
@@ -15,30 +18,32 @@ import java.util.HashMap;
 
 public class TileManager {
 
-    static private int[][] array = {
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+    static public int[][] array = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 9, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 10, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 3, 0, 0, 0, 7, 8, 8, 9, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10},
             {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 7, 8, 9, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0},
+            {0, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 10, 11, 12, 0},
+            {0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 10, 11, 12, 0},
     };
 
-    public static TileMap tileMap = new TileMap(32*2, array);
+    public static HashMap<Integer, Function<Vector2D, PowerUp>> powerUpSpawns = new HashMap<>();
+
+    public static Prefab tileMap;
 
     private static class TileRegion {
         public int min;
@@ -99,8 +104,6 @@ public class TileManager {
             }
         }
     };
-
-
 
     private static TileRegion oneWay = new TileRegion(7, 9) {
         private boolean collisionEnabled = true;
