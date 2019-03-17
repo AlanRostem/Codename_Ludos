@@ -1,12 +1,10 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
-import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.Entity.GameTile;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
@@ -84,11 +82,11 @@ public class Player extends BasePlayer {
 
         moveX(mVel.x);
         manageCollisionX();
-        manageTileCollisionX(TileManager.tileMap, 0);
+        manageTileCollisionX(Surge.tileMap, 0);
 
         moveY(mVel.y);
         manageCollisionY();
-        manageTileCollisionY(TileManager.tileMap, 0);
+        manageTileCollisionY(Surge.tileMap, 0);
 
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isRemoved()) {
@@ -165,7 +163,7 @@ public class Player extends BasePlayer {
                 }
 
                 if (overlap(tile, map.getTileSize())) {
-                    TileManager.callXCollision(tile, this);
+                    Surge.tileMap.callXCollision(tile, this);
                 }
             }
         }
@@ -195,7 +193,7 @@ public class Player extends BasePlayer {
                 }
 
                 if (overlap(tile, map.getTileSize())) {
-                    TileManager.callYCollision(tile, this);
+                    Surge.tileMap.callYCollision(tile, this);
                 }
             }
         }

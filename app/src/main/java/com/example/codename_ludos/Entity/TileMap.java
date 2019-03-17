@@ -42,6 +42,26 @@ public class TileMap extends ArrayList<ArrayList<Integer>> {
         }
     }
 
+    public void setArray(int[][] array) {
+        clear();
+        for (int i = 0; i < array.length; i++) {
+            add(new ArrayList<Integer>());
+            for (int j = 0; j< array[i].length; j++) {
+                get(i).add(array[i][j]);
+            }
+        }
+    }
+
+    public void setArray(TileMap map) {
+        clear();
+        for (int i = 0; i < map.size(); i++) {
+            add(new ArrayList<Integer>());
+            for (int j = 0; j< map.get(i).size(); j++) {
+                get(i).add(map.get(i).get(j));
+            }
+        }
+    }
+
     public int getTileSize() { return mTileSize; }
 
 }

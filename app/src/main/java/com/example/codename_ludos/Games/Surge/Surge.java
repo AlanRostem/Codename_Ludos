@@ -6,13 +6,10 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
-import com.example.codename_ludos.Games.Surge.Objects.Items.WallJump;
-import com.example.codename_ludos.Games.Surge.Objects.Prefab;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeGummyCash;
+import com.example.codename_ludos.Games.Surge.TileBased.MainTileMap;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
-import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
 import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
-import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
 
 public class Surge extends ArcadeGame {
@@ -23,15 +20,12 @@ public class Surge extends ArcadeGame {
 
     public static Camera camera = new Camera(0, 0);
 
-    private SpriteMap bg;
-    private SpriteMap tileSet = new SpriteMap(R.drawable.surge_tiles);
-
     public static final int TILE_SIZE = 64;
+
+    public static MainTileMap tileMap;
 
     public Surge() {
         super("Surge");
-        TileManager.powerUpSpawns.put(3, (vec) -> { return new DoubleJump(vec.x, vec.y); });
-        TileManager.powerUpSpawns.put(4, (vec) -> { return new WallJump(vec.x, vec.y); });
 
     }
 
@@ -39,15 +33,9 @@ public class Surge extends ArcadeGame {
     public void setup() {
         makeButtons();
 
-        bg = new SpriteMap(R.drawable.bg);
-
-        TileManager.tileMap = new Prefab(
-                ArcadeMachine.SCREEN_OFFSET_X,
-                ArcadeMachine.SCREEN_OFFSET_Y,
-                this,
-                TileManager.array);
-
-        TileManager.tileMap.setOffset(ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
+        tileMap = new MainTileMap(this);
+        tileMap.setOffset(ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
+        tileMap.scanAndSpawnEntities();
 
         PowerUp.sprite.bindSprite("doublejump", 0, 0, 20, 20);
         PowerUp.sprite.bindSprite("walljump", 0, 20, 20, 20);
@@ -70,10 +58,7 @@ public class Surge extends ArcadeGame {
 
     @Override
     public void draw() {
-        bg.drawAt("full", 0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-        tileSet.drawTileMap(TileManager.tileMap, 32, 6, 0,
-                TileManager.tileMap.getOffset().x + camera.x,
-                TileManager.tileMap.getOffset().y + camera.y);
+        tileMap.draw();
         drawEntities();
     }
 
