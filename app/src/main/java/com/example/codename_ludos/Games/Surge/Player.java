@@ -64,12 +64,12 @@ public class Player extends BasePlayer {
                     mVel.y = (-900.f);
             }
 
-        mVel.setX(0);
+        glideX(0.9f);
         if (controls.isTouched("right"))
-            mVel.x = (400.f);
+            accelerateX(2000.f);
 
         if (controls.isTouched("left"))
-            mVel.x = (-400.f);
+            accelerateX(-2000.f);
     }
 
     public boolean jumping = false;

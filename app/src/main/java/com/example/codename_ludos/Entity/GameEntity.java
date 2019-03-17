@@ -12,6 +12,7 @@ public class GameEntity {
     public Vector2D mVel;
     public Vector2D mPos;
     public Vector2D mAcc;
+    public Vector2D mFric;
 
     public int width;
     public int height;
@@ -39,6 +40,7 @@ public class GameEntity {
         mPos = new Vector2D(x, y);
         mVel = new Vector2D(0, 0);
         mAcc = new Vector2D(0, 0);
+        mFric = new Vector2D(0, 0);
     }
 
     public void remove() {
@@ -51,6 +53,24 @@ public class GameEntity {
 
     public boolean isRemoved() {
         return toRemove;
+    }
+
+    public void glide() {
+        mVel.x *= mFric.x;
+        mVel.y *= mFric.y;
+    }
+
+    public void glide(float x, float y) {
+        mVel.x *= x;
+        mVel.y *= y;
+    }
+
+    public void glideX(float x) {
+        mVel.x *= x;
+    }
+
+    public void glideY(float y) {
+        mVel.y *= y;
     }
 
     public void move() {

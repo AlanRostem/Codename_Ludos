@@ -8,17 +8,30 @@ public class WallJump extends PowerUp {
         super("walljump", x, y, 0, 15);
     }
 
+    private boolean pressed = false;
+
     @Override
     public void buff(Player player) {
         if (player.mVel.y != 0 && ArcadeMachine.getCurrentGame().getControls().isTouched("jump")) {
-            if (player.side.left) {
-                player.mVel.y = -800;
-                player.mVel.x = 800;
+            if (!pressed) {
+                pressed = true;
+                if (player.side.left) {
+                    if (player.jumping) {
+                        player.jumping = false;
+                        player.mVel.y = -800;
+                        player.mVel.x = 1500;
+                    }
+                }
+                if (player.side.right) {
+                    if (player.jumping) {
+                        player.jumping = false;
+                        player.mVel.y = -800;
+                        player.mVel.x = -1500;
+                    }
+                }
             }
-            if (player.side.right) {
-                player.mVel.y = -800;
-                player.mVel.x = -800;
-            }
+        } else {
+            pressed = false;
         }
     }
 }

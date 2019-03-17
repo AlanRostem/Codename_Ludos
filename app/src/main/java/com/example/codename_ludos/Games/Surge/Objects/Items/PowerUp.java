@@ -31,6 +31,7 @@ public class PowerUp extends SurgeEntity {
         mDuration = duration;
         maxDuration = duration;
         mDrawName = drawName;
+        mDone = false;
         width = height = 80;
     }
 
