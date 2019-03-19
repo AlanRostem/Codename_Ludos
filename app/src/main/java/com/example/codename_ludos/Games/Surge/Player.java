@@ -132,10 +132,10 @@ public class Player extends BasePlayer {
     public boolean overlap(GameTile t, int tileSize) {
         int ox = (int)Surge.tileMap.getOffset().x;
         int oy = (int)Surge.tileMap.getOffset().y;
-        return mPos.x < t.cx * tileSize + tileSize + ox
-                && mPos.x + width > t.cx * tileSize + ox
-                && mPos.y < t.cy * tileSize + tileSize + oy
-                && mPos.y + height  > t.cy * tileSize + oy;
+        return mPos.x - ox < t.cx * tileSize + tileSize
+                && mPos.x - ox + width > t.cx * tileSize
+                && mPos.y - oy < t.cy * tileSize + tileSize
+                && mPos.y - oy + height > t.cy * tileSize;
     }
 
     @Override
