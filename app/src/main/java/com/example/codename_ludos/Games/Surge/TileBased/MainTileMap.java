@@ -1,8 +1,11 @@
 package com.example.codename_ludos.Games.Surge.TileBased;
 
 import android.arch.core.util.Function;
+import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Entity.EntityManager;
 import com.example.codename_ludos.Entity.GameTile;
@@ -141,7 +144,7 @@ public class MainTileMap extends TileMap {
 
         TestPrefab prefab = new TestPrefab(getOffset().x, getOffset().y, game);
         setArray(prefab);
-
+        setOffset(ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
         powerUpSpawns.put(3, (vec) -> { return new DoubleJump(vec.x, vec.y); });
         powerUpSpawns.put(4, (vec) -> { return new WallJump(vec.x, vec.y); });
     }
@@ -151,7 +154,9 @@ public class MainTileMap extends TileMap {
             for (int j = 0; j < this.get(i).size(); j++) {
                 int tile = this.get(i).get(j);
                 if (tile >= 3 && tile <= 6) {
-                    game.spawnEntity(Surge.tileMap.powerUpSpawns.get(tile).apply(new Vector2D(j * getTileSize(), i * getTileSize())));
+                    game.spawnEntity(Surge.tileMap.powerUpSpawns.get(tile).apply(new Vector2D(
+                            j * getTileSize() + getOffset().x,
+                            i * getTileSize() + getOffset().y)));
                 }
             }
         }

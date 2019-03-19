@@ -34,7 +34,6 @@ public class Surge extends ArcadeGame {
         makeButtons();
 
         tileMap = new MainTileMap(this);
-        tileMap.setOffset(ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
         tileMap.scanAndSpawnEntities();
 
         PowerUp.sprite.bindSprite("doublejump", 0, 0, 20, 20);
