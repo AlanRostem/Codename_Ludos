@@ -137,6 +137,18 @@ public class MainTileMap extends TileMap {
 
     private TileRegion transparent = new TileRegion(1, 6);
 
+    private float mapOffset = 0;
+    private float actualOffsetX;
+    private float actualOffsetY;
+
+    public void setMapOffset(float mapOffset) {
+        this.mapOffset = mapOffset;
+    }
+
+    public float getMapOffset() {
+        return mapOffset;
+    }
+
     public MainTileMap(ArcadeGame mgr) {
         super(Surge.TILE_SIZE);
 
@@ -144,7 +156,11 @@ public class MainTileMap extends TileMap {
 
         TestPrefab prefab = new TestPrefab(getOffset().x, getOffset().y, game);
         setArray(prefab);
-        setOffset(ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
+
+        actualOffsetX = ArcadeMachine.SCREEN_OFFSET_X;
+        actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + mapOffset;
+
+        setOffset(actualOffsetX, actualOffsetY);
         powerUpSpawns.put(3, (vec) -> { return new DoubleJump(vec.x, vec.y); });
         powerUpSpawns.put(4, (vec) -> { return new WallJump(vec.x, vec.y); });
     }
@@ -183,7 +199,9 @@ public class MainTileMap extends TileMap {
     }
 
     public void update() {
-
+        actualOffsetX = ArcadeMachine.SCREEN_OFFSET_X;
+        actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + mapOffset;
+        setOffset(actualOffsetX, actualOffsetY);
     }
 
     public void draw() {

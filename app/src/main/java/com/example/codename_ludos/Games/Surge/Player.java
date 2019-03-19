@@ -1,13 +1,16 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
+import android.service.quicksettings.Tile;
 import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.GameTile;
 import com.example.codename_ludos.Entity.TileMap;
+import com.example.codename_ludos.Games.Surge.TileBased.MainTileMap;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.Entity.GameEntity;
@@ -25,6 +28,7 @@ public class Player extends BasePlayer {
 
     public Player() {
         super(320, ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT);
+        mPos.y *= 2f/3f;
         sprite = new SpriteMap(R.drawable.rubigo);
         sprite.bindSprite("a1", 0, 0, 48, 48);
         width = 32 * 2;
@@ -49,19 +53,23 @@ public class Player extends BasePlayer {
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
 
-        if (controls.isTouched("jump"))
+        if (controls.isTouched("jump")) {
+            mVel.y = (900.f);
+
+            /*
             if (!jumping) {
                 jumping = true;
                 if (djumping) {
                     if (mVel.y > 0) {
-                        mVel.y = (-300.f);
+                        mVel.y = (300.f);
                     } else {
                         jumps = 0;
                     }
                 }
                 else
-                    mVel.y = (-900.f);
-            }
+                    mVel.y = (900.f);
+            } */
+        }
 
         glideX(0.9f);
         if (controls.isTouched("right"))
@@ -75,17 +83,25 @@ public class Player extends BasePlayer {
     public int jumps = 0;
     public int maxJumps = 1;
     public boolean djumping = false;
-
+    int gravty = 1700;
 
     private void step() {
-        accelerateY(1700);
+        if (!side.bottom) {
+            accelerateY(-1700);
+        } else {
+            mVel.y = 0;
+        }
+
+        MainTileMap tm = Surge.tileMap;
+        tm.setMapOffset(tm.getMapOffset() + mVel.y * MainThread.getAverageDeltaTime());
+
         side.reset();
 
         moveX(mVel.x);
         manageCollisionX();
         manageTileCollisionX(Surge.tileMap, 0);
 
-        moveY(mVel.y);
+        //moveY(mVel.y);
         manageCollisionY();
         manageTileCollisionY(Surge.tileMap, 0);
 
@@ -154,8 +170,8 @@ public class Player extends BasePlayer {
 
     @Override
     public void manageTileCollisionX(TileMap map, int minSolidTileID) {
-        int cx = (int)(mPos.x ) / map.getTileSize();
-        int cy = (int)(mPos.y) / map.getTileSize();
+        int cx = (int)(mPos.x - map.getOffset().x) / map.getTileSize();
+        int cy = (int)(mPos.y - map.getOffset().y) / map.getTileSize();
 
         int tileX = width / map.getTileSize() + 1;
         int tileY = height / map.getTileSize();
@@ -184,8 +200,8 @@ public class Player extends BasePlayer {
 
     @Override
     public void manageTileCollisionY(TileMap map, int minSolidTileID) {
-        int cx = (int)(mPos.x) / map.getTileSize();
-        int cy = (int)(mPos.y) / map.getTileSize();
+        int cx = (int)(mPos.x - map.getOffset().x) / map.getTileSize();
+        int cy = (int)(mPos.y - map.getOffset().y) / map.getTileSize();
 
         int tileX = width / map.getTileSize() + 1;
         int tileY = height / map.getTileSize();
