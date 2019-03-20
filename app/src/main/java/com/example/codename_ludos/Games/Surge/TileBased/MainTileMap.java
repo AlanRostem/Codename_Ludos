@@ -73,7 +73,7 @@ public class MainTileMap extends TileMap {
 
         @Override
         public void Ycollision(Player player, GameTile tile) {
-            if (player.mVel.y > 0) {
+            if (player.mVel.y < 0) {
                 if (player.mPos.y + player.height > tile.y(tile.tileSize, (int)getOffset().y)) {
                     player.side.bottom = true;
                     player.mVel.y = 0;
@@ -81,11 +81,11 @@ public class MainTileMap extends TileMap {
                     player.mPos.y = tile.y(tile.tileSize, (int)getOffset().y) - player.height;
                 }
             }
-            if (player.mVel.y < 0) {
-                if (player.mPos.y < (float)(tile.y(tile.tileSize, (int)getOffset().y) + tile.tileSize)) {
+            if (player.mVel.y > 0) {
+                if (player.mPos.y < (tile.y(tile.tileSize, (int)getOffset().y) + tile.tileSize)) {
                     player.side.top = true;
                     player.mVel.y = 0;
-                    player.mPos.y = (float)(tile.y(tile.tileSize, (int)getOffset().y) + tile.tileSize);
+                    player.mPos.y = (tile.y(tile.tileSize, (int)getOffset().y) + tile.tileSize);
                 }
             }
         }
@@ -200,7 +200,7 @@ public class MainTileMap extends TileMap {
 
     public void update() {
         actualOffsetX = ArcadeMachine.SCREEN_OFFSET_X;
-        actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + mapOffset;
+        actualOffsetY = -ArcadeMachine.SCREEN_OFFSET_Y + mapOffset;
         setOffset(actualOffsetX, actualOffsetY);
     }
 

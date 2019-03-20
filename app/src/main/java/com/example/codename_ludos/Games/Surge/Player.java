@@ -99,7 +99,7 @@ public class Player extends BasePlayer {
 
         moveX(mVel.x);
         manageCollisionX();
-        manageTileCollisionX(Surge.tileMap, 0);
+        //manageTileCollisionX(Surge.tileMap, 0);
 
         //moveY(mVel.y);
         manageCollisionY();
