@@ -54,9 +54,9 @@ public class Player extends BasePlayer {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
 
         if (controls.isTouched("jump")) {
-            mVel.y = (200.f);
+            //mVel.y = (300.f);
 
-            /*
+            ///*
             if (!jumping) {
                 jumping = true;
                 if (djumping) {
@@ -68,7 +68,7 @@ public class Player extends BasePlayer {
                 }
                 else
                     mVel.y = (900.f);
-            } */
+            }//*/
         }
 
         glideX(0.9f);
@@ -92,20 +92,18 @@ public class Player extends BasePlayer {
             mVel.y = 0;
         }
 
-        MainTileMap tm = Surge.tileMap;
-        tm.setMapOffset(tm.getMapOffset() + mVel.y * MainThread.getAverageDeltaTime());
-
         side.reset();
 
+        MainTileMap tm = Surge.tileMap;
+        tm.setMapOffset(tm.getMapOffset() + mVel.y * MainThread.getAverageDeltaTime());
         manageCollisionY();
         manageTileCollisionY(Surge.tileMap, 0);
 
         moveX(mVel.x);
         manageCollisionX();
-        manageTileCollisionX(Surge.tileMap, 0);
+        //manageTileCollisionX(Surge.tileMap, 0);
 
         //moveY(mVel.y);
-
 
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isRemoved()) {
@@ -127,6 +125,12 @@ public class Player extends BasePlayer {
             side.bottom = true;
         }
 
+        /*if (Surge.tileMap.getMapOffset() < ArcadeMachine.SCREEN_OFFSET_Y) {
+            Surge.tileMap.setMapOffset(ArcadeMachine.SCREEN_OFFSET_Y);
+            onGround();
+            side.bottom = true;
+        }*/
+
         Surge.camera.update(0, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
     }
 
@@ -134,20 +138,20 @@ public class Player extends BasePlayer {
     public boolean overlap(GameTile t, int tileSize) {
         int ox = (int)Surge.tileMap.getOffset().x;
         int oy = (int)Surge.tileMap.getOffset().y;
-        return mPos.x - ox < t.cx * tileSize + tileSize
-                && mPos.x - ox + width > t.cx * tileSize
-                && mPos.y - oy < t.cy * tileSize + tileSize
-                && mPos.y - oy + height > t.cy * tileSize;
+        return mPos.x < t.cx * tileSize + tileSize + ox
+                && mPos.x + width > t.cx * tileSize + ox
+                && mPos.y < t.cy * tileSize + tileSize + oy
+                && mPos.y + height > t.cy * tileSize + oy;
     }
 
     @Override
     public void update() {
         controlling();
+        step();
     }
 
     @Override
     public void draw() {
-        step();
 
         Shapes.setColor(Color.argb(0.5f, 0f,1f,1f));
 
@@ -221,15 +225,6 @@ public class Player extends BasePlayer {
                 }
                 catch (Exception e) {
                     tile.ID = 0;
-                }
-
-                if (tile.ID > 0) {
-                    Shapes.drawRect(
-                            tile.x(tile.tileSize, (int)map.getOffset().x),
-                            (tile.y(tile.tileSize, (int) map.getOffset().y)),
-                            tile.tileSize,
-                            tile.tileSize
-                    );
                 }
 
                 if (overlap(tile, map.getTileSize())) {

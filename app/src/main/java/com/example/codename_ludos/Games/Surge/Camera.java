@@ -9,7 +9,7 @@ public class Camera extends Vector2D {
 
     public void update(float x, float y, float offsetX, float offsetY) {
         if (y < offsetY) {
-            this.y = -(y - offsetY);
+            this.y = 0;// -(y - offsetY);
         }
     }
 }

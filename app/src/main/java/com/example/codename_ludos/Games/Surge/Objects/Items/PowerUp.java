@@ -86,6 +86,7 @@ public class PowerUp extends SurgeEntity {
 
     @Override
     public void update() {
+        mPos.y = offSet.y + Surge.tileMap.getMapOffset();
         if (mUsing) {
             mDuration -= MainThread.getAverageDeltaTime();
             if (mDuration <= 0.0f) {
