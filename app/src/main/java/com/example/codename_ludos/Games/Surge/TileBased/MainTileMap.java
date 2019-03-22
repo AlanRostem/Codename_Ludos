@@ -1,8 +1,10 @@
 package com.example.codename_ludos.Games.Surge.TileBased;
 
 import android.arch.core.util.Function;
+import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Entity.EntityManager;
 import com.example.codename_ludos.Entity.GameTile;
@@ -26,7 +28,7 @@ public class MainTileMap extends TileMap {
 
 
     public HashMap<Integer, Function<Vector2D, PowerUp>> powerUpSpawns = new HashMap<>();
-
+    public int tileRowOffset = 0;
 
     private class TileRegion {
         public int min;
@@ -56,37 +58,35 @@ public class MainTileMap extends TileMap {
                 if (player.mPos.x + player.width > tile.x(tile.tileSize, (int)getOffset().x)) {
                     player.side.right = true;
                     player.mVel.x = 0;
-                    player.mPos.x = tile.x(tile.tileSize, (int)getOffset().x) - player.width;
+                    player.mPos.x = tile.x(tile.tileSize, (int)getOffset().x)  - player.width;
                 }
             }
             if (player.mVel.x < 0) {
-                if (player.mPos.x < tile.cx * tile.tileSize + tile.tileSize + (int)getOffset().x) {
+                if (player.mPos.x < tile.x(tile.tileSize, (int)getOffset().x)  + tile.tileSize) {
                     player.side.left = true;
                     player.mVel.x = 0;
-                    player.mPos.x = tile.cx * tile.tileSize + tile.tileSize + (int)getOffset().x;
+                    player.mPos.x = tile.x(tile.tileSize, (int)getOffset().x) + tile.tileSize;
                 }
             }
         }
 
         @Override
         public void Ycollision(Player player, GameTile tile) {
-            if (player.mVel.y < 0) {
+            if (player.mVel.y > 0) {
                 if (player.mPos.y + player.height > tile.y(tile.tileSize, (int)getOffset().y)) {
                     player.side.bottom = true;
                     player.mVel.y = 0;
                     player.mPos.y = tile.y(tile.tileSize, (int)getOffset().y) - player.height;
-                    actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + player.mPos.y - player.height;
                     player.onGround();
                     //Log.i("LudosLog", "below!");
                 }
             }
-            if (player.mVel.y > 0) {
+            if (player.mVel.y < 0) {
                 if (player.mPos.y < (tile.y(tile.tileSize, (int)getOffset().y) + tile.tileSize)) {
                     player.side.top = true;
                     player.mVel.y = 0;
                     //Log.i("LudosLog", "above!");
                     player.mPos.y = tile.y(tile.tileSize, (int)getOffset().y) + tile.tileSize;
-                    actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + player.mPos.y;
                 }
             }
         }
@@ -113,7 +113,7 @@ public class MainTileMap extends TileMap {
 
         @Override
         public void Ycollision(Player player, GameTile tile) {
-            float tx = tile.x(tile.tileSize, (int)getOffset().x);
+            float tx = tile.x(tile.tileSize, (int)getOffset().y);
             float ty = tile.y(tile.tileSize, (int)getOffset().y);
 
             Vector2D selfA = new Vector2D(tx, ty);
@@ -125,12 +125,11 @@ public class MainTileMap extends TileMap {
             Vector2D playerA2 = new Vector2D(player.mPos.x, player.mPos.y);
             Vector2D playerB2 = new Vector2D(player.mPos.x + player.width, player.mPos.y + player.height);
 
-            if (player.mVel.y < 0 && collisionEnabled) {
+            if (player.mVel.y > 0 && collisionEnabled) {
                 if (player.mPos.y + player.height - tile.tileSize < ty &&
                         (Vector2D.intersect(selfA, selfB, playerA1, playerB1) || (Vector2D.intersect(selfA, selfB, playerA2, playerB2)))){
                     player.onGround();
                     player.mPos.y = tile.y(tile.tileSize, (int)getOffset().y) - player.height;
-                    actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + player.mPos.y - player.height;
                     player.mVel.y = 0;
                 }
             } else collisionEnabled = true;
@@ -140,8 +139,6 @@ public class MainTileMap extends TileMap {
     private TileRegion transparent = new TileRegion(1, 6);
 
     private float mapOffset = 0;
-    private float actualOffsetX;
-    private float actualOffsetY;
 
     public void setMapOffset(float mapOffset) {
         this.mapOffset = mapOffset;
@@ -159,13 +156,8 @@ public class MainTileMap extends TileMap {
         TestPrefab prefab = new TestPrefab(getOffset().x, getOffset().y, game);
         setArray(prefab);
 
-<<<<<<< HEAD
-        actualOffsetX = ArcadeMachine.SCREEN_OFFSET_X;
-        actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + mapOffset;
+        setOffset(ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
 
-        setOffset(actualOffsetX, actualOffsetY);
-=======
->>>>>>> parent of 5e88b60... meh
         powerUpSpawns.put(3, (vec) -> { return new DoubleJump(vec.x, vec.y); });
         powerUpSpawns.put(4, (vec) -> { return new WallJump(vec.x, vec.y); });
     }
@@ -202,9 +194,7 @@ public class MainTileMap extends TileMap {
     }
 
     public void update() {
-        actualOffsetX = ArcadeMachine.SCREEN_OFFSET_X;
-        actualOffsetY = -ArcadeMachine.SCREEN_OFFSET_Y + mapOffset;
-        setOffset(actualOffsetX, actualOffsetY);
+
     }
 
     public void draw() {

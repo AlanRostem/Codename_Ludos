@@ -1,11 +1,9 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
-<<<<<<< HEAD
 import android.service.quicksettings.Tile;
 import android.util.Log;
-=======
->>>>>>> parent of 5e88b60... meh
+
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
@@ -59,19 +57,18 @@ public class Player extends BasePlayer {
         if (controls.isTouched("jump")) {
             //mVel.y = (300.f);
 
-            ///*
             if (!jumping) {
                 jumping = true;
                 if (djumping) {
                     if (mVel.y > 0) {
-                        mVel.y = (300.f);
+                        mVel.y = (-300.f);
                     } else {
                         jumps = 0;
                     }
                 }
                 else
-                    mVel.y = (900.f);
-            }//*/
+                    mVel.y = (-900.f);
+            }
         }
 
         glideX(0.9f);
@@ -86,31 +83,27 @@ public class Player extends BasePlayer {
     public int jumps = 0;
     public int maxJumps = 1;
     public boolean djumping = false;
-    int gravty = 1700;
+    int gravity = 1700;
 
     private void step() {
         if (!side.bottom) {
-            accelerateY(-1700);
-        } else {
-            mVel.y = 0;
+            accelerateY(gravity);
         }
 
         side.reset();
 
-        MainTileMap tm = Surge.tileMap;
-        tm.setMapOffset(tm.getMapOffset() + mVel.y * MainThread.getAverageDeltaTime());
+        moveY(mVel.y);
         manageCollisionY();
         manageTileCollisionY(Surge.tileMap, 0);
 
         moveX(mVel.x);
         manageCollisionX();
-        //manageTileCollisionX(Surge.tileMap, 0);
-
-        //moveY(mVel.y);
+        manageTileCollisionX(Surge.tileMap, 0);
 
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isRemoved()) {
                 activePowerUps.remove(i);
+                break;
             }
             if (activePowerUps.get(i).isUsing() && !activePowerUps.get(i).isDone()) {
                 activePowerUps.get(i).buff(this);
@@ -136,20 +129,8 @@ public class Player extends BasePlayer {
         Surge.camera.update(0, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
     }
 
-    @Override
-<<<<<<< HEAD
-    public boolean overlap(GameTile t, int tileSize) {
-        int ox = (int)Surge.tileMap.getOffset().x;
-        int oy = (int)Surge.tileMap.getOffset().y;
-        return mPos.x < t.cx * tileSize + tileSize + ox
-                && mPos.x + width > t.cx * tileSize + ox
-                && mPos.y < t.cy * tileSize + tileSize + oy
-                && mPos.y + height > t.cy * tileSize + oy;
-    }
 
     @Override
-=======
->>>>>>> parent of 5e88b60... meh
     public void update() {
         controlling();
         step();
@@ -180,13 +161,8 @@ public class Player extends BasePlayer {
 
     @Override
     public void manageTileCollisionX(TileMap map, int minSolidTileID) {
-<<<<<<< HEAD
-        int cx = (int)(mPos.x - map.getOffset().x) / map.getTileSize();
-        int cy = (int)(mPos.y - map.getOffset().y) / map.getTileSize();
-=======
         int cx = (int)(mPos.x) / map.getTileSize();
         int cy = (int)(mPos.y) / map.getTileSize();
->>>>>>> parent of 5e88b60... meh
 
         int tileX = width / map.getTileSize() + 1;
         int tileY = height / map.getTileSize() + 2;
@@ -215,8 +191,8 @@ public class Player extends BasePlayer {
 
     @Override
     public void manageTileCollisionY(TileMap map, int minSolidTileID) {
-        int cx = (int)(mPos.x - map.getOffset().x) / map.getTileSize();
-        int cy = (int)(mPos.y - map.getOffset().y) / map.getTileSize();
+        int cx = (int)(mPos.x) / map.getTileSize();
+        int cy = (int)(mPos.y) / map.getTileSize();
 
         int tileX = width / map.getTileSize() + 1;
         int tileY = height / map.getTileSize() + 2;
