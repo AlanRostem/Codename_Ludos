@@ -113,7 +113,7 @@ public class MainTileMap extends TileMap {
 
         @Override
         public void Ycollision(Player player, GameTile tile) {
-            float tx = tile.x(tile.tileSize, (int)getOffset().y);
+            float tx = tile.x(tile.tileSize, (int)getOffset().x);
             float ty = tile.y(tile.tileSize, (int)getOffset().y);
 
             Vector2D selfA = new Vector2D(tx, ty);
@@ -128,9 +128,9 @@ public class MainTileMap extends TileMap {
             if (player.mVel.y > 0 && collisionEnabled) {
                 if (player.mPos.y + player.height - tile.tileSize < ty &&
                         (Vector2D.intersect(selfA, selfB, playerA1, playerB1) || (Vector2D.intersect(selfA, selfB, playerA2, playerB2)))){
-                    player.onGround();
-                    player.mPos.y = tile.y(tile.tileSize, (int)getOffset().y) - player.height;
+                    player.mPos.y = ty - player.height;
                     player.mVel.y = 0;
+                    player.onGround();
                 }
             } else collisionEnabled = true;
         }
