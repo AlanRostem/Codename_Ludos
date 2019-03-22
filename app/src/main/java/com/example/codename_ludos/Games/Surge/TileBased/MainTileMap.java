@@ -79,13 +79,29 @@ public class MainTileMap extends TileMap {
                     player.mVel.y = 0;
                     player.onGround();
                     player.mPos.y = tile.y(tile.tileSize, (int)getOffset().y) - player.height;
+                    actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + player.mPos.y - player.height;
+
+                    // ISSUE DISCOVERED: After setting the offset to the player y-position
+                    //                   upon y-collision, the offset is set to an awfully
+                    //                   low value which is not realistic, which means we
+                    //                   are somehow handling collision incorrectly in this
+                    //                   portion of our code. The root of the problem seems
+                    //                   to be that the y-offset value is read wrong somehow,
+                    //                   given that the player's y-position is set to an
+                    //                   incredibly low y-value upon a tile collision. This
+                    //                   may mean that the offset value is not read at all
+                    //                   and that the collision is set to a tile without the
+                    //                   given offset value.
+                    Log.i("LudosLog", "below!");
                 }
             }
             if (player.mVel.y > 0) {
                 if (player.mPos.y < (tile.y(tile.tileSize, (int)getOffset().y) + tile.tileSize)) {
                     player.side.top = true;
                     player.mVel.y = 0;
+                    Log.i("LudosLog", "above!");
                     player.mPos.y = (tile.y(tile.tileSize, (int)getOffset().y) + tile.tileSize);
+                    actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + player.mPos.y;
                 }
             }
         }
@@ -127,9 +143,10 @@ public class MainTileMap extends TileMap {
             if (player.mVel.y > 0 && collisionEnabled) {
                 if (player.mPos.y + player.height - tile.tileSize < ty &&
                         (Vector2D.intersect(selfA, selfB, playerA1, playerB1) || (Vector2D.intersect(selfA, selfB, playerA2, playerB2)))){
-                    player.mPos.y = ty - player.height;
-                    player.mVel.y = 0;
                     player.onGround();
+                    player.mPos.y = tile.y(tile.tileSize, (int)getOffset().y) - player.height;
+                    actualOffsetY = ArcadeMachine.SCREEN_OFFSET_Y + player.mPos.y - player.height;
+                    player.mVel.y = 0;
                 }
             } else collisionEnabled = true;
         }

@@ -54,7 +54,7 @@ public class Player extends BasePlayer {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
 
         if (controls.isTouched("jump")) {
-            mVel.y = (900.f);
+            mVel.y = (200.f);
 
             /*
             if (!jumping) {
@@ -97,13 +97,15 @@ public class Player extends BasePlayer {
 
         side.reset();
 
-        moveX(mVel.x);
-        manageCollisionX();
-        //manageTileCollisionX(Surge.tileMap, 0);
-
-        //moveY(mVel.y);
         manageCollisionY();
         manageTileCollisionY(Surge.tileMap, 0);
+
+        moveX(mVel.x);
+        manageCollisionX();
+        manageTileCollisionX(Surge.tileMap, 0);
+
+        //moveY(mVel.y);
+
 
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isRemoved()) {
@@ -141,11 +143,11 @@ public class Player extends BasePlayer {
     @Override
     public void update() {
         controlling();
-        step();
     }
 
     @Override
     public void draw() {
+        step();
 
         Shapes.setColor(Color.argb(0.5f, 0f,1f,1f));
 
@@ -174,7 +176,7 @@ public class Player extends BasePlayer {
         int cy = (int)(mPos.y - map.getOffset().y) / map.getTileSize();
 
         int tileX = width / map.getTileSize() + 1;
-        int tileY = height / map.getTileSize();
+        int tileY = height / map.getTileSize() + 2;
 
         for (int y = -3; y < tileY; y++) {
             for (int x = -2; x < tileX; x++) {
@@ -204,7 +206,7 @@ public class Player extends BasePlayer {
         int cy = (int)(mPos.y - map.getOffset().y) / map.getTileSize();
 
         int tileX = width / map.getTileSize() + 1;
-        int tileY = height / map.getTileSize();
+        int tileY = height / map.getTileSize() + 2;
 
         for (int y = -3; y < tileY; y++) {
             for (int x = -2; x < tileX; x++) {
@@ -219,6 +221,15 @@ public class Player extends BasePlayer {
                 }
                 catch (Exception e) {
                     tile.ID = 0;
+                }
+
+                if (tile.ID > 0) {
+                    Shapes.drawRect(
+                            tile.x(tile.tileSize, (int)map.getOffset().x),
+                            (tile.y(tile.tileSize, (int) map.getOffset().y)),
+                            tile.tileSize,
+                            tile.tileSize
+                    );
                 }
 
                 if (overlap(tile, map.getTileSize())) {
