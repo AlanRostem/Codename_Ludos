@@ -1,8 +1,11 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
+<<<<<<< HEAD
 import android.service.quicksettings.Tile;
 import android.util.Log;
+=======
+>>>>>>> parent of 5e88b60... meh
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
@@ -108,7 +111,6 @@ public class Player extends BasePlayer {
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isRemoved()) {
                 activePowerUps.remove(i);
-                break;
             }
             if (activePowerUps.get(i).isUsing() && !activePowerUps.get(i).isDone()) {
                 activePowerUps.get(i).buff(this);
@@ -135,6 +137,7 @@ public class Player extends BasePlayer {
     }
 
     @Override
+<<<<<<< HEAD
     public boolean overlap(GameTile t, int tileSize) {
         int ox = (int)Surge.tileMap.getOffset().x;
         int oy = (int)Surge.tileMap.getOffset().y;
@@ -145,6 +148,8 @@ public class Player extends BasePlayer {
     }
 
     @Override
+=======
+>>>>>>> parent of 5e88b60... meh
     public void update() {
         controlling();
         step();
@@ -152,7 +157,6 @@ public class Player extends BasePlayer {
 
     @Override
     public void draw() {
-
         Shapes.setColor(Color.argb(0.5f, 0f,1f,1f));
 
         for (int i = 0; i < activePowerUps.size(); i++) {
@@ -176,8 +180,13 @@ public class Player extends BasePlayer {
 
     @Override
     public void manageTileCollisionX(TileMap map, int minSolidTileID) {
+<<<<<<< HEAD
         int cx = (int)(mPos.x - map.getOffset().x) / map.getTileSize();
         int cy = (int)(mPos.y - map.getOffset().y) / map.getTileSize();
+=======
+        int cx = (int)(mPos.x) / map.getTileSize();
+        int cy = (int)(mPos.y) / map.getTileSize();
+>>>>>>> parent of 5e88b60... meh
 
         int tileX = width / map.getTileSize() + 1;
         int tileY = height / map.getTileSize() + 2;
