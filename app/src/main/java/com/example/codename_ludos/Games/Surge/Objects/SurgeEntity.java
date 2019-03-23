@@ -47,7 +47,7 @@ public class SurgeEntity extends GameEntity {
 
     @Override
     public void update() {
-        if (Math.abs(Surge.player.mPos.y - mPos.y) > ArcadeMachine.SCREEN_HEIGHT + ArcadeMachine.SCREEN_OFFSET_Y) {
+        if (Math.abs(mPos.y) - Math.abs(Surge.player.mPos.y) < -(ArcadeMachine.SCREEN_HEIGHT + ArcadeMachine.SCREEN_OFFSET_Y)) {
             remove();
         }
         step();

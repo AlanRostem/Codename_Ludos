@@ -49,9 +49,9 @@ public class Player extends BasePlayer {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
 
         if (controls.isTouched("jump")) {
-            //mVel.y = (300.f);
+            mVel.y = (-900.f);
 
-            if (!jumping) {
+            /*if (!jumping) {
                 jumping = true;
                 if (djumping) {
                     if (mVel.y > 0) {
@@ -62,7 +62,7 @@ public class Player extends BasePlayer {
                 }
                 else
                     mVel.y = (-900.f);
-            }
+            }*/
         }
 
         glideX(0.9f);

@@ -1,4 +1,4 @@
-package com.example.codename_ludos.Games.Surge.Objects;
+package com.example.codename_ludos.Games.Surge.Objects.Prefab;
 
 import android.arch.core.util.Function;
 import android.util.Log;
@@ -10,6 +10,9 @@ import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
 import com.example.codename_ludos.Games.Surge.Objects.Items.WallJump;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.OneWayPlatform;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.SolidObject;
+import com.example.codename_ludos.Games.Surge.Objects.Prefab.Prefab;
+import com.example.codename_ludos.Games.Surge.Objects.SurgeEntity;
+import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
@@ -22,15 +25,20 @@ public class PrefabManager {
     private final ArcadeGame gameRef;
     public HashMap<Integer, Function<Vector2D, SurgeEntity>> entitySpawns = new HashMap<>();
     private Prefab nextPrefab;
+    private static PrefabArrays prefabArrays = new PrefabArrays();
 
     float ox;
     float oy;
+
+    float prefabSpawnRange;
+    float prefabSpawnIncrement;
 
     public PrefabManager(ArcadeGame game) {
         gameRef = game;
 
         ox = ArcadeMachine.SCREEN_OFFSET_X;
         oy = ArcadeMachine.SCREEN_OFFSET_Y;
+        prefabSpawnRange =  prefabSpawnIncrement = oy + ArcadeMachine.SCREEN_HEIGHT / 2f;
 
         entitySpawns.put(1, (vec) -> new DoubleJump(vec.x + ox, vec.y + oy));
         entitySpawns.put(2, (vec) -> new WallJump(vec.x + ox, vec.y + oy));
@@ -41,6 +49,10 @@ public class PrefabManager {
         scanArrayAndSpawnEntities();
     }
 
+    public static PrefabArrays getPrefabArrays() {
+        return prefabArrays;
+    }
+
     public void setNextPrefab(Prefab nextPrefab) {
         this.nextPrefab = nextPrefab;
     }
@@ -49,19 +61,25 @@ public class PrefabManager {
         for (int i = 0; i < nextPrefab.size(); i++) {
             for (int j = 0; j < nextPrefab.get(i).size(); j++) {
                 int tile = nextPrefab.get(i).get(j);
-                try {
-                    gameRef.spawnEntity(entitySpawns.get(tile).apply(
-                            new Vector2D(j * nextPrefab.getTileSize(), i * nextPrefab.getTileSize())));
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                    Log.i("LudosLog", "NullPointerException caught at PrefabManager.scanArrayAndSpawnEntities with tile ID " + tile);
+                if (tile != 0) {
+                    try {
+                        gameRef.spawnEntity(entitySpawns.get(tile).apply(
+                                new Vector2D(j * nextPrefab.getTileSize(), i * nextPrefab.getTileSize() + nextPrefab.getOffset().y)));
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                        Log.i("LudosLog", "NullPointerException caught at PrefabManager.scanArrayAndSpawnEntities with tile ID " + tile);
+                    }
                 }
             }
         }
     }
 
     public void update() {
-
+        if (Surge.player.mPos.y < prefabSpawnRange) {
+            prefabSpawnRange -= nextPrefab.getMapHeight();
+            nextPrefab.setOffset(nextPrefab.getOffset().x, nextPrefab.getOffset().y - nextPrefab.getMapHeight());
+            scanArrayAndSpawnEntities();
+        }
     }
 
     public void draw() {
