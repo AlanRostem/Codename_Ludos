@@ -13,8 +13,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Audio.Music;
@@ -22,7 +27,7 @@ import com.example.codename_ludos.LibraryTools.Constants;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     public static GamePanel gamePanel;
     public static SoundPool soundPool;
@@ -64,6 +69,11 @@ public class MainActivity extends Activity {
         Constants.SCREEN_WIDTH = point.x;
         Constants.SCREEN_HEIGHT = point.y;
         MainThread.MAX_FPS = (int)display.getRefreshRate();
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     @Override

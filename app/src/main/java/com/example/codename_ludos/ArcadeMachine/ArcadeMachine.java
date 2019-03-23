@@ -8,7 +8,6 @@ import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
-import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.Games.TestGame.TestGame;
@@ -28,7 +27,7 @@ public class ArcadeMachine {
     private static HashMap<String, ArcadeGame> games;
     private static ArrayList<String> gameIDList;
     private static String currentGameID = "Eggrun";
-    private static Controls controls = new Controls();
+    private static ScrollList gameButtons;
 
     public static SpriteMap arcadeImage;
 
@@ -104,6 +103,7 @@ public class ArcadeMachine {
         gameIDList = new ArrayList<>();
         arcadeImage = new SpriteMap(R.drawable.maskin);
         arcadeImage.bindSprite("all", 0, 0, 1080, 1920);
+        gameButtons = new ScrollList("gameButtons", SCREEN_OFFSET_X, SCREEN_OFFSET_Y, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         createGame("TestGame", new TestGame());
         createGame("Eggrun", new Eggrun());
@@ -112,7 +112,7 @@ public class ArcadeMachine {
 
         for (String n : getGameIDList()) {
             final String N = n;
-            controls.append(n, new Button(controls, n, 240,
+            gameButtons.append(n, new Button(gameButtons, n, 240,
                     240 + getGameIDList().indexOf(n) * 200,
                             600, 100) {
                 int color = Color.WHITE;
@@ -125,7 +125,7 @@ public class ArcadeMachine {
                         selected = false;
                         enteredGame = true;
                     }
-                    for (UIElement b : ArcadeMachine.controls.getChildNodes()) {
+                    for (UIElement b : ArcadeMachine.gameButtons.getChildNodes()) {
                         if (b != this) {
                             ((Button) b).selected = false;
                         }
@@ -134,6 +134,11 @@ public class ArcadeMachine {
                         selected = true;
                     }
                     enteredGame = false;
+                    Log.i("LudosLog",
+                        "I = " + initialPos.x + "," + initialPos.y + "; " +
+                            "U = " + outPutPos.x + "," + outPutPos.y + "; " +
+                            "O = " + offsetPos.x + "," + offsetPos.y
+                    );
                 }
 
                 @Override
@@ -165,7 +170,7 @@ public class ArcadeMachine {
             games.get(currentGameID).controls.draw();
         } else if (getCurrentState() == MachineState.in_game_select) {
             arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
-            controls.draw();
+            gameButtons.draw();
         }
     }
 
@@ -174,7 +179,7 @@ public class ArcadeMachine {
             games.get(currentGameID).controls.update();
             games.get(currentGameID).coreUpdate();
         } else if (getCurrentState() == MachineState.in_game_select) {
-            controls.update();
+            gameButtons.update();
         }
     }
 
