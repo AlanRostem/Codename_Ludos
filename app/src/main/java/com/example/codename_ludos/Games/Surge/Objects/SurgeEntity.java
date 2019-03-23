@@ -19,6 +19,7 @@ public class SurgeEntity extends GameEntity {
 
         objects.bindSprite("oneWay", 80, 0, 96, 16);
         objects.bindSprite("solidWall", 180, 0, 20, 80);
+        objects.bindSprite("supreme", 0, 40, 181, 140);
     }
 
     public SurgeEntity(float x, float y) {
@@ -31,10 +32,6 @@ public class SurgeEntity extends GameEntity {
         this.height = height;
         this.width = width;
         this.drawName = drawName;
-    }
-
-    public void step() {
-
     }
 
     public void playerXCollision(Player player) {
@@ -50,7 +47,12 @@ public class SurgeEntity extends GameEntity {
         if (Math.abs(mPos.y) - Math.abs(Surge.player.mPos.y) < -(ArcadeMachine.SCREEN_HEIGHT + ArcadeMachine.SCREEN_OFFSET_Y)) {
             remove();
         }
-        step();
     }
 
+    @Override
+    public void draw() {
+        objects.drawAt(drawName,
+                (int) mPos.x + (int) Surge.camera.x,
+                (int) mPos.y + (int) Surge.camera.y, width, height);
+    }
 }

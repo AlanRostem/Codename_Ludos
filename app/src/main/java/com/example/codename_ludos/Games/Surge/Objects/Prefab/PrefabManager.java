@@ -10,6 +10,7 @@ import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
 import com.example.codename_ludos.Games.Surge.Objects.Items.WallJump;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.OneWayPlatform;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.SolidObject;
+import com.example.codename_ludos.Games.Surge.Objects.Obstacles.SupremeStore;
 import com.example.codename_ludos.Games.Surge.Objects.Prefab.Prefab;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeEntity;
 import com.example.codename_ludos.Games.Surge.Surge;
@@ -44,6 +45,7 @@ public class PrefabManager {
         entitySpawns.put(2, (vec) -> new WallJump(vec.x + ox, vec.y + oy));
         entitySpawns.put(3, (vec) -> new OneWayPlatform(vec.x + ox, vec.y + oy));
         entitySpawns.put(4, (vec) -> new SolidObject(vec.x + ox, vec.y + oy));
+        entitySpawns.put(5, (vec) -> new SupremeStore(vec.x + ox, vec.y + oy));
 
         setNextPrefab(new Prefab(0, 0, gameRef));
         scanArrayAndSpawnEntities();
