@@ -26,17 +26,16 @@ public class PowerUp extends SurgeEntity {
             Animation(0, 3, 4, 0.25f);
 
     public PowerUp(String drawName, float x, float y, float rarity, float duration) {
-        super(x, y);
+        super(drawName, x, y, 80, 80);
         mRarity = rarity;
         mDuration = duration;
         maxDuration = duration;
         mDrawName = drawName;
         mDone = false;
-        width = height = 80;
     }
 
     public void draw(float x, float y) {
-        sprite.drawAt(mDrawName, (int) x + (int) Surge.camera.x,
+        objects.drawAt(mDrawName, (int) x + (int) Surge.camera.x,
                 (int) y + (int) Surge.camera.y, width, height);
     }
 
@@ -77,8 +76,8 @@ public class PowerUp extends SurgeEntity {
     @Override
     public void draw() {
         if (!mUsing) {
-            sprite.Animate(mDrawName, iconAnim);
-            sprite.drawAt(
+            objects.Animate(mDrawName, iconAnim);
+            objects.drawAt(
                     (int) mPos.x + (int) Surge.camera.x,
                     (int) mPos.y + (int) Surge.camera.y, width, height);
         }
@@ -86,7 +85,6 @@ public class PowerUp extends SurgeEntity {
 
     @Override
     public void update() {
-        mPos.y = offSet.y + Surge.tileMap.getMapOffset();
         if (mUsing) {
             mDuration -= MainThread.getAverageDeltaTime();
             if (mDuration <= 0.0f) {

@@ -27,6 +27,5 @@ public class DoubleJump extends PowerUp {
                 }
             }
         }
-        Log.i("Jumps", "" + player.side.bottom);
     }
 }

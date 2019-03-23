@@ -1,17 +1,11 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
-import android.service.quicksettings.Tile;
-import android.util.Log;
 
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
-import com.example.codename_ludos.Core.MainThread;
-import com.example.codename_ludos.Entity.GameTile;
-import com.example.codename_ludos.Entity.TileMap;
-import com.example.codename_ludos.Games.Surge.TileBased.MainTileMap;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.Entity.GameEntity;
@@ -94,11 +88,9 @@ public class Player extends BasePlayer {
 
         moveY(mVel.y);
         manageCollisionY();
-        manageTileCollisionY(Surge.tileMap, 0);
 
         moveX(mVel.x);
         manageCollisionX();
-        manageTileCollisionX(Surge.tileMap, 0);
 
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isRemoved()) {
@@ -159,108 +151,56 @@ public class Player extends BasePlayer {
         sprite.drawAt("a1", (int) mPos.x, (int) mPos.y + (int) Surge.camera.y, width, height);
     }
 
-    @Override
-    public void manageTileCollisionX(TileMap map, int minSolidTileID) {
-        int cx = (int)(mPos.x) / map.getTileSize();
-        int cy = (int)(mPos.y) / map.getTileSize();
-
-        int tileX = width / map.getTileSize() + 1;
-        int tileY = height / map.getTileSize() + 2;
-
-        for (int y = -3; y < tileY; y++) {
-            for (int x = -2; x < tileX; x++) {
-                int xx = cx + x;
-                int yy = cy + y;
-
-                GameTile tile = new GameTile(xx, yy);
-                tile.tileSize = map.getTileSize();
-
-                try {
-                    tile.ID = map.get(yy).get(xx);
-                }
-                catch (Exception e) {
-                    tile.ID = 0;
-                }
-
-                if (overlap(tile, map.getTileSize())) {
-                    Surge.tileMap.callXCollision(tile, this);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void manageTileCollisionY(TileMap map, int minSolidTileID) {
-        int cx = (int)(mPos.x) / map.getTileSize();
-        int cy = (int)(mPos.y) / map.getTileSize();
-
-        int tileX = width / map.getTileSize() + 1;
-        int tileY = height / map.getTileSize() + 2;
-
-        for (int y = -3; y < tileY; y++) {
-            for (int x = -2; x < tileX; x++) {
-                int xx = cx + x;
-                int yy = cy + y;
-
-                GameTile tile = new GameTile(xx, yy);
-                tile.tileSize = map.getTileSize();
-
-                try {
-                    tile.ID = map.get(yy).get(xx);
-                }
-                catch (Exception e) {
-                    tile.ID = 0;
-                }
-
-                if (overlap(tile, map.getTileSize())) {
-                    Surge.tileMap.callYCollision(tile, this);
-                }
-            }
-        }
-    }
-
     public void manageCollisionX() {
-        ArrayList<GameEntity> list = ArcadeMachine.getCurrentGame().getEntityList();
-        for (GameEntity e : list) {
-            if (e != this)
-                if (overlap(e)) {
-                    if (e instanceof SurgeEntity) {
-                        ((SurgeEntity) e).playerXCollision(this);
+        try {
+            ArrayList<GameEntity> list = ArcadeMachine.getCurrentGame().getEntityList();
+            for (GameEntity e : list) {
+                if (e != this)
+                    if (overlap(e)) {
+                        if (e instanceof SurgeEntity) {
+                            ((SurgeEntity) e).playerXCollision(this);
+                        }
                     }
-                }
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
     public void manageCollisionY() {
-        ArrayList<GameEntity> list = ArcadeMachine.getCurrentGame().getEntityList();
-        for (GameEntity e : list) {
-            if (e != this)
-                if (overlap(e)) {
-                    if (e instanceof SurgeEntity) {
-                        if (e instanceof PowerUp) {
-                            if (activePowerUps.size() < 4) {
-                                PowerUp p = (PowerUp) e;
-                                boolean remove = false;
-                                if (!p.isUsing()) {
-                                    for (PowerUp a : activePowerUps) {
-                                        if (a.getClass().equals(p.getClass())) {
-                                            a.setDuration(p.getDuration());
-                                            remove = true;
+        try {
+            ArrayList<GameEntity> list = ArcadeMachine.getCurrentGame().getEntityList();
+            for (GameEntity e : list) {
+                if (e != this)
+                    if (overlap(e)) {
+                        if (e instanceof SurgeEntity) {
+                            if (e instanceof PowerUp) {
+                                if (activePowerUps.size() < 4) {
+                                    PowerUp p = (PowerUp) e;
+                                    boolean remove = false;
+                                    if (!p.isUsing()) {
+                                        for (PowerUp a : activePowerUps) {
+                                            if (a.getClass().equals(p.getClass())) {
+                                                a.setDuration(p.getDuration());
+                                                remove = true;
+                                            }
+                                        }
+                                        activePowerUps.add(p);
+                                        if (!remove) {
+                                            p.use();
+                                        } else {
+                                            p.remove();
                                         }
                                     }
-                                    activePowerUps.add(p);
-                                    if (!remove) {
-                                        p.use();
-                                    } else {
-                                        p.remove();
-                                    }
                                 }
+                            } else {
+                                ((SurgeEntity) e).playerYCollision(this);
                             }
-                        } else {
-                            ((SurgeEntity) e).playerYCollision(this);
                         }
                     }
-                }
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
