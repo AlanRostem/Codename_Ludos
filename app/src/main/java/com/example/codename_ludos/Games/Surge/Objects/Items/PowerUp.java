@@ -13,7 +13,6 @@ import com.example.codename_ludos.R;
 
 public class PowerUp extends SurgeEntity {
 
-    public static SpriteMap sprite = new SpriteMap(R.drawable.surgepowerups);
 
     protected float mRarity;
     protected float mDuration;

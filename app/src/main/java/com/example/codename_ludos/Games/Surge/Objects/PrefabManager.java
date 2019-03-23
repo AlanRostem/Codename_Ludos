@@ -18,7 +18,6 @@ import java.util.HashMap;
 
 public class PrefabManager {
     private SpriteMap bg = new SpriteMap(R.drawable.bg);
-    private SpriteMap tileSet = new SpriteMap(R.drawable.surge_tiles);
 
     private final ArcadeGame gameRef;
     public HashMap<Integer, Function<Vector2D, SurgeEntity>> entitySpawns = new HashMap<>();
@@ -55,7 +54,7 @@ public class PrefabManager {
                             new Vector2D(j * nextPrefab.getTileSize(), i * nextPrefab.getTileSize())));
                 } catch (NullPointerException e) {
                     e.printStackTrace();
-                    Log.i("LudosLog", "NullPointerException caught at PrefabManager.scanArrayAndSpawnEntities");
+                    Log.i("LudosLog", "NullPointerException caught at PrefabManager.scanArrayAndSpawnEntities with tile ID " + tile);
                 }
             }
         }
