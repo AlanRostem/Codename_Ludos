@@ -60,17 +60,16 @@ public class ScrollList extends UIContainer {
     @Override
     public void update() {
         updatePos();
-        for (Finger f : MainActivity.gamePanel.getFingers()) {
-            if (oneFingerOverlap(f)) {
-                Log.i("LudosLog", "" + startPos.x + "," + startPos.y);
-                if (!fingOnScreen) {
-                    startPos.set(f.x, f.y);
-                    div.setPos(div.getOutPutPos().x, (f.y - startPos.y));
-                    fingOnScreen = true;
-                }
-            } else {
-                fingOnScreen = false;
+        Finger f = MainActivity.gamePanel.getFingers()[0];
+        if (oneFingerOverlap(f)) {
+            if (!fingOnScreen) {
+                Log.i("LudosLog", "" + (f.y - startPos.y));
+                startPos.set(f.x, f.y);
+                div.setOffsetPos(div.getOffsetPos().x, (f.y - startPos.y));
+                fingOnScreen = true;
             }
+        } else {
+            fingOnScreen = false;
         }
 
         div.update();
@@ -87,7 +86,7 @@ public class ScrollList extends UIContainer {
     @Override
     public void draw() {
         div.draw();
-        Shapes.setColor(Color.argb(0.5f, 1f,1f,1f));
-        Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.width, this.height);
+        //Shapes.setColor(Color.argb(0.5f, 1f,1f,1f));
+        //Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.width, this.height);
     }
 }
