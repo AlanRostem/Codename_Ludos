@@ -91,7 +91,7 @@ public class GameMap {
                         if (lvl(1,0, j, i) > 0  && lvl(-1,0, j, i) > 0) level.get(i).set(j, 1);
                     }
                 }
-                if(i>height-2) level.get(i+1).set(j, 1);
+                if(i>height-2) level.get(i).set(j, 1);
             }
         setMapSprite();
     }
