@@ -26,10 +26,10 @@ public class Ali extends EggrunEntity {
     public Ali() {
         super(300 ,10, 80 ,80);
 
-        sprite = new SpriteMap(R.drawable.alisheet); // Dimensions of the raw image
-        sprite.bindSprite("Ali",0,0,40,40);
+        sprite = new SpriteMap(R.drawable.alienrun); // Dimensions of the raw image
+        sprite.bindSprite("Ali",0,0,32,32);
 
-        run = new SpriteMap.Animation(0,1,4,.13f);
+        run = new SpriteMap.Animation(0,5,6,.13f);
         jump = new SpriteMap.Animation(1,1,4,0f);
         djump = new SpriteMap.Animation(4,7,4,0.26f);
         djumpf = new SpriteMap.Animation(7,7,4,0f);
