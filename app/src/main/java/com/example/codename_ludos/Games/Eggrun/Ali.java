@@ -120,6 +120,6 @@ public class Ali extends EggrunEntity {
        // else if (jumping) sprite.Animate("Ali", jump);
         //else if (djumping) sprite.Animate("Ali", djump);
         //else if (sliding) sprite.Animate("Ali", slide);
-        sprite.drawAt("Ali", (int)mPos.x, (int)mPos.y, width, height);
+        sprite.drawAt((int)mPos.x, (int)mPos.y, width, height);
     }
 }

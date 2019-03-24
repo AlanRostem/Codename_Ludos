@@ -49,6 +49,7 @@ public class UIContainer extends UIElement {
 
     @Override
     public void update() {
+        updatePos();
         for (UIElement u : childContainer) {
             u.update();
         }

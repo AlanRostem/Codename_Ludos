@@ -16,6 +16,7 @@ public class Button extends Touchable {
 
     @Override
     public void update() {
+        updatePos();
         for (Finger pos : MainActivity.gamePanel.getFingers()) {
             if(isTouched(pos)) {
                 onTouch(pos.getX(), pos.getY());

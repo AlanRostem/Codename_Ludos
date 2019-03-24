@@ -31,6 +31,7 @@ public class PauseMenu extends Controls {
     }
 
     public void update() {
+        updatePos();
         if (myGame.isPaused()) {
             super.update();
         }

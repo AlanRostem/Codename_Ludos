@@ -1,25 +1,25 @@
-package com.example.codename_ludos.Games.Surge.Objects;
+package com.example.codename_ludos.Games.Surge.Objects.Obstacles;
 
 import android.util.Log;
-
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.Games.Surge.Player;
 import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
-public class UnderPassObject extends SurgeEntity {
-    private String drawName;
+public class OneWayPlatform extends Obstacle {
     private boolean collisionEnabled = true;
-    public UnderPassObject(String drawName, float x, float y, int width, int height) {
-        super(x, y);
-        this.drawName = drawName;
-        this.height = height;
-        this.width = width;
+
+    public OneWayPlatform(String drawName, float x, float y, int width, int height) {
+        super(drawName, x, y, width, height);
+    }
+
+    public OneWayPlatform(float x, float y) {
+        super("oneWay", x, y, 96*2, 16*2);
     }
 
     @Override
     public void playerXCollision(Player player) {
-        UnderPassObject self = this;
+        OneWayPlatform self = this;
         if (player.mPos.y + player.height < self.mPos.y + self.height && player.mVel.y > 0)
             if (player.mVel.x > 0) {
                 if (player.mPos.x + player.width > self.mPos.x) {
@@ -45,17 +45,18 @@ public class UnderPassObject extends SurgeEntity {
 
         if (player.mVel.y > 0 && collisionEnabled) {
             if (player.mPos.y + player.height - this.height < this.mPos.y &&
-                (Vector2D.intersect(selfA, selfB, playerA1, playerB1) || (Vector2D.intersect(selfA, selfB, playerA2, playerB2)))){
-                    player.mPos.y = this.mPos.y - player.height;
-                    player.mVel.y = 0;
-                    player.onGround();
+                    (Vector2D.intersect(selfA, selfB, playerA1, playerB1) || (Vector2D.intersect(selfA, selfB, playerA2, playerB2)))){
+                player.mPos.y = this.mPos.y - player.height;
+                player.mVel.y = 0;
+                player.onGround();
             }
         } else collisionEnabled = true;
     }
 
     @Override
     public void draw() {
-        Surge.objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+        objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
     }
 
 }
+

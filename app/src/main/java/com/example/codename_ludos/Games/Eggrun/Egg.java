@@ -47,6 +47,6 @@ public class Egg extends EggrunEntity {
         if (!side.left) {
             sprite.Animate("start", anim);
         }
-        sprite.drawAt("start", (int)this.mPos.x, (int)this.mPos.y, this.width, this.height);
+        sprite.drawAt((int)this.mPos.x, (int)this.mPos.y, this.width, this.height);
     }
 }

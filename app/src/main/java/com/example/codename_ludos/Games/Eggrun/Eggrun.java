@@ -119,8 +119,10 @@ public class Eggrun extends ArcadeGame {
     public void update() {
         float yPos = 0;
         for (ArrayList<Integer> i : EggrunEntity.gameMap.level) {
-            if (i.get(i.size()-1) <= 1) {
+            if (i.get(i.size() - 1) == 0) {
                 yPos += EggrunEntity.gameMap.level.getTileSize();
+            } else {
+                break;
             }
         }
         birdSpawner.setSpawnRegion(0,

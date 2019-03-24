@@ -4,7 +4,7 @@ public class GameTile {
     public int ID = 0;
     public int cx;
     public int cy;
-    int tileSize = 32;
+    public int tileSize = 32;
     public GameTile(int x, int y) {
         cx = x;
         cy = y;

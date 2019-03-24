@@ -6,6 +6,7 @@ public class UIElement {
 
     protected Vector2D outPutPos;
     protected Vector2D initialPos;
+    protected Vector2D offsetPos;
     protected UIContainer parent;
     protected String ID;
     protected int width;
@@ -17,6 +18,7 @@ public class UIElement {
     public UIElement(UIContainer parent, String id, float x, float y, int width, int height) {
         initialPos = new Vector2D(x, y);
         outPutPos = new Vector2D(parent.outPutPos.x + x, parent.outPutPos.y + y);
+        offsetPos = new Vector2D(0, 0);
         this.parent = parent;
         ID = id;
         this.width = width;
@@ -26,6 +28,7 @@ public class UIElement {
     public UIElement(String id, float x, float y, int width, int height) {
         initialPos = new Vector2D(x, y);
         outPutPos = new Vector2D(x, y);
+        offsetPos = new Vector2D(0, 0);
         ID = id;
         this.width = width;
         this.height = height;
@@ -103,6 +106,14 @@ public class UIElement {
 
     public void draw() {
 
+    }
+
+    public void updatePos() {
+        try {
+            offsetPos.set(parent.getOutPutPos().x, parent.getOutPutPos().y);
+        } catch (Exception e) {}
+        outPutPos.x = initialPos.x + offsetPos.x;
+        outPutPos.y = initialPos.y + offsetPos.y;
     }
 
     public void update() {
