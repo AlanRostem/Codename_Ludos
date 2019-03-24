@@ -1,13 +1,9 @@
 package com.example.codename_ludos.Games.Eggrun;
 
-import android.graphics.Color;
-
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
-import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.Entity.GameTile;
 import com.example.codename_ludos.Entity.TileMap;
-
 
 public class EggrunEntity extends GameEntity {
 
@@ -64,6 +60,7 @@ public class EggrunEntity extends GameEntity {
                             }
                         if(mVel.x < 0)
                             if (mPos.x < tile.x(map.getTileSize(), offSettX) + map.getTileSize()) {
+                                onLeftCollision(tile);
                                 mVel.x = 0;
                                 mPos.x = tile.x(map.getTileSize(), offSettX) + map.getTileSize();
                                 side.left = true;
