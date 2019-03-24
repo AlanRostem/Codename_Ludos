@@ -74,7 +74,8 @@ public class Surge extends ArcadeGame {
                 Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("left", new Button(controls, "left", 140 , 1500, 100, 100) {
+
+        controls.createController("left", new Button(controls, "left", 50 , 1500, 200, 200) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -90,7 +91,7 @@ public class Surge extends ArcadeGame {
                 Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("right", new Button(controls, "right",250, 1500, 100, 100) {
+        controls.createController("right", new Button(controls, "right",250, 1500, 200, 200) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {

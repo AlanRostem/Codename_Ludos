@@ -1,5 +1,9 @@
 package com.example.codename_ludos.UserInterface;
 
+import android.util.Log;
+
+import com.example.codename_ludos.UserInterface.Elements.Divider;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
