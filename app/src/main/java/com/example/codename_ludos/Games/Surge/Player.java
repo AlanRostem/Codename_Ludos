@@ -84,7 +84,7 @@ public class Player extends BasePlayer {
     public int maxJumps = 1;
     public boolean djumping = false;
     int gravity = 1700;
-    float friction = 0.6f;
+    public float friction = 0.6f;
 
     private void step() {
         if (!side.bottom) {
