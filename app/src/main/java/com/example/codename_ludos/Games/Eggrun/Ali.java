@@ -24,7 +24,7 @@ public class Ali extends EggrunEntity {
     private boolean sliding = false;
 
     public Ali() {
-        super(300 ,10, 80 ,80);
+        super(300 ,10, 96 ,96);
 
         sprite = new SpriteMap(R.drawable.alienrun); // Dimensions of the raw image
         sprite.bindSprite("Ali",0,0,32,32);

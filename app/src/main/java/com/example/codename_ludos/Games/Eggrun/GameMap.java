@@ -63,7 +63,7 @@ public class GameMap {
             }
     }
 
-    public boolean stackOverflow(int i, int j) { return (i > 0 && i < height - 1 && j > 0 && j < width - 1); }
+    public boolean stackOverflow(int i, int j) { return !(i > 0 && i < height - 1 && j > 0 && j < width - 1); }
 
     public int lvl(int x, int y, int j, int i) { return level.get(i + y).get(j + x); }
 
@@ -79,9 +79,9 @@ public class GameMap {
             }
 
         for(int i = 0; i<level.size(); i++)
-            for(int j = 0; j <level.get(0).size(); j++)
+            for(int j = chunkWidth-1; j <level.get(0).size(); j++)
             {
-                if(stackOverflow(i,j)) {
+                if(!stackOverflow(i,j)){
                     if (lvl(j, i) > 0) {
                         if (lvl(0,1, j, i) == 0) level.get(i + 1).set(j, 1); // Check if block under is empty
                         if (lvl(1,0, j, i) == 0  && lvl(-1,0, j, i) == 0) level.get(i).set(j, 0);
@@ -91,66 +91,15 @@ public class GameMap {
                         if (lvl(1,0, j, i) > 0  && lvl(-1,0, j, i) > 0) level.get(i).set(j, 1);
                     }
                 }
+                if(i>height-2) level.get(i+1).set(j, 1);
             }
-
         setMapSprite();
-
-            /*
-        int rndS = rnd.nextInt(4);
-            rndS = 3;
-
-        if(rndS == 3)
-        {
-            int rndI = maxTop - rnd.nextInt(3) - 5;
-            int rndJ = rnd.nextInt(chunkWidth) - 2;
-            int rndW = rnd.nextInt(chunkWidth) - rndJ;
-            int rndH = rnd.nextInt(3) + 2;
-
-            for (int i = 0; i < rndH; i++)
-                for (int j = 0; j < rndW; j++)
-                {
-                    if(i<2) level.get(rndI - i).set(chunkWidth + rndJ + j, 1);
-                    else level.get(rndI - i).set(chunkWidth + rndJ + j, rnd.nextInt(2));
-                }
-
-        }
-
-        for (int i = 0; i < level.size(); i++)
-            for (int j = chunkWidth; j < level.get(0).size(); j++)
-            {
-                if(level.get(i).get(j)>0 && j<level.get(0).size()-1 && j>chunkWidth && i < height-1) {
-                    if (level.get(i + 1).get(j) == 0 && (i<maxTop-5 || i >maxTop)) level.get(i + 1).set(j, 1); // Check if block under is empty
-                    if (level.get(i).get(j + 1) == 0 && level.get(i).get(j - 1) == 0) level.get(i).set(j, 0);
-                }
-
-                if(level.get(i).get(j)==0 && j<level.get(0).size()-1 && j>chunkWidth  && i < height-1)
-                    if (level.get(i).get(j + 1) >  0 && level.get(i).get(j - 1) >  0) level.get(i).set(j, 1);
-
-                if(j==chunkWidth && i < height-1) {
-                    if (level.get(i).get(j) == 0 && level.get(i).get(j + 1) >  0) level.get(i).set(j, 1);
-                    if (level.get(i).get(j) >  0 && level.get(i + 1).get(j) == 0 && (i<maxTop-5 || i >maxTop)) level.get(i + 1).set(j, 1); // Check if block under is empty
-                    if (level.get(i).get(j) >  0 && level.get(i).get(j - 1) == 0) level.get(i).set(j, 0);
-                }
-
-                if(j==level.get(0).size()-1 &&  i < height-1) {
-                    if (level.get(i).get(j) == 0 && level.get(i).get(j - 1) >  0) level.get(i).set(j, 1);
-                    if (level.get(i).get(j) >  0 && level.get(i).get(j - 1) == 0) level.get(i).set(j, 0);
-                    if (level.get(i).get(j) >  0 && level.get(i + 1).get(j) == 0 && (i<maxTop-5 || i >maxTop)) level.get(i + 1).set(j, 1); // Check if block under is empty
-                }
-
-                if(i == height - 1) {
-                    if (level.get(i).get(j) == 0 && level.get(i).get(j - 1) > 0 && level.get(i).get(j + 1) > 0) level.get(i).set(j, 1);
-                }
-
-            }
-
-            setMapSprite();*/
     }
 
     public void setMapSprite()
     {
         for (int i = 0; i < level.size(); i++)
-            for (int j = chunkWidth - 1; j < level.get(0).size(); j++)
+            for (int j = chunkWidth - 2; j < level.get(0).size(); j++)
             {
                 if (level.get(i).get(j) > 0)
                 {
