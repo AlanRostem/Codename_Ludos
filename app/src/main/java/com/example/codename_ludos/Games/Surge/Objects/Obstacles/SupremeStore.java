@@ -14,14 +14,14 @@ public class SupremeStore extends Obstacle {
     public void playerXCollision(Player player) {
         if (player.mVel.x > 0.f)
             if (player.mPos.x + player.width > mPos.x) {
-                player.mVel.x = 0;
+                player.mVel.x = mVel.x;
                 player.mPos.x = mPos.x - player.width;
                 player.side.right = true;
             }
 
         if (player.mVel.x < 0.f)
             if (player.mPos.x < mPos.x + width) {
-                player.mVel.x = 0;
+                player.mVel.x = mVel.x;
                 player.mPos.x = mPos.x + width;
                 player.side.left = true;
             }

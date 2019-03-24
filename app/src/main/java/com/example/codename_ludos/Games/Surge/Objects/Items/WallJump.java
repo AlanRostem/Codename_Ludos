@@ -21,7 +21,7 @@ public class WallJump extends PowerUp {
                 if (player.side.left) {
                     if (player.jumping) {
                         player.jumping = false;
-                        player.mVel.y = -900;
+                        player.mVel.y = -800;
                         player.speedX = lowSpeed;
                         player.accelerateX(acceleration);
                     }
@@ -29,7 +29,7 @@ public class WallJump extends PowerUp {
                 if (player.side.right) {
                     if (player.jumping) {
                         player.jumping = false;
-                        player.mVel.y = -900;
+                        player.mVel.y = -800;
                         player.speedX = lowSpeed;
                         player.accelerateX(-acceleration);
                     }
