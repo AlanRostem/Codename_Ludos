@@ -1,6 +1,7 @@
 package com.example.codename_ludos.ArcadeMachine;
 
 import android.graphics.Color;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -103,7 +104,7 @@ public class ArcadeMachine {
         gameIDList = new ArrayList<>();
         arcadeImage = new SpriteMap(R.drawable.maskin);
         arcadeImage.bindSprite("all", 0, 0, 1080, 1920);
-        gameButtons = new ScrollList("gameButtons", SCREEN_OFFSET_X, SCREEN_OFFSET_Y, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gameButtons = new ScrollList("gameButtons", 0, 0,Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
         createGame("TestGame", new TestGame());
         createGame("Eggrun", new Eggrun());
@@ -134,11 +135,6 @@ public class ArcadeMachine {
                         selected = true;
                     }
                     enteredGame = false;
-                    Log.i("LudosLog",
-                        "I = " + initialPos.x + "," + initialPos.y + "; " +
-                            "U = " + outPutPos.x + "," + outPutPos.y + "; " +
-                            "O = " + offsetPos.x + "," + offsetPos.y
-                    );
                 }
 
                 @Override

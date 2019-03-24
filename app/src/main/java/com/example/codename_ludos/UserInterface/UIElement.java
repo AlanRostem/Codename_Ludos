@@ -55,7 +55,7 @@ public class UIElement {
     }
 
     public boolean hasParent() {
-        return parent == null;
+        return parent != null;
     }
 
     public void setWidth(int width) {
@@ -86,6 +86,15 @@ public class UIElement {
         }
         outPutPos.x = x + margin;
         outPutPos.y = y + margin;
+    }
+
+    public void setOffsetPos(float x, float y) {
+        this.offsetPos.x = x;
+        this.offsetPos.y = y;
+    }
+
+    public Vector2D getOffsetPos() {
+        return offsetPos;
     }
 
     public float getMargin() {

@@ -67,4 +67,9 @@ public class Vector2D {
 
     }
 
+    //@androidx.annotation.NonNull
+    @Override
+    public String toString() {
+        return "Vector2D(" + x + ", " + y + ")";
+    }
 }

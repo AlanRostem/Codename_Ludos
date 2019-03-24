@@ -43,7 +43,10 @@ public class Player extends BasePlayer {
         djumping = false;
         jumping = false;
         jumps = 0;
+        speedX = 8000f;
     }
+
+    public float speedX = 8000f;
 
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
@@ -61,18 +64,19 @@ public class Player extends BasePlayer {
                         jumps = 0;
                     }
                 }
-                else
+                else {
                     mVel.y = (-900.f);
+                }
             }
             //*/
         }
 
-        glideX(0.9f);
+        glideX(friction);
         if (controls.isTouched("right"))
-            accelerateX(2000.f);
+            accelerateX(speedX);
 
         if (controls.isTouched("left"))
-            accelerateX(-2000.f);
+            accelerateX(-speedX);
     }
 
     public boolean jumping = false;
@@ -80,6 +84,7 @@ public class Player extends BasePlayer {
     public int maxJumps = 1;
     public boolean djumping = false;
     int gravity = 1700;
+    float friction = 0.6f;
 
     private void step() {
         if (!side.bottom) {
@@ -119,7 +124,6 @@ public class Player extends BasePlayer {
             onGround();
             side.bottom = true;
         }*/
-
         Surge.camera.update(0, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
     }
 
