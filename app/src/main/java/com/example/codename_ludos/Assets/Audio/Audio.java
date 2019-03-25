@@ -3,9 +3,10 @@ package com.example.codename_ludos.Assets.Audio;
 import android.content.Context;
 import android.media.SoundPool;
 
+import com.example.codename_ludos.Assets.Asset;
 import com.example.codename_ludos.Core.MainActivity;
 
-public class Audio {
+public class Audio extends Asset {
     private int resourceID;
     private int soundID;
 
@@ -16,6 +17,7 @@ public class Audio {
     private static SoundPool soundPool = MainActivity.soundPool;
 
     public Audio(int resourceID) {
+        super("");
         this.resourceID = resourceID;
         soundID = soundPool.load(context, this.resourceID, 1);
     }

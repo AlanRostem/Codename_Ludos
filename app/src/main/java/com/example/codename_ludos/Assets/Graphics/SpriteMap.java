@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
+import com.example.codename_ludos.Assets.Asset;
 import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Core.MainThread;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 
 
-public class SpriteMap {
+public class SpriteMap extends Asset {
 
     public static class Animation {
         // Object used as an instruction set for animating a sprite sheet
@@ -84,11 +85,27 @@ public class SpriteMap {
     private int imageHeight;
 
     public SpriteMap(int resourceID) {
+        super("");
         this.resourceID = resourceID;
         offsetRects = new HashMap<>();
         options.inScaled = false;
 
         bitmap = BitmapHelper.decodeResource(MainActivity.gamePanel.getResources(), this.resourceID, options);
+        imageWidth = bitmap.getWidth();
+        imageHeight = bitmap.getHeight();
+        //bitmap = BitmapHelper.resizeBitmap(bitmap, width, height);
+        positionRect = new Rect(0, 0, 0, 0);
+        animationRect = new Rect(0, 0, 0, 0);
+        offsetTileRect = new Rect(0, 0, 0, 0);
+        offsetRects.put("full", new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
+    }
+
+    public SpriteMap(Bitmap bm) {
+        super("");
+        offsetRects = new HashMap<>();
+        options.inScaled = false;
+
+        bitmap = bm;
         imageWidth = bitmap.getWidth();
         imageHeight = bitmap.getHeight();
         //bitmap = BitmapHelper.resizeBitmap(bitmap, width, height);
