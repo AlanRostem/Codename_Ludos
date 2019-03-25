@@ -187,6 +187,10 @@ public class ArcadeMachine {
         return games.get(currentGameID);
     }
 
+    public static ArcadeGame getGame(String gameID) {
+        return games.get(gameID);
+    }
+
     public static void touchEventHandle(MotionEvent event) {
         games.get(currentGameID).onTouchEvent(event);
     }

@@ -10,7 +10,11 @@ import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.R;
 
 public class SurgeEntity extends GameEntity {
-    protected static SpriteMap objects = new SpriteMap(R.drawable.surge_world);
+    protected static SpriteMap objects = ArcadeMachine
+            .getGame("Surge")
+            .getAssetLoader()
+            .getAsset("s_surge_world")
+            .asSpriteMap();
     protected String drawName;
 
     public static void initializeSpriteMap() {

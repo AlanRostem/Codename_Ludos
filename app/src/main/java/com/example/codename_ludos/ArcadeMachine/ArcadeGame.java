@@ -2,6 +2,7 @@ package com.example.codename_ludos.ArcadeMachine;
 
 import android.view.MotionEvent;
 
+import com.example.codename_ludos.Assets.AssetLoader;
 import com.example.codename_ludos.Assets.Audio.Music;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Core.MainActivity;
@@ -19,6 +20,7 @@ public class ArcadeGame extends EntityManager {
     protected Controls controls;
     protected PauseMenu pauseMenu;
     protected ArrayList<Music> songList;
+    protected AssetLoader assetLoader;
 
     // Upon extending this class make sure to create a public
     // static variable for the id
@@ -27,6 +29,7 @@ public class ArcadeGame extends EntityManager {
         controls = new Controls();
         pauseMenu = new PauseMenu(this);
         songList = new ArrayList<>();
+        assetLoader = new AssetLoader();
     }
 
     public String getID() {
@@ -37,6 +40,10 @@ public class ArcadeGame extends EntityManager {
         mStarted = true;
         setup();
         //Log.i("Game started", id);
+    }
+
+    public AssetLoader getAssetLoader() {
+        return assetLoader;
     }
 
     public void onExit() {

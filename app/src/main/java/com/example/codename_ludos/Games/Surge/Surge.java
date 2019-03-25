@@ -7,6 +7,7 @@ import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Games.Surge.Objects.Prefab.PrefabManager;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeEntity;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeGummyCash;
+import com.example.codename_ludos.R;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 
 public class Surge extends ArcadeGame {
@@ -22,7 +23,9 @@ public class Surge extends ArcadeGame {
 
     public Surge() {
         super("Surge");
-
+        assetLoader.queueBitmapToLoad("s_rubigo", R.drawable.rubigo);
+        assetLoader.queueBitmapToLoad("s_surge_world", R.drawable.surge_world);
+        assetLoader.createAllQueuedAssets();
     }
 
     @Override
