@@ -1,9 +1,12 @@
 package com.example.codename_ludos.ArcadeMachine;
 
+import android.graphics.Color;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.AssetLoader;
 import com.example.codename_ludos.Assets.Audio.Music;
+import com.example.codename_ludos.Assets.Graphics.TextDrawer;
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Entity.EntityManager;
@@ -58,6 +61,7 @@ public class ArcadeGame extends EntityManager {
         }
         onExit();
         clearEntities();
+        assetLoader.recycleAll();
     }
 
     public void onPaused() {
@@ -102,6 +106,12 @@ public class ArcadeGame extends EntityManager {
     }
 
     public void coreDraw() {
+        while (!assetLoader.areAllAssetsLoaded()) {
+            TextDrawer.draw("Loading...",
+                    Color.RED, 200,
+                    ArcadeMachine.SCREEN_OFFSET_X,
+                    ArcadeMachine.SCREEN_OFFSET_Y);
+        }
         draw();
         if (mPaused) {
             pauseMenu.draw();

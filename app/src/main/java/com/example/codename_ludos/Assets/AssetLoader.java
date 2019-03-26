@@ -20,6 +20,7 @@ public class AssetLoader {
     private HashMap<String, Integer> queuedAudioIDs;
 
     private BitmapFactory.Options options = new BitmapFactory.Options();
+    private boolean allAssetsLoaded = false;
 
     /*
     * To create an asset with a name string you must provide a prefix letter and
@@ -56,11 +57,13 @@ public class AssetLoader {
             String bitmapName = entry.getKey();
             int resourceID = entry.getValue();
             if (bitmapName.charAt(0) == 's') {
-                assets.put(bitmapName, new SpriteMap(
-                    BitmapHelper.decodeResource(MainActivity.gamePanel.getResources(), resourceID, options)
-                ));
+                SpriteMap sm = new SpriteMap(
+                        BitmapHelper.decodeResource(
+                                MainActivity.gamePanel.getResources(), resourceID, options));
+                assets.put(bitmapName, sm);
             }
         }
+        queuedBitmapIDs.clear();
 
         for (Map.Entry<String, Integer> entry : queuedAudioIDs.entrySet()) {
             String audioName = entry.getKey();
@@ -74,11 +77,18 @@ public class AssetLoader {
                     break;
             }
         }
+        queuedAudioIDs.clear();
 
+        allAssetsLoaded = true;
     }
 
+    public boolean areAllAssetsLoaded() {
+        return allAssetsLoaded;
+    }
 
-
+    public void recycleAll() {
+        assets.clear();
+    }
 
     public Bitmap createBitMap(int resourceID) {
         return BitmapFactory.decodeResource(MainActivity.gamePanel.getResources(), resourceID);

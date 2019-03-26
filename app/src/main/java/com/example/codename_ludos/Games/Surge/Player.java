@@ -16,7 +16,7 @@ import com.example.codename_ludos.R;
 import java.util.ArrayList;
 
 public class Player extends BasePlayer {
-    private SpriteMap sprite = ArcadeMachine
+    private static SpriteMap sprite = ArcadeMachine
                     .getGame("Surge")
                     .getAssetLoader()
                     .getAsset("s_rubigo")

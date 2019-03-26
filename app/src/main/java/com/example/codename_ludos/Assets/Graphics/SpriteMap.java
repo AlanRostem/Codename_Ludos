@@ -115,6 +115,10 @@ public class SpriteMap extends Asset {
         offsetRects.put("full", new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
     }
 
+    public boolean hasBitmap() {
+        return bitmap != null;
+    }
+
     // Bind a location on the sprite sheet to a name
     public void bindSprite(String name, int offsetX, int offsetY, int frameWidth, int frameHeight) {
         if (!hasBinding(name)) {
