@@ -3,11 +3,8 @@ package com.example.codename_ludos.Games.Surge.Objects;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Entity.GameEntity;
-import com.example.codename_ludos.Games.Surge.Objects.Items.PowerUp;
 import com.example.codename_ludos.Games.Surge.Player;
 import com.example.codename_ludos.Games.Surge.Surge;
-import com.example.codename_ludos.LibraryTools.Math.Vector2D;
-import com.example.codename_ludos.R;
 
 public class SurgeEntity extends GameEntity {
     protected static SpriteMap objects = ArcadeMachine

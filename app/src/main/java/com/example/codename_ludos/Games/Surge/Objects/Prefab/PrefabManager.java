@@ -21,7 +21,11 @@ import com.example.codename_ludos.R;
 import java.util.HashMap;
 
 public class PrefabManager {
-    private SpriteMap bg = new SpriteMap(R.drawable.bg);
+    private static SpriteMap bg = ArcadeMachine
+            .getGame("Surge")
+            .getAssetLoader()
+            .getAsset("s_bg")
+            .asSpriteMap();
 
     private final ArcadeGame gameRef;
     public HashMap<Integer, Function<Vector2D, SurgeEntity>> entitySpawns = new HashMap<>();
