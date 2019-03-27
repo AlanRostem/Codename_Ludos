@@ -1,12 +1,8 @@
 package com.example.codename_ludos.Assets.Graphics;
 
-import android.app.VoiceInteractor;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Asset;
@@ -14,7 +10,6 @@ import com.example.codename_ludos.Core.GamePanel;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Entity.TileMap;
-import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.LibraryTools.BitmapHelper;
 import com.example.codename_ludos.LibraryTools.Constants;
 
@@ -113,6 +108,17 @@ public class SpriteMap extends Asset {
         animationRect = new Rect(0, 0, 0, 0);
         offsetTileRect = new Rect(0, 0, 0, 0);
         offsetRects.put("full", new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+        imageWidth = bitmap.getWidth();
+        imageHeight = bitmap.getHeight();
+    }
+
+    @Override
+    public void recycle() {
+        bitmap.recycle();
     }
 
     public boolean hasBitmap() {

@@ -57,6 +57,11 @@ public class AssetLoader {
             String bitmapName = entry.getKey();
             int resourceID = entry.getValue();
             if (bitmapName.charAt(0) == 's') {
+                if (assets.containsKey(bitmapName)) {
+                    assets.get(bitmapName).asSpriteMap().setBitmap(BitmapHelper.decodeResource(
+                            MainActivity.gamePanel.getResources(), resourceID, options));
+                    continue;
+                }
                 SpriteMap sm = new SpriteMap(
                         BitmapHelper.decodeResource(
                                 MainActivity.gamePanel.getResources(), resourceID, options));
@@ -70,6 +75,10 @@ public class AssetLoader {
             int resourceID = entry.getValue();
             switch (audioName.charAt(0)) {
                 case 'a':
+                    if (assets.containsKey(audioName)) {
+                        assets.get(audioName).asAudio().reload();
+                        continue;
+                    }
                     assets.put(audioName, new Audio(resourceID));
                     break;
                 case 'm':
@@ -87,7 +96,9 @@ public class AssetLoader {
     }
 
     public void recycleAll() {
-        assets.clear();
+        for (Map.Entry<String, Asset> entry : assets.entrySet()) {
+            entry.getValue().recycle();
+        }
     }
 
     public Bitmap createBitMap(int resourceID) {

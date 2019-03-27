@@ -22,14 +22,15 @@ public class Surge extends ArcadeGame {
 
     public Surge() {
         super("Surge");
-        assetLoader.queueBitmapToLoad("s_rubigo", R.drawable.rubigo);
-        assetLoader.queueBitmapToLoad("s_surge_world", R.drawable.surge_world);
-        assetLoader.queueBitmapToLoad("s_bg", R.drawable.bg);
-        assetLoader.createAllQueuedAssets();
     }
 
     @Override
     public void setup() {
+        assetLoader.queueBitmapToLoad("s_rubigo", R.drawable.rubigo);
+        assetLoader.queueBitmapToLoad("s_surge_world", R.drawable.surge_world);
+        assetLoader.queueBitmapToLoad("s_bg", R.drawable.bg);
+        assetLoader.createAllQueuedAssets();
+
         makeButtons();
         SurgeEntity.initializeSpriteMap();
 

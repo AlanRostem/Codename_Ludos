@@ -19,7 +19,7 @@ public class Audio extends Asset {
     public Audio(int resourceID) {
         super("");
         this.resourceID = resourceID;
-        soundID = soundPool.load(context, this.resourceID, 1);
+        this.soundID = soundPool.load(context, this.resourceID, 1);
     }
 
     public void setPitch(float val) {
@@ -34,5 +34,15 @@ public class Audio extends Asset {
         if (MainActivity.soundLoaded) {
             soundPool.play(this.soundID, volume,volume, 0, 0, pitch);
         }
+    }
+
+    public void reload() {
+        soundID = soundPool.load(context, this.resourceID, 1);
+    }
+
+    @Override
+    public void recycle() {
+        // Experimental
+        //soundPool.unload(this.resourceID);
     }
 }

@@ -27,4 +27,8 @@ public class Asset {
         return (Music) this;
     }
 
+    public void recycle() {
+
+    }
+
 }
