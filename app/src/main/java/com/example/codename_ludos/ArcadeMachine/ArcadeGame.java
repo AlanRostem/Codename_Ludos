@@ -106,12 +106,6 @@ public class ArcadeGame extends EntityManager {
     }
 
     public void coreDraw() {
-        while (!assetLoader.areAllAssetsLoaded()) {
-            TextDrawer.draw("Loading...",
-                    Color.RED, 200,
-                    ArcadeMachine.SCREEN_OFFSET_X,
-                    ArcadeMachine.SCREEN_OFFSET_Y);
-        }
         draw();
         if (mPaused) {
             pauseMenu.draw();
