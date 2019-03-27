@@ -14,7 +14,6 @@ public class GameMap {
 
     public GameMap()
     {
-
         for (int i = 0; i < height; i++) {
             level.add(new ArrayList<Integer>(width));
             for (int j = 0; j < width; j++) level.get(i).add(0);
@@ -69,29 +68,38 @@ public class GameMap {
 
     public int lvl(int j, int i) { return level.get(i).get(j); }
 
-    public void randomize()
-    {
-        for(int i = 0; i<level.size(); i++)
-            for(int j = 0; j <level.get(0).size(); j++)
-            {
-                if(j<chunkWidth) level.get(i).set(j, level.get(i).get(j + chunkWidth));
-                else if (i>=maxTop) level.get(i).set(j, rnd.nextInt(2));
+    public void randomize() {
+        for (int i = 0; i < level.size(); i++) {
+            for (int j = 0; j < level.get(0).size(); j++) {
+                if (j < chunkWidth) level.get(i).set(j, level.get(i).get(j + chunkWidth));
+                else if (i >= maxTop && i <= height - 3) {
+                    level.get(i).set(j, rnd.nextInt(2));
+                } else if (i > height - 3) level.get(i).set(j, 1);
             }
+        }
+
+        int chunkType = rnd.nextInt(2);
+        if (chunkType==1) {
+            int start = rnd.nextInt(chunkWidth - 6);
+            int holewidth = rnd.nextInt(chunkWidth / 2 + start) + 6;
+            for (int i = 0; i < level.size(); i++)
+                for (int j = chunkWidth; j < level.get(0).size(); j++)
+                    if (j >= chunkWidth + start && j <= chunkWidth + start + holewidth)
+                        level.get(i).set(j, 0);
+        }
 
         for(int i = 0; i<level.size(); i++)
-            for(int j = chunkWidth-1; j <level.get(0).size(); j++)
+            for(int j = 0; j <level.get(0).size(); j++)
             {
                 if(!stackOverflow(i,j)){
                     if (lvl(j, i) > 0) {
                         if (lvl(0,1, j, i) == 0) level.get(i + 1).set(j, 1); // Check if block under is empty
                         if (lvl(1,0, j, i) == 0  && lvl(-1,0, j, i) == 0) level.get(i).set(j, 0);
                     }
-
                     if (lvl(j, i) == 0) {
                         if (lvl(1,0, j, i) > 0  && lvl(-1,0, j, i) > 0) level.get(i).set(j, 1);
                     }
                 }
-                if(i>height-2) level.get(i).set(j, 1);
             }
         setMapSprite();
     }
@@ -99,7 +107,7 @@ public class GameMap {
     public void setMapSprite()
     {
         for (int i = 0; i < level.size(); i++)
-            for (int j = chunkWidth - 2; j < level.get(0).size(); j++)
+            for (int j = 1; j < level.get(0).size(); j++)
             {
                 if (level.get(i).get(j) > 0)
                 {
@@ -160,7 +168,7 @@ public class GameMap {
 
     public void update() {
         offSet-=speed;
-        if(offSet < -tileSize * chunkWidth + speed) {
+        if(offSet <= -tileSize * chunkWidth) {
            offSet = 0;
            randomize();
         }
