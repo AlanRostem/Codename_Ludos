@@ -1,5 +1,7 @@
 package com.example.codename_ludos.UserInterface.Controllers;
 
+import android.view.MotionEvent;
+
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.UserInterface.Finger;
 import com.example.codename_ludos.LibraryTools.Constants;
@@ -49,7 +51,9 @@ public class Touchable extends UIContainer {
                 &&  pos.getY() < (this.getY() + this.height) * sy
                 && pos.getX() > this.getX() * sx
                 &&  pos.getX() < (this.getX() + this.width) * sx
-                && pos.isDown();
+                && (pos.getAction() == MotionEvent.ACTION_DOWN
+                || pos.getAction() == MotionEvent.ACTION_POINTER_DOWN
+                || pos.getAction() == MotionEvent.ACTION_MOVE);
     }
 
     public void update() {

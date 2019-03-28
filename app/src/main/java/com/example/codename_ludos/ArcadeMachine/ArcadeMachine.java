@@ -115,6 +115,7 @@ public class ArcadeMachine {
         createGame("Eggrun", new Eggrun());
         createGame("Surge", new Surge());
         createGame("Lodestone", new Lodestone());
+        createGame("Helvetus", new Lodestone());
 
         for (String n : getGameIDList()) {
             gameButtons.append(n, new GameButton(gameButtons, n, SCREEN_OFFSET_X,

@@ -8,7 +8,9 @@ import com.example.codename_ludos.UserInterface.UIContainer;
 
 public class Button extends Touchable {
     private boolean holding = false;
+    private boolean released = false;
     public boolean selected = false;
+
 
     public Button(UIContainer parent, String ID, int x, int y, int width, int height) {
         super(parent, ID, x, y, width, height);
@@ -25,9 +27,12 @@ public class Button extends Touchable {
                     onPressed(pos.getX(), pos.getY());
                 }
                 holding = true;
+                released = false;
                 break;
-            } else {
+            } else if (fingerOverlap(pos) && pos.getAction() == MotionEvent.ACTION_UP) {
                 onReleased(pos.getX(), pos.getY());
+            } else {
+                onLeft(pos.getX(), pos.getY());
                 holding = false;
             }
         }
@@ -42,6 +47,10 @@ public class Button extends Touchable {
     }
 
     public void onReleased(float eventX, float eventY) {
+
+    }
+
+    public void onLeft(float eventX, float eventY) {
 
     }
 

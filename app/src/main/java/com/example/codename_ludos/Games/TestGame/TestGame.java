@@ -61,6 +61,7 @@ public class TestGame extends ArcadeGame {
                 Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
+
         controls.createController("right", new Button(controls, "left",250, 1500, 100, 100) {
             private int color = Color.GREEN;
 
@@ -74,6 +75,27 @@ public class TestGame extends ArcadeGame {
 
             public void onReleased(float x, float y) {
                 color = Color.GREEN;
+            }
+
+            public void draw() {
+                Shapes.setColor(color);
+                Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
+            }
+        });
+
+        controls.createController("release", new Button(controls, "left",(int)(140*3f), 1500, 100, 250) {
+            private int color = Color.GREEN;
+
+            public void onHolding(float x, float y) {
+                color = Color.BLUE;
+                //dude.addX(speed);
+                //dude.right = true;
+                //dude.left = false;
+                //dude.walk = true;
+            }
+
+            public void onReleased(float x, float y) {
+                color = Color.RED;
             }
 
             public void draw() {

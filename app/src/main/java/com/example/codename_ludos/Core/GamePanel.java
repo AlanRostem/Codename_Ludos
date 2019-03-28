@@ -100,6 +100,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             if (fingerOnScreen)
                 fingers[i].set(true, id, x, y, action);
+            else
+                fingers[i].set(true, id, x, y, MotionEvent.ACTION_UP);
 
         }
     }
