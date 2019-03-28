@@ -38,7 +38,6 @@ public class Surge extends ArcadeGame {
         prefabManager = new PrefabManager(this);
 
         player = new Player();
-        spawnEntity(player);
     }
 
     @Override
@@ -48,12 +47,14 @@ public class Surge extends ArcadeGame {
             // TODO: Implement an algorithm to spawn entities above the player
         }
         updateEntities();
+        player.update();
     }
 
     @Override
     public void draw() {
         prefabManager.draw();
         drawEntities();
+        player.draw();
     }
 
     @Override

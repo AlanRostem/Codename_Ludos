@@ -108,7 +108,8 @@ public class ArcadeMachine {
         arcadeImage2 = new SpriteMap(R.drawable.maskin_two);
         arcadeImage.bindSprite("all", 0, 0, 1080, 1920);
         arcadeImage2.bindSprite("all", 1080, 0, 1080, 1920);
-        gameButtons = new ScrollList("gameButtons", 0, 0,ArcadeMachine.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+        gameButtons = new ScrollList("gameButtons", 0,  SCREEN_HEIGHT,
+                0, 0, ArcadeMachine.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
         createGame("TestGame", new TestGame());
         createGame("Eggrun", new Eggrun());

@@ -1,5 +1,6 @@
 package com.example.codename_ludos.UserInterface.Elements;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Core.MainActivity;
@@ -13,6 +14,9 @@ import java.util.ArrayList;
 
 public class ScrollList extends UIContainer {
     private Divider div;
+    float scrollYLimit = 0;
+    float scrollYOffset = 0;
+    float boxHeight = 0;
 
     public ScrollList(UIContainer parent, String id, float x, float y, int width, int height) {
         super(parent, id, x, y, width, height);
@@ -22,6 +26,14 @@ public class ScrollList extends UIContainer {
     public ScrollList(String id, float x, float y, int width, int height) {
         super(id, x, y, width, height);
         div = new Divider(this, "container", x, y, width, height);
+    }
+
+    public ScrollList(String id, float scrollOffset, float scrollLimit, float x, float y, int width, int height) {
+        super(id, x, y, width, height);
+        div = new Divider(this, "container", x, y, width, height);
+        scrollYLimit = scrollLimit;
+        scrollYOffset = scrollOffset;
+        Log.i("LudosLog", "Helvetus " + scrollYLimit + "," + scrollYOffset);
     }
 
     public boolean oneFingerOverlap(Finger pos) {
@@ -37,6 +49,7 @@ public class ScrollList extends UIContainer {
     @Override
     public void append(String id, UIElement element) {
         div.append(id, element);
+        boxHeight += element.getHeight();
     }
 
     boolean fingOnScreen = false;
@@ -71,12 +84,32 @@ public class ScrollList extends UIContainer {
                 fingOnScreen = true;
             }
             p = ypos + f.y - startPos.y;
-            div.setPos(0,  p);
+            div.setPos(0, p);
+            if (div.getOutPutPos().y < scrollYOffset && div.getOutPutPos().y + boxHeight > scrollYLimit) {
+            } else {
+                if (div.getOutPutPos().y > scrollYOffset) {
+                    div.getOutPutPos().y = scrollYOffset;
+                }
+
+                if (div.getOutPutPos().y + boxHeight < scrollYLimit) {
+                    div.getOutPutPos().y = scrollYLimit - boxHeight;
+                }
+            }
         } else {
             fingOnScreen = false;
         }
 
         div.update();
+
+        /*
+        if (div.getOutPutPos().y > scrollYOffset) {
+            div.getOutPutPos().y = scrollYOffset;
+        }
+
+        if (div.getOutPutPos().y + boxHeight < scrollYLimit) {
+            div.getOutPutPos().y = scrollYLimit - boxHeight;
+        } */
+
     }
 
     @Override

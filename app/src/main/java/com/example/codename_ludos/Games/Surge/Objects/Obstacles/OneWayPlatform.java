@@ -7,7 +7,7 @@ import com.example.codename_ludos.Games.Surge.Surge;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
 public class OneWayPlatform extends Obstacle {
-    private boolean collisionEnabled = true;
+    protected boolean collisionEnabled = true;
 
     public OneWayPlatform(String drawName, float x, float y, int width, int height) {
         super(drawName, x, y, width, height);
