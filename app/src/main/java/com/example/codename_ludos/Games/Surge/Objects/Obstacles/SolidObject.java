@@ -9,7 +9,7 @@ public class SolidObject extends Obstacle {
     }
 
     public SolidObject(float x, float y) {
-        super("solidWall", x, y, 20*2, 80*2);
+        super("solidWall", x, y, 30, 40+80);
     }
 
     @Override

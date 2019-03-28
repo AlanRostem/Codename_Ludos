@@ -14,7 +14,7 @@ import com.example.codename_ludos.UserInterface.UIElement;
 public class GameButton extends Button {
     String gameID;
     public static final int WIDTH = ArcadeMachine.SCREEN_WIDTH;
-    public static final int HEIGHT = 300;
+    public static final int HEIGHT = 200;
     public GameButton(UIContainer parent, String gameID, int x, int y, int width, int height) {
         super(parent, gameID, x, y, width, height);
         this.gameID = gameID;

@@ -14,7 +14,7 @@ public class OneWayPlatform extends Obstacle {
     }
 
     public OneWayPlatform(float x, float y) {
-        super("oneWay", x, y, 96*2, 16*2);
+        super("oneWay", x, y, 96 + 96/2, 16 + 8);
     }
 
     @Override

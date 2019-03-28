@@ -25,7 +25,7 @@ public class PowerUp extends SurgeEntity {
             Animation(0, 3, 4, 0.25f);
 
     public PowerUp(String drawName, float x, float y, float rarity, float duration) {
-        super(drawName, x, y, 80, 80);
+        super(drawName, x, y, 20 + 40, 20 + 40);
         mRarity = rarity;
         mDuration = duration;
         maxDuration = duration;

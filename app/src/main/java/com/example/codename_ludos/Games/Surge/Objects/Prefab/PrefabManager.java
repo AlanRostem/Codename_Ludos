@@ -91,5 +91,4 @@ public class PrefabManager {
     public void draw() {
        bg.drawAt("full", 0, ArcadeMachine.SCREEN_OFFSET_Y, 1080, 1920);
     }
-
 }

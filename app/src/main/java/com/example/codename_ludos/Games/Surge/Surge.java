@@ -18,7 +18,7 @@ public class Surge extends ArcadeGame {
 
     public static Camera camera = new Camera(0, 0);
 
-    public static final int TILE_SIZE = 64;
+    public static final int TILE_SIZE = 48;
 
     public Surge() {
         super("Surge", AMShowType.cut_frame);
@@ -63,7 +63,7 @@ public class Surge extends ArcadeGame {
     }
 
     private void makeButtons() {
-        controls.createController("jump", new Button(controls, "jump", 800, 1500, 200, 200) {
+        controls.createController("jump", new Button(controls, "jump", 550, 1000, 150, 150) {
             private int color = Color.GREEN;
 
             public void onPressed(float x, float y) {
@@ -80,7 +80,7 @@ public class Surge extends ArcadeGame {
             }
         });
 
-        controls.createController("left", new Button(controls, "left", 50 , 1500, 200, 200) {
+        controls.createController("left", new Button(controls, "left", 20 , 1000, 150, 150) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {
@@ -96,7 +96,7 @@ public class Surge extends ArcadeGame {
                 Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
             }
         });
-        controls.createController("right", new Button(controls, "right",250, 1500, 200, 200) {
+        controls.createController("right", new Button(controls, "right",20 + 150, 1000, 150, 150) {
             private int color = Color.GREEN;
 
             public void onHolding(float x, float y) {

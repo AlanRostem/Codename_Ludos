@@ -9,8 +9,8 @@ public class BaseGummyCash extends GameEntity {
 
     public BaseGummyCash(float x, float y) {
         super(x, y);
-        width = 60;
-        height = 60;
+        width = 30;
+        height = 30;
         sprite.bindSprite("start", 0, 0, 20, 20);
     }
 

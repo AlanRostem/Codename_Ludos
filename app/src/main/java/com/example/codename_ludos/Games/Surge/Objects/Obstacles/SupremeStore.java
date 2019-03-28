@@ -8,7 +8,7 @@ public class SupremeStore extends OneWayPlatform {
     private float speed = (float)Math.random() * 200f - 100f;
 
     public SupremeStore(float x, float y) {
-        super("supreme", x, y, 180*2, 32);
+        super("supreme", x, y, (int)(180*1.5f), 16+8);
     }
 
     @Override
@@ -21,6 +21,6 @@ public class SupremeStore extends OneWayPlatform {
     public void draw() {
         objects.drawAt(drawName,
                 (int) mPos.x + (int) Surge.camera.x,
-                (int) mPos.y - 2*40 + (int) Surge.camera.y, width, 2*140);
+                (int) mPos.y - 40 + (int) Surge.camera.y, width, (int)(140*1.5f));
     }
 }

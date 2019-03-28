@@ -30,8 +30,8 @@ public class Player extends BasePlayer {
         mPos.y *= 2f/3f;
         sprite = new SpriteMap(R.drawable.rubigo);
         sprite.bindSprite("a1", 0, 0, 48, 48);
-        width = 32 * 2;
-        height = 64 * 2;
+        width = 32 + 16;
+        height = 64 + 32;
         for (PowerUp p : activePowerUps) {
             p.setInactive();
         }
@@ -47,10 +47,10 @@ public class Player extends BasePlayer {
         djumping = false;
         jumping = false;
         jumps = 0;
-        speedX = 8000f;
+        speedX = 6000f;
     }
 
-    public float speedX = 8000f;
+    public float speedX = 6000f;
 
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
@@ -63,13 +63,13 @@ public class Player extends BasePlayer {
                 jumping = true;
                 if (djumping) {
                     if (mVel.y > 0) {
-                        mVel.y = (-300.f);
+                        mVel.y = (-150.f);
                     } else {
                         jumps = 0;
                     }
                 }
                 else {
-                    mVel.y = (-900.f);
+                    mVel.y = (-750.f);
                 }
             }
             //*/
