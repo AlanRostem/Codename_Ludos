@@ -30,7 +30,7 @@ public class GameButton extends Button {
             selected = false;
             enteredGame = true;
         }
-        
+
         for (UIElement b : parent.getChildNodes()) {
             if (b != this) {
                 ((Button) b).selected = false;
