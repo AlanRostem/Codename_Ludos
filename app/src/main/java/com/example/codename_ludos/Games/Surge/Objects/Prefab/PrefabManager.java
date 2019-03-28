@@ -41,7 +41,7 @@ public class PrefabManager {
     public PrefabManager(ArcadeGame game) {
         gameRef = game;
 
-        ox = ArcadeMachine.SCREEN_OFFSET_X;
+        ox = 0;
         oy = ArcadeMachine.SCREEN_OFFSET_Y;
         prefabSpawnRange =  prefabSpawnIncrement = oy + ArcadeMachine.SCREEN_HEIGHT / 2f;
 
@@ -83,13 +83,13 @@ public class PrefabManager {
     public void update() {
         if (Surge.player.mPos.y < prefabSpawnRange) {
             prefabSpawnRange -= nextPrefab.getMapHeight();
-            nextPrefab.setOffset(nextPrefab.getOffset().x, nextPrefab.getOffset().y - nextPrefab.getMapHeight());
+            nextPrefab.setOffset(0, nextPrefab.getOffset().y - nextPrefab.getMapHeight());
             scanArrayAndSpawnEntities();
         }
     }
 
     public void draw() {
-       bg.drawAt("full", ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y, ArcadeMachine.SCREEN_WIDTH, ArcadeMachine.SCREEN_HEIGHT);
+       bg.drawAt("full", 0, ArcadeMachine.SCREEN_OFFSET_Y, Constants.SCREEN_WIDTH, ArcadeMachine.SCREEN_HEIGHT);
     }
 
 }

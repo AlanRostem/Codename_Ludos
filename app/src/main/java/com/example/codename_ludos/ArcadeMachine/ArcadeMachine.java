@@ -32,6 +32,7 @@ public class ArcadeMachine {
     private static ScrollList gameButtons;
 
     public static SpriteMap arcadeImage;
+    public static SpriteMap arcadeImage2;
 
     public enum MachineState {
         in_game,
@@ -104,7 +105,9 @@ public class ArcadeMachine {
         games = new HashMap<>();
         gameIDList = new ArrayList<>();
         arcadeImage = new SpriteMap(R.drawable.maskin);
+        arcadeImage2 = new SpriteMap(R.drawable.maskin_two);
         arcadeImage.bindSprite("all", 0, 0, 1080, 1920);
+        arcadeImage2.bindSprite("all", 1080, 0, 1080, 1920);
         gameButtons = new ScrollList("gameButtons", 0, 0,ArcadeMachine.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
         createGame("TestGame", new TestGame());
@@ -130,6 +133,8 @@ public class ArcadeMachine {
             case full:
                 arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
                 break;
+            case cut_frame:
+                arcadeImage2.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
             case none:
                 break;
         }
