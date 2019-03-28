@@ -2,6 +2,7 @@ package com.example.codename_ludos.UserInterface.Elements;
 
 import android.graphics.Color;
 import android.util.Log;
+import android.view.MotionEvent;
 
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Core.MainActivity;
@@ -35,7 +36,7 @@ public class ScrollList extends UIContainer {
                 &&  pos.getY() < (this.outPutPos.y + this.height) * sy
                 && pos.getX() > this.outPutPos.x * sx
                 &&  pos.getX() < (this.outPutPos.x + this.width) * sx
-                && pos.isDown();
+                && pos.getAction() == MotionEvent.ACTION_MOVE;
     }
 
     @Override
@@ -46,6 +47,10 @@ public class ScrollList extends UIContainer {
     boolean fingOnScreen = false;
     boolean canScroll = true;
     Vector2D startPos = new Vector2D(-1, -1);
+
+    public void setScroll(boolean val) {
+        canScroll = val;
+    }
 
     @Override
     public ArrayList<UIElement> getChildNodes() {
@@ -61,26 +66,18 @@ public class ScrollList extends UIContainer {
     public void update() {
         updatePos();
         Finger f = MainActivity.gamePanel.getFingers()[0];
-        if (oneFingerOverlap(f)) {
+        if (oneFingerOverlap(f) && canScroll) {
+            float p = f.y - startPos.y;
             if (!fingOnScreen) {
-                Log.i("LudosLog", "" + (f.y - startPos.y));
                 startPos.set(f.x, f.y);
-                div.setOffsetPos(div.getOffsetPos().x, (f.y - startPos.y));
                 fingOnScreen = true;
             }
+            div.setPos(0, p);
         } else {
             fingOnScreen = false;
         }
 
         div.update();
-    }
-
-    public float getElementDistance() {
-        return elementDistance;
-    }
-
-    public void setElementDistance(float elementDistance) {
-        this.elementDistance = elementDistance;
     }
 
     @Override

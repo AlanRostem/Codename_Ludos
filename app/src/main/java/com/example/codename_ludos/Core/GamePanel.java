@@ -53,6 +53,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder sHolder) {
         if (!runningInBackground) {
+            ArcadeMachine.calibrateScreen();
             ArcadeMachine.initialize();
             runningInBackground = true;
         }

@@ -5,6 +5,7 @@ import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.example.codename_ludos.ArcadeMachine.UI.GameButton;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Graphics.TextDrawer;
@@ -104,7 +105,7 @@ public class ArcadeMachine {
         gameIDList = new ArrayList<>();
         arcadeImage = new SpriteMap(R.drawable.maskin);
         arcadeImage.bindSprite("all", 0, 0, 1080, 1920);
-        gameButtons = new ScrollList("gameButtons", 0, 0,Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+        gameButtons = new ScrollList("gameButtons", 0, 0,ArcadeMachine.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
         createGame("TestGame", new TestGame());
         createGame("Eggrun", new Eggrun());
@@ -112,43 +113,8 @@ public class ArcadeMachine {
         createGame("Lodestone", new Lodestone());
 
         for (String n : getGameIDList()) {
-            final String N = n;
-            gameButtons.append(n, new Button(gameButtons, n, 240,
-                    240 + getGameIDList().indexOf(n) * 200,
-                            600, 100) {
-                int color = Color.WHITE;
-                boolean enteredGame = false;
-
-                @Override
-                public void onPressed(float x, float y) {
-                    if (!getCurrentGame().isStarted() && selected) {
-                        ArcadeMachine.enterGame(N);
-                        selected = false;
-                        enteredGame = true;
-                    }
-                    for (UIElement b : ArcadeMachine.gameButtons.getChildNodes()) {
-                        if (b != this) {
-                            ((Button) b).selected = false;
-                        }
-                    }
-                    if (!enteredGame) {
-                        selected = true;
-                    }
-                    enteredGame = false;
-                }
-
-                @Override
-                public void draw() {
-                    if (selected) {
-                        color = Color.RED;
-                    } else {
-                        color = Color.WHITE;
-                    }
-                    Shapes.setColor(Color.BLUE);
-                    Shapes.drawRect(this.outPutPos.x, this.outPutPos.y, this.getWidth(), this.getHeight());
-                    TextDrawer.draw(N, color, 60, this.outPutPos.x, this.outPutPos.y);
-                }
-            });
+            gameButtons.append(n, new GameButton(gameButtons, n, SCREEN_OFFSET_X,
+                    SCREEN_OFFSET_Y + getGameIDList().indexOf(n) * GameButton.HEIGHT, ArcadeMachine.SCREEN_WIDTH, GameButton.HEIGHT));
         }
 
         rawImageWidth = arcadeImage.getImageWidth();
@@ -165,8 +131,8 @@ public class ArcadeMachine {
             arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
             games.get(currentGameID).controls.draw();
         } else if (getCurrentState() == MachineState.in_game_select) {
-            arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
             gameButtons.draw();
+            arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
         }
     }
 

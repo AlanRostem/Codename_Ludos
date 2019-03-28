@@ -1,5 +1,7 @@
 package com.example.codename_ludos.UserInterface;
 
+import android.util.Log;
+
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 
 public class UIElement {
@@ -91,6 +93,7 @@ public class UIElement {
     public void setOffsetPos(float x, float y) {
         this.offsetPos.x = x;
         this.offsetPos.y = y;
+        Log.i("LudosLog", "" + offsetPos + " : (" + x + ", " + y + ")");
     }
 
     public Vector2D getOffsetPos() {
