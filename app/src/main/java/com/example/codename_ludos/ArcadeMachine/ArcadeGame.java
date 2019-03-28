@@ -24,7 +24,7 @@ public class ArcadeGame extends EntityManager {
     protected PauseMenu pauseMenu;
     protected ArrayList<Music> songList;
     protected AssetLoader assetLoader;
-    protected AMShowType showType = AMShowType.full;
+    protected AMShowType showType = AMShowType.none;
 
     public enum AMShowType {
         none,
