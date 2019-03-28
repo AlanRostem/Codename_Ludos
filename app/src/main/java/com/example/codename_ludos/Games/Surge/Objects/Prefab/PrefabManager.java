@@ -89,7 +89,7 @@ public class PrefabManager {
     }
 
     public void draw() {
-       bg.drawAt("full", 0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+       bg.drawAt("full", ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y, ArcadeMachine.SCREEN_WIDTH, ArcadeMachine.SCREEN_HEIGHT);
     }
 
 }

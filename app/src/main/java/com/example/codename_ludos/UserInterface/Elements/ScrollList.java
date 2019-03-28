@@ -24,8 +24,6 @@ public class ScrollList extends UIContainer {
         div = new Divider(this, "container", x, y, width, height);
     }
 
-    private float elementDistance;
-
     public boolean oneFingerOverlap(Finger pos) {
         float sx = Constants.SCREEN_SCALE_X;
         float sy = Constants.SCREEN_SCALE_Y;
