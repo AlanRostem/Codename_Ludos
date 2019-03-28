@@ -1,10 +1,7 @@
 package com.example.codename_ludos.UserInterface.Elements;
 
-import android.graphics.Color;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Core.MainActivity;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
@@ -62,17 +59,21 @@ public class ScrollList extends UIContainer {
         return div.getOutPutPos();
     }
 
+    float ypos;
+    float p;
+
     @Override
     public void update() {
         updatePos();
         Finger f = MainActivity.gamePanel.getFingers()[0];
         if (oneFingerOverlap(f) && canScroll) {
-            float p = f.y - startPos.y;
             if (!fingOnScreen) {
+                ypos = div.getOutPutPos().y;
                 startPos.set(f.x, f.y);
                 fingOnScreen = true;
             }
-            div.setPos(0, p);
+            p = ypos + f.y - startPos.y;
+            div.setPos(0,  p);
         } else {
             fingOnScreen = false;
         }
