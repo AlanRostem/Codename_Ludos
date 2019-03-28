@@ -21,7 +21,7 @@ public class Surge extends ArcadeGame {
     public static final int TILE_SIZE = 64;
 
     public Surge() {
-        super("Surge");
+        super("Surge", AMShowType.none);
     }
 
     @Override

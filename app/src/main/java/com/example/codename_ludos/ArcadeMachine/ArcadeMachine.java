@@ -125,10 +125,19 @@ public class ArcadeMachine {
         //games.get(currentGameIndex).setup();
     }
 
+    public static void drawMachine(ArcadeGame.AMShowType showType) {
+        switch (showType) {
+            case full:
+                arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
+                break;
+            case none:
+                break;
+        }
+    }
+
     public static void draw() {
         if (games.get(currentGameID).isStarted() && getCurrentState() == MachineState.in_game) {
             games.get(currentGameID).coreDraw();
-            arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
             games.get(currentGameID).controls.draw();
         } else if (getCurrentState() == MachineState.in_game_select) {
             gameButtons.draw();

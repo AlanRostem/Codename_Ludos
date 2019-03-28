@@ -24,9 +24,25 @@ public class ArcadeGame extends EntityManager {
     protected PauseMenu pauseMenu;
     protected ArrayList<Music> songList;
     protected AssetLoader assetLoader;
+    protected AMShowType showType = AMShowType.full;
+
+    public enum AMShowType {
+        none,
+        full,
+        cut_frame
+    }
 
     // Upon extending this class make sure to create a public
     // static variable for the id
+    public ArcadeGame(String ID, AMShowType showType) {
+        this.id = ID;
+        controls = new Controls();
+        pauseMenu = new PauseMenu(this);
+        songList = new ArrayList<>();
+        assetLoader = new AssetLoader();
+        this.showType = showType;
+    }
+
     public ArcadeGame(String ID) {
         this.id = ID;
         controls = new Controls();
@@ -110,6 +126,7 @@ public class ArcadeGame extends EntityManager {
         if (mPaused) {
             pauseMenu.draw();
         }
+        ArcadeMachine.drawMachine(showType);
     }
 
     public void draw() {
