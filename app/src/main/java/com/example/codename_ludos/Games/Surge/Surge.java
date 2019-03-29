@@ -3,7 +3,9 @@ package com.example.codename_ludos.Games.Surge;
 import android.graphics.Color;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
+import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
+import com.example.codename_ludos.Games.Surge.Objects.Obstacles.Slope;
 import com.example.codename_ludos.Games.Surge.Objects.Prefab.PrefabManager;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeEntity;
 import com.example.codename_ludos.Games.Surge.Objects.SurgeGummyCash;

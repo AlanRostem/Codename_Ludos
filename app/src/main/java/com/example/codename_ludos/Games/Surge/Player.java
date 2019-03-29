@@ -6,6 +6,7 @@ import android.graphics.Color;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Games.Surge.Objects.Obstacles.Slope;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Entity.BasePlayer;
 import com.example.codename_ludos.Entity.GameEntity;
@@ -26,7 +27,7 @@ public class Player extends BasePlayer {
 
 
     public Player() {
-        super(320, ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT);
+        super(220, ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT);
         mPos.y *= 2f/3f;
         sprite = new SpriteMap(R.drawable.rubigo);
         sprite.bindSprite("a1", 0, 0, 48, 48);
@@ -47,10 +48,10 @@ public class Player extends BasePlayer {
         djumping = false;
         jumping = false;
         jumps = 0;
-        speedX = 6000f;
+        speedX = 6500f;
     }
 
-    public float speedX = 6000f;
+    public float speedX = 6500f;
 
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
@@ -69,7 +70,7 @@ public class Player extends BasePlayer {
                     }
                 }
                 else {
-                    mVel.y = (-800.f);
+                    mVel.y = (-900.f);
                 }
             }
             //*/

@@ -51,6 +51,14 @@ public class PrefabManager {
         entitySpawns.put(4, (vec) -> new SolidObject(vec.x + ox, vec.y + oy));
         entitySpawns.put(5, (vec) -> new SupremeStore(vec.x + ox, vec.y + oy));
 
+        // Test versions
+        entitySpawns.put(6, (vec) -> new SolidObject(vec.x + ox, vec.y + oy, Surge.TILE_SIZE, 6 * Surge.TILE_SIZE));
+        entitySpawns.put(7, (vec) -> new SolidObject(vec.x + ox, vec.y + oy, Surge.TILE_SIZE * 3, 2 * Surge.TILE_SIZE));
+        entitySpawns.put(8, (vec) -> new SolidObject(vec.x + ox, vec.y + oy, Surge.TILE_SIZE, 3 * Surge.TILE_SIZE));
+        entitySpawns.put(9, (vec) -> new SolidObject(vec.x + ox, vec.y + oy, Surge.TILE_SIZE * 3, 6 * Surge.TILE_SIZE));
+        entitySpawns.put(10, (vec) -> new SolidObject(vec.x + ox, vec.y + oy, Surge.TILE_SIZE * 5, Surge.TILE_SIZE));
+        entitySpawns.put(11, (vec) -> new SolidObject(vec.x + ox, vec.y + oy, Surge.TILE_SIZE * 2, Surge.TILE_SIZE));
+
         setNextPrefab(new Prefab(0, 0, gameRef));
         scanArrayAndSpawnEntities();
     }
@@ -82,6 +90,8 @@ public class PrefabManager {
 
     public void update() {
         if (Surge.player.mPos.y < prefabSpawnRange) {
+            int i = (int) (Math.random() * prefabArrays.arrays.length);
+            nextPrefab.setArray(prefabArrays.arrays[i]);
             prefabSpawnRange -= nextPrefab.getMapHeight();
             nextPrefab.setOffset(0, nextPrefab.getOffset().y - nextPrefab.getMapHeight());
             scanArrayAndSpawnEntities();

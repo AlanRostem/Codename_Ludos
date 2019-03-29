@@ -1,5 +1,8 @@
 package com.example.codename_ludos.Games.Surge.Objects.Obstacles;
 
+import android.graphics.Color;
+
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Games.Surge.Player;
 import com.example.codename_ludos.Games.Surge.Surge;
 
@@ -8,13 +11,23 @@ public class SolidObject extends Obstacle {
         super(drawName, x, y, width, height);
     }
 
+    public SolidObject(float x, float y, int width, int height) {
+        super("none", x, y, width, height);
+    }
+
+
     public SolidObject(float x, float y) {
         super("solidWall", x, y, 30, 40+80);
     }
 
     @Override
     public void draw() {
-        objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+        if (!drawName.equals("none")) {
+            objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+        } else {
+            Shapes.setColor(Color.GRAY);
+            Shapes.drawRect((int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+        }
     }
 
     @Override
@@ -51,4 +64,6 @@ public class SolidObject extends Obstacle {
                     player.side.top = true;
             }
     }
+
+
 }

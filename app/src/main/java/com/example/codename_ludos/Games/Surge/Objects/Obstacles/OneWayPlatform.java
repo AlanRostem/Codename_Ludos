@@ -1,6 +1,9 @@
 package com.example.codename_ludos.Games.Surge.Objects.Obstacles;
 
+import android.graphics.Color;
 import android.util.Log;
+
+import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Entity.GameEntity;
 import com.example.codename_ludos.Games.Surge.Player;
 import com.example.codename_ludos.Games.Surge.Surge;
@@ -12,6 +15,11 @@ public class OneWayPlatform extends Obstacle {
     public OneWayPlatform(String drawName, float x, float y, int width, int height) {
         super(drawName, x, y, width, height);
     }
+
+    public OneWayPlatform(float x, float y, int width, int height) {
+        super("none", x, y, width, height);
+    }
+
 
     public OneWayPlatform(float x, float y) {
         super("oneWay", x, y, 96 + 96/2, 16 + 8);
@@ -55,7 +63,12 @@ public class OneWayPlatform extends Obstacle {
 
     @Override
     public void draw() {
-        objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+        try {
+            objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+        } catch (Exception e) {
+            Shapes.setColor(Color.YELLOW);
+            Shapes.drawRect((int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+        }
     }
 
 }

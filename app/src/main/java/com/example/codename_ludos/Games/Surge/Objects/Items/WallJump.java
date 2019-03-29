@@ -11,7 +11,7 @@ public class WallJump extends PowerUp {
     private boolean pressed = false;
 
     private float acceleration = 200000;
-    private float lowSpeed = 4000f;
+    private float lowSpeed = 5000f;
 
     @Override
     public void buff(Player player) {
