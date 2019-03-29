@@ -10,6 +10,7 @@ import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.Games.MountainRun.MountainRun;
+import com.example.codename_ludos.Games.Starbit.Starbit;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
 import com.example.codename_ludos.Games.Surge.Surge;
@@ -110,13 +111,24 @@ public class ArcadeMachine {
         arcadeImage.bindSprite("all", 0, 0, 1080, 1920);
         arcadeImage2.bindSprite("all", 1080, 0, 1080, 1920);
         gameButtons = new ScrollList("gameButtons", 0,  SCREEN_HEIGHT,
-                0, 0, ArcadeMachine.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+                0, 0, ArcadeMachine.SCREEN_WIDTH, Constants.SCREEN_HEIGHT) {
+            @Override
+            public void update() {
+                super.update();
+                if ((int)this.ySpeed != 0) {
+                    for (UIElement b : getChildNodes()) {
+                        ((Button) b).selected = false;
+                    }
+                }
+            }
+        };
 
         createGame("Surge", new Surge());
         createGame("MountainRun", new MountainRun());
         createGame("TestGame", new TestGame());
         createGame("Eggrun", new Eggrun());
         createGame("Lodestone", new Lodestone());
+        createGame("Starbit", new Starbit());
 
         for (String n : getGameIDList()) {
             gameButtons.append(n, new GameButton(gameButtons, n, SCREEN_OFFSET_X,

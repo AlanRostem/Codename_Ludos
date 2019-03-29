@@ -1,13 +1,13 @@
 package com.example.codename_ludos.ArcadeMachine.UI;
 
 import android.graphics.Color;
-import android.util.Log;
+import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
-import com.example.codename_ludos.UserInterface.Elements.ScrollList;
+import com.example.codename_ludos.UserInterface.Finger;
 import com.example.codename_ludos.UserInterface.UIContainer;
 import com.example.codename_ludos.UserInterface.UIElement;
 
@@ -24,7 +24,7 @@ public class GameButton extends Button {
     boolean enteredGame = false;
 
     @Override
-    public void onPressed(float x, float y) {
+    public void onClick(float eventX, float eventY) {
         if (!ArcadeMachine.getCurrentGame().isStarted() && selected) {
             ArcadeMachine.enterGame(this.gameID);
             selected = false;
@@ -48,7 +48,8 @@ public class GameButton extends Button {
     public void updatePos() {
         try {
             offsetPos.set(parent.getOutPutPos().x, parent.getOutPutPos().y);
-        } catch (Exception e) {}
+        } catch (Exception e) {e.printStackTrace();}
+
         outPutPos.x = initialPos.x + offsetPos.x;
         outPutPos.y = initialPos.y + offsetPos.y;
     }

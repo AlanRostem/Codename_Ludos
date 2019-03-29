@@ -71,9 +71,9 @@ public class ScrollList extends UIContainer {
         return div.getOutPutPos();
     }
 
-    float ypos;
-    float p;
-    float ySpeed = 0;
+    protected float ypos;
+    protected float p;
+    protected float ySpeed = 0;
 
     @Override
     public void update() {

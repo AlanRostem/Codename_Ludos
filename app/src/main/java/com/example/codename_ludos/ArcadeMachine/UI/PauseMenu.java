@@ -32,7 +32,6 @@ public class PauseMenu extends Controls {
                 ArcadeMachine.exitGame();
             }
         });
-        // TODO: Make proper user interface bases
     }
 
     public void update() {
