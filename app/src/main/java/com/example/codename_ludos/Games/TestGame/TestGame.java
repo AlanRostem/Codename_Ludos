@@ -150,7 +150,7 @@ public class TestGame extends ArcadeGame {
 
     @Override
     public void draw() {
-        sm.drawTileMap(tm, 3, 0, ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y);
+        sm.drawTileMap(tm, 3, 0, ArcadeMachine.SCREEN_OFFSET_X, ArcadeMachine.SCREEN_OFFSET_Y,0 ,0);
         dude.draw();
     }
 
