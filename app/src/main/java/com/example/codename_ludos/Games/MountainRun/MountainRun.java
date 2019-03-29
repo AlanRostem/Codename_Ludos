@@ -21,6 +21,7 @@ public class MountainRun extends ArcadeGame {
     @Override
     public void update() {
         updateEntities();
+        world.update();
     }
 
     @Override

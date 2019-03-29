@@ -195,13 +195,13 @@ public class SpriteMap extends Asset {
                 GamePanel.paint);
     }
 
-    public void drawTileMap(TileMap map, int tilesPerRow, int dontDrawID, float offsetX, float offsetY) {
+    public void drawTileMap(TileMap map, int tilesPerRow, int dontDrawID, float offsetX, float offsetY, int startX, int endX) {
         int cols = imageWidth / map.getTileSize();
         int rows = imageHeight / map.getTileSize();
         int tileSize = map.getTileSize();
 
         for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < map.get(i).size(); j++) {
+            for (int j = startX; j < endX; j++) {
                 int tile = map.get(i).get(j) - 1;
                 if (tile < dontDrawID)
                     continue;
@@ -220,13 +220,13 @@ public class SpriteMap extends Asset {
         }
     }
 
-    public void drawTileMap(TileMap map, int frameSize, int tilesPerRow, int dontDrawID, float offsetX, float offsetY) {
+    public void drawTileMap(TileMap map, int frameSize, int tilesPerRow, int dontDrawID, float offsetX, float offsetY, int startX, int endX) {
         int cols = imageWidth / map.getTileSize();
         int rows = imageHeight / map.getTileSize();
         int tileSize = map.getTileSize();
 
         for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < map.get(i).size(); j++) {
+            for (int j = startX; j < endX; j++) {
                 int tile = map.get(i).get(j) - 1;
                 if (tile < dontDrawID)
                     continue;
