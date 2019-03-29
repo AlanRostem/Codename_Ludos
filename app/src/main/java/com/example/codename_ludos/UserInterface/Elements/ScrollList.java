@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.codename_ludos.Core.MainActivity;
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.LibraryTools.Math.Vector2D;
 import com.example.codename_ludos.UserInterface.Finger;
@@ -72,6 +73,7 @@ public class ScrollList extends UIContainer {
 
     float ypos;
     float p;
+    float ySpeed = 0;
 
     @Override
     public void update() {
@@ -84,19 +86,26 @@ public class ScrollList extends UIContainer {
                 fingOnScreen = true;
             }
             p = ypos + f.y - startPos.y;
+            ySpeed = f.y - startPos.y;
+            ySpeed *= 4;
             div.setPos(0, p);
-            if (div.getOutPutPos().y < scrollYOffset && div.getOutPutPos().y + boxHeight > scrollYLimit) {
-            } else {
-                if (div.getOutPutPos().y > scrollYOffset) {
-                    div.getOutPutPos().y = scrollYOffset;
-                }
 
-                if (div.getOutPutPos().y + boxHeight < scrollYLimit) {
-                    div.getOutPutPos().y = scrollYLimit - boxHeight;
-                }
-            }
         } else {
+            ySpeed *= 0.8f;
+            div.getOutPutPos().y += ySpeed * MainThread.getAverageDeltaTime();
+            Log.i("LudosLog", "" + ySpeed);
             fingOnScreen = false;
+        }
+
+        if (div.getOutPutPos().y < scrollYOffset && div.getOutPutPos().y + boxHeight > scrollYLimit) {
+        } else {
+            if (div.getOutPutPos().y > scrollYOffset) {
+                div.getOutPutPos().y = scrollYOffset;
+            }
+
+            if (div.getOutPutPos().y + boxHeight < scrollYLimit) {
+                div.getOutPutPos().y = scrollYLimit - boxHeight;
+            }
         }
 
         div.update();

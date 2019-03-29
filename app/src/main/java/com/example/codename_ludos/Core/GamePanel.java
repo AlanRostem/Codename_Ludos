@@ -133,5 +133,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawColor(Color.DKGRAY); //Background
         ArcadeMachine.draw();
         Logger.draw();
+        postInvalidate();
     }
 }
