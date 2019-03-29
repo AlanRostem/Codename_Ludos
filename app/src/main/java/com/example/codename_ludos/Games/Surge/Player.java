@@ -7,6 +7,7 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Audio.Audio;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.Slope;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
 import com.example.codename_ludos.Entity.BasePlayer;
@@ -137,8 +138,12 @@ public class Player extends BasePlayer {
             onGround();
             side.bottom = true;
         }*/
-        Surge.camera.update(0, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
+        yPos -= ySpeed * MainThread.getAverageDeltaTime();
+        Surge.camera.update(0, yPos, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
     }
+
+    float yPos = mPos.y;
+    float ySpeed = 200;
 
 
     @Override
