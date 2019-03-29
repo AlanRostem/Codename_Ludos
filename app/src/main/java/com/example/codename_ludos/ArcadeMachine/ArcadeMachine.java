@@ -112,19 +112,11 @@ public class ArcadeMachine {
         gameButtons = new ScrollList("gameButtons", 0,  SCREEN_HEIGHT,
                 0, 0, ArcadeMachine.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
+        createGame("Surge", new Surge());
+        createGame("MountainRun", new MountainRun());
         createGame("TestGame", new TestGame());
         createGame("Eggrun", new Eggrun());
-        createGame("Surge", new Surge());
         createGame("Lodestone", new Lodestone());
-        createGame("MountainRun", new MountainRun());
-        createGame("1Helvetus", new Lodestone());
-        createGame("2Helvetus", new Lodestone());
-        createGame("3Helvetus", new Lodestone());
-        createGame("4Helvetus", new Lodestone());
-        createGame("5Helvetus", new Lodestone());
-        createGame("6Helvetus", new Lodestone());
-        createGame("7Helvetus", new Lodestone());
-        createGame("8Helvetus", new Lodestone());
 
         for (String n : getGameIDList()) {
             gameButtons.append(n, new GameButton(gameButtons, n, SCREEN_OFFSET_X,

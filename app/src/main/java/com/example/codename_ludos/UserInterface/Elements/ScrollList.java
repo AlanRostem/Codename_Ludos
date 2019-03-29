@@ -93,7 +93,6 @@ public class ScrollList extends UIContainer {
         } else {
             ySpeed *= 0.8f;
             div.getOutPutPos().y += ySpeed * MainThread.getAverageDeltaTime();
-            Log.i("LudosLog", "" + ySpeed);
             fingOnScreen = false;
         }
 
