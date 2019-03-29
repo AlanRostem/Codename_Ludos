@@ -5,9 +5,11 @@ import android.view.MotionEvent;
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
+import com.example.codename_ludos.Assets.Audio.Audio;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Audio.Music;
+import com.example.codename_ludos.LibraryTools.Timer;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.Entity.TileMap;
 import com.example.codename_ludos.R;
@@ -105,15 +107,24 @@ public class TestGame extends ArcadeGame {
         });
     }
 
+    Timer metronome = new Timer() {
+        @Override
+        protected void callback() {
+            Dude.keem.play();
+        }
+    };
+
     @Override
     public void setup() {
 
         assetLoader.queueSoundToLoad("a_jump", R.raw.keem);
         assetLoader.createAllQueuedAssets();
 
+        metronome.setBPM(120);
+
         dude = new Dude();
 
-        song.play();
+        //song.play();
 
         int [][] array = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -134,6 +145,7 @@ public class TestGame extends ArcadeGame {
     public void update() {
         controls.update();
         dude.update();
+        metronome.tick();
     }
 
     @Override

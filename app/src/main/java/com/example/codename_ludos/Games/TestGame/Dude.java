@@ -15,7 +15,7 @@ public class Dude extends BasePlayer {
     int width = 48*3;
     int height = 48*3;
 
-    private Audio keem;
+    public static Audio keem;
 
     public boolean jumping = false;
 
