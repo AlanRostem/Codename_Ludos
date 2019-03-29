@@ -36,8 +36,8 @@ public class WorldGeneration {
     {
         elevation = rnd.nextInt(MAXELEVATION) + 1;
         level.get(10).set(0, 1);
-        if(asc) level.get(10 + elevation*-1).set(12, 1);
-        else level.get(10 + elevation).set(12, 1);
+        if(asc) level.get(10 + elevation*-1).set(11, 1);
+        else level.get(10 + elevation).set(11, 1);
     }
 
     public int tileSize = 64;
