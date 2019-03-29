@@ -27,15 +27,28 @@ public class Music extends Asset {
     }
 
     public void play() {
+        if (mp == null) {
+            mp = MediaPlayer.create(MainActivity.gamePanel.getContext(), resourceID);
+            mp.setOnCompletionListener((m) -> stopPlayer());
+        }
         mp.start();
     }
 
     public void stop() {
-        mp.stop();
-        mp.release();
+        stopPlayer();
     }
 
     public void pause() {
-        mp.pause();
+        if (mp != null) {
+            mp.pause();
+        }
+    }
+
+    private void stopPlayer() {
+        if (mp != null) {
+            mp.stop();
+            mp.release();
+            mp = null;
+        }
     }
 }
