@@ -55,10 +55,10 @@ public class Player extends BasePlayer {
         djumping = false;
         jumping = false;
         jumps = 0;
-        speedX = 6500f;
+        speedX = 5500f;
     }
 
-    public float speedX = 6500f;
+    public float speedX = 5500f;
 
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
@@ -71,7 +71,7 @@ public class Player extends BasePlayer {
                 jumping = true;
                 if (djumping) {
                     if (mVel.y > 0) {
-                        mVel.y = (-300.f);
+                        mVel.y = (-750.f);
                     } else {
                         jumps = 0;
                     }
