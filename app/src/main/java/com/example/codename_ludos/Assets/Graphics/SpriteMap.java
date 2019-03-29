@@ -172,7 +172,8 @@ public class SpriteMap extends Asset {
                 (int)(y * Constants.SCREEN_SCALE_Y),
                 (int)((width + x) * Constants.SCREEN_SCALE_X),
                 (int)((height + y) * Constants.SCREEN_SCALE_Y));
-        MainThread.canvas.drawBitmap(bitmap, animationRect, positionRect, GamePanel.paint);
+        if (MainThread.canvas != null)
+            MainThread.canvas.drawBitmap(bitmap, animationRect, positionRect, GamePanel.paint);
     }
 
     public void drawAt(String name, float x, float y, int width, int height) {
@@ -181,7 +182,8 @@ public class SpriteMap extends Asset {
                 (int)(y * Constants.SCREEN_SCALE_Y),
                 (int)((width + x) * Constants.SCREEN_SCALE_X),
                 (int)((height + y) * Constants.SCREEN_SCALE_Y));
-        MainThread.canvas.drawBitmap(bitmap, offsetRects.get(name), positionRect, GamePanel.paint);
+        if (MainThread.canvas != null)
+            MainThread.canvas.drawBitmap(bitmap, offsetRects.get(name), positionRect, GamePanel.paint);
     }
 
     public void drawFull(float x, float y) {
@@ -212,7 +214,8 @@ public class SpriteMap extends Asset {
                         (int)((map.getTileSize() * (i + 1) + offsetY) * Constants.SCREEN_SCALE_Y));
                 offsetTileRect.set((tileCol * tileSize), (tileRow * tileSize), tileSize * (tileCol + 1),
                         tileSize * (tileRow + 1));
-                MainThread.canvas.drawBitmap(bitmap, offsetTileRect, positionRect, GamePanel.paint);
+                if (MainThread.canvas != null)
+                    MainThread.canvas.drawBitmap(bitmap, offsetTileRect, positionRect, GamePanel.paint);
             }
         }
     }
@@ -236,7 +239,8 @@ public class SpriteMap extends Asset {
                         (int)((map.getTileSize() * (i + 1) + offsetY) * Constants.SCREEN_SCALE_Y));
                 offsetTileRect.set((tileCol * frameSize), (tileRow * frameSize), frameSize * (tileCol + 1),
                         frameSize * (tileRow + 1));
-                MainThread.canvas.drawBitmap(bitmap, offsetTileRect, positionRect, GamePanel.paint);
+                if (MainThread.canvas != null)
+                    MainThread.canvas.drawBitmap(bitmap, offsetTileRect, positionRect, GamePanel.paint);
             }
         }
     }
