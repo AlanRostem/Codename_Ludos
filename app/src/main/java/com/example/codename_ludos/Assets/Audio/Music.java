@@ -10,6 +10,7 @@ import com.example.codename_ludos.Core.MainActivity;
 public class Music extends Asset {
     private int resourceID;
     private MediaPlayer mp;
+    private boolean completed = false;
 
     public Music(int resourceID, ArcadeGame myGame) {
         super("");
@@ -29,9 +30,17 @@ public class Music extends Asset {
     public void play() {
         if (mp == null) {
             mp = MediaPlayer.create(MainActivity.gamePanel.getContext(), resourceID);
-            mp.setOnCompletionListener((m) -> stopPlayer());
+            mp.setOnCompletionListener((m) -> {
+                stopPlayer();
+                completed = true;
+            });
         }
+        completed = false;
         mp.start();
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 
     public void stop() {
