@@ -2,6 +2,8 @@ package com.example.codename_ludos.Assets;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 
 import com.example.codename_ludos.Assets.Audio.Audio;
 import com.example.codename_ludos.Assets.Audio.Music;
@@ -21,6 +23,16 @@ public class AssetLoader {
 
     private BitmapFactory.Options options = new BitmapFactory.Options();
     private boolean allAssetsLoaded = false;
+
+    private static AudioAttributes audioAttributes = new AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build();
+
+    private SoundPool soundPool = /*new SoundPool(6, AudioManager.STREAM_MUSIC, 0); */new SoundPool.Builder()
+            .setMaxStreams(6)
+                .setAudioAttributes(audioAttributes)
+                .build();
 
     /*
     * To create an asset with a name string you must provide a prefix letter and
@@ -79,7 +91,7 @@ public class AssetLoader {
                         assets.get(audioName).asAudio().reload();
                         continue;
                     }
-                    assets.put(audioName, new Audio(resourceID));
+                    assets.put(audioName, new Audio(soundPool, resourceID));
                     break;
                 case 'm':
                     assets.put(audioName, new Music(resourceID));
@@ -91,18 +103,14 @@ public class AssetLoader {
         allAssetsLoaded = true;
     }
 
-    public boolean areAllAssetsLoaded() {
-        return allAssetsLoaded;
+    public SoundPool getSoundPool() {
+        return soundPool;
     }
 
     public void recycleAll() {
         for (Map.Entry<String, Asset> entry : assets.entrySet()) {
             entry.getValue().recycle();
         }
-    }
-
-    public Bitmap createBitMap(int resourceID) {
-        return BitmapFactory.decodeResource(MainActivity.gamePanel.getResources(), resourceID);
     }
 
 }

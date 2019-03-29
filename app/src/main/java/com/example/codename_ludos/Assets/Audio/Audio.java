@@ -15,11 +15,13 @@ public class Audio extends Asset {
 
     private static Context context = MainActivity.gamePanel.getContext();
     private static SoundPool soundPool = MainActivity.soundPool;
+    private final SoundPool spRef;
 
-    public Audio(int resourceID) {
+    public Audio(SoundPool soundPool, int resourceID) {
         super("");
         this.resourceID = resourceID;
         this.soundID = soundPool.load(context, this.resourceID, 1);
+        spRef = soundPool;
     }
 
     public void setPitch(float val) {
@@ -31,9 +33,7 @@ public class Audio extends Asset {
     }
 
     public void play() {
-        if (MainActivity.soundLoaded) {
-            soundPool.play(this.soundID, volume,volume, 0, 0, pitch);
-        }
+        spRef.play(this.soundID, volume,volume, 0, 0, pitch);
     }
 
     public void reload() {

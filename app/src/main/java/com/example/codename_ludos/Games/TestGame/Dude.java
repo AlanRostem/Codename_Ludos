@@ -33,7 +33,11 @@ public class Dude extends BasePlayer {
                 Animation(0, 7, 8, 0.1f);
         walkR = new SpriteMap.
                 Animation(8, 15, 8, 0.1f);
-        keem = new Audio(R.raw.keem);
+        keem = ArcadeMachine
+                .getGame("TestGame")
+                .getAssetLoader()
+                .getAsset("a_jump")
+                .asAudio();
     }
 
     public void update() {

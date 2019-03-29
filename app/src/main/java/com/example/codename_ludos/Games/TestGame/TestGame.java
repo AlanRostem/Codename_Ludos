@@ -108,6 +108,9 @@ public class TestGame extends ArcadeGame {
     @Override
     public void setup() {
 
+        assetLoader.queueSoundToLoad("a_jump", R.raw.keem);
+        assetLoader.createAllQueuedAssets();
+
         dude = new Dude();
 
         song.play();

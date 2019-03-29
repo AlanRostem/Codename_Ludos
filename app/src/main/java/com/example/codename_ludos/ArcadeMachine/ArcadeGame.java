@@ -87,7 +87,7 @@ public class ArcadeGame extends EntityManager {
     public void togglePause() {
         mPaused = !mPaused;
         if (mPaused) {
-            MainActivity.soundPool.autoPause();
+            assetLoader.getSoundPool().autoPause();
             for (Music m : songList) {
                 m.pause();
             }
@@ -95,7 +95,7 @@ public class ArcadeGame extends EntityManager {
             for (Music m : songList) {
                 m.play();
             }
-            MainActivity.soundPool.autoResume();
+            assetLoader.getSoundPool().autoResume();
         }
         onPaused();
     }

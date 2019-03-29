@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
+import com.example.codename_ludos.Assets.Audio.Audio;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.Slope;
@@ -25,6 +26,11 @@ public class Player extends BasePlayer {
 
     private ArrayList<PowerUp> activePowerUps = new ArrayList<>();
 
+    private Audio jumpSnd = ArcadeMachine
+            .getGame("Surge")
+            .getAssetLoader()
+            .getAsset("a_jump")
+            .asAudio();
 
     public Player() {
         super(220, ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT);
@@ -33,6 +39,7 @@ public class Player extends BasePlayer {
         sprite.bindSprite("a1", 0, 0, 48, 48);
         width = 32 + 16;
         height = 64 + 32;
+        jumpSnd.setPitch(2);
         for (PowerUp p : activePowerUps) {
             p.setInactive();
         }
@@ -71,6 +78,7 @@ public class Player extends BasePlayer {
                 }
                 else {
                     mVel.y = (-900.f);
+                    jumpSnd.play();
                 }
             }
             //*/
