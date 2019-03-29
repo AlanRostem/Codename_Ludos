@@ -1,4 +1,4 @@
-package com.example.codename_ludos.UserInterface;
+package com.example.codename_ludos.ArcadeMachine.UI;
 
 import android.graphics.Color;
 
