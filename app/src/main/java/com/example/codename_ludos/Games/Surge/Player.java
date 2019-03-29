@@ -63,13 +63,13 @@ public class Player extends BasePlayer {
                 jumping = true;
                 if (djumping) {
                     if (mVel.y > 0) {
-                        mVel.y = (-150.f);
+                        mVel.y = (-300.f);
                     } else {
                         jumps = 0;
                     }
                 }
                 else {
-                    mVel.y = (-750.f);
+                    mVel.y = (-800.f);
                 }
             }
             //*/
