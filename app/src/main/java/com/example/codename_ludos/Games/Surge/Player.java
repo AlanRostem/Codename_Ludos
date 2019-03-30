@@ -97,8 +97,8 @@ public class Player extends BasePlayer {
     public int jumps = 0;
     public int maxJumps = 1;
     public boolean djumping = false;
-    int gravity = 1700;
-    public float friction = 0.6f;
+    private int gravity = 1700;
+    private float friction = 0.6f;
 
     private void step() {
         if (!side.bottom) {
@@ -133,17 +133,14 @@ public class Player extends BasePlayer {
             side.bottom = true;
         }
 
-        /*if (Surge.tileMap.getMapOffset() < ArcadeMachine.SCREEN_OFFSET_Y) {
-            Surge.tileMap.setMapOffset(ArcadeMachine.SCREEN_OFFSET_Y);
-            onGround();
-            side.bottom = true;
-        }*/
+        ySpeed += .1f;
         yPos -= ySpeed * MainThread.getAverageDeltaTime();
-        Surge.camera.update(0, yPos, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
+        //Surge.camera.update(0, yPos, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
+        Surge.camera.update(0, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
     }
 
-    float yPos = mPos.y;
-    float ySpeed = 200;
+    private float yPos = mPos.y;
+    private float ySpeed = 100;
 
 
     @Override
@@ -152,6 +149,7 @@ public class Player extends BasePlayer {
         step();
     }
 
+
     @Override
     public void draw() {
         Shapes.setColor(Color.argb(0.5f, 0f,1f,1f));
@@ -159,13 +157,15 @@ public class Player extends BasePlayer {
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isUsing() && !activePowerUps.get(i).isDone()) {
                 Shapes.drawRect(
-                        Surge.camera.x + mPos.x + i * width / 2 - activePowerUps.get(i).width / 2 - i * (activePowerUps.get(i).width) + (activePowerUps.size() - i) * activePowerUps.get(i).width / 2,
+                        Surge.camera.x + mPos.x + i * width / 2f - activePowerUps.get(i).width / 2f
+                                - i * (activePowerUps.get(i).width)
+                                + (activePowerUps.size() - i) * activePowerUps.get(i).width / 2f,
                         Surge.camera.y + mPos.y - activePowerUps.get(i).height - 10,
                         (int)(activePowerUps.get(i).width * (activePowerUps.get(i).getDuration() / activePowerUps.get(i).getMaxDuration())),
                         10);
                 activePowerUps.get(i).draw(
-                        mPos.x + i * width / 2 - activePowerUps.get(i).width / 2 - i * (activePowerUps.get(i).width)
-                            + (activePowerUps.size() - i) * activePowerUps.get(i).width / 2,
+                        mPos.x + i * width / 2f - activePowerUps.get(i).width / 2f - i * (activePowerUps.get(i).width)
+                            + (activePowerUps.size() - i) * activePowerUps.get(i).width / 2f,
                         mPos.y - activePowerUps.get(i).height);
 
             }
@@ -175,7 +175,7 @@ public class Player extends BasePlayer {
         sprite.drawAt("a1", (int) mPos.x, (int) mPos.y + (int) Surge.camera.y, width, height);
     }
 
-    public void manageCollisionX() {
+    private void manageCollisionX() {
         try {
             ArrayList<GameEntity> list = ArcadeMachine.getCurrentGame().getEntityList();
             for (GameEntity e : list) {
@@ -191,7 +191,7 @@ public class Player extends BasePlayer {
         }
     }
 
-    public void manageCollisionY() {
+    private void manageCollisionY() {
         try {
             ArrayList<GameEntity> list = ArcadeMachine.getCurrentGame().getEntityList();
             for (GameEntity e : list) {

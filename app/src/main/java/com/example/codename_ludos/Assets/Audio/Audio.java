@@ -2,6 +2,7 @@ package com.example.codename_ludos.Assets.Audio;
 
 import android.content.Context;
 import android.media.SoundPool;
+import android.util.Log;
 
 import com.example.codename_ludos.Assets.Asset;
 import com.example.codename_ludos.Core.MainActivity;
@@ -44,5 +45,10 @@ public class Audio extends Asset {
     public void recycle() {
         // Experimental
         //soundPool.unload(this.resourceID);
+        /*
+        if (soundPool.unload(this.resourceID)) {
+            Log.i("LudosLog", "Ask!");
+        }
+        */
     }
 }

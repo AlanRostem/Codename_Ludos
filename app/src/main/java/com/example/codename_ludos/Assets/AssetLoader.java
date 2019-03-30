@@ -111,6 +111,7 @@ public class AssetLoader {
         for (Map.Entry<String, Asset> entry : assets.entrySet()) {
             entry.getValue().recycle();
         }
+        soundPool.release();
     }
 
 }
