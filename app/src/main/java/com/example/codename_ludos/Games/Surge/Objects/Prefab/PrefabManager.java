@@ -7,6 +7,7 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeGame;
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Games.Surge.Objects.Items.DoubleJump;
+import com.example.codename_ludos.Games.Surge.Objects.Items.WallClimb;
 import com.example.codename_ludos.Games.Surge.Objects.Items.WallJump;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.OneWayPlatform;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.SolidObject;
@@ -38,6 +39,11 @@ public class PrefabManager {
     float prefabSpawnRange;
     float prefabSpawnIncrement;
 
+    // Entity spawning enumerator
+    enum ES {
+
+    }
+
     public PrefabManager(ArcadeGame game) {
         gameRef = game;
 
@@ -47,6 +53,7 @@ public class PrefabManager {
 
         entitySpawns.put(1, (vec) -> new DoubleJump(vec.x + ox, vec.y + oy));
         entitySpawns.put(2, (vec) -> new WallJump(vec.x + ox, vec.y + oy));
+        entitySpawns.put(12, (vec) -> new WallClimb(vec.x + ox, vec.y + oy));
         entitySpawns.put(3, (vec) -> new OneWayPlatform(vec.x + ox, vec.y + oy));
         entitySpawns.put(4, (vec) -> new SolidObject(vec.x + ox, vec.y + oy));
         entitySpawns.put(5, (vec) -> new SupremeStore(vec.x + ox, vec.y + oy));

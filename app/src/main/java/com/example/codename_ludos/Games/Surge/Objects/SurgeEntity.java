@@ -12,16 +12,18 @@ public class SurgeEntity extends GameEntity {
             .getAssetLoader()
             .getAsset("s_surge_world")
             .asSpriteMap();
-    protected String drawName;
 
-    public static void initializeSpriteMap() {
+    static {
         objects.bindSprite("doublejump", 0, 0, 20, 20);
         objects.bindSprite("walljump", 0, 20, 20, 20);
+        objects.bindSprite("wallclimb", 0, 40, 20, 20);
 
         objects.bindSprite("oneWay", 80, 0, 96, 16);
         objects.bindSprite("solidWall", 180, 0, 20, 80);
         objects.bindSprite("supreme", 0, 40, 181, 140);
     }
+
+    protected String drawName;
 
     public SurgeEntity(float x, float y) {
         super(x, y);

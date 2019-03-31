@@ -169,11 +169,7 @@ public class Player extends BasePlayer {
     @Override
     public void draw() {
         Shapes.setColor(Color.argb(0.5f, 0f,1f,1f));
-        TextDrawer.draw("Speed = " + mVel.x,
-                Color.GREEN, 60,
-                mPos.x + Surge.camera.x,
-                mPos.y + Surge.camera.y);
-
+        
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isUsing() && !activePowerUps.get(i).isDone()) {
                 Shapes.drawRect(
