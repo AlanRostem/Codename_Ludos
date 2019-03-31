@@ -1,6 +1,7 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
+import android.util.Log;
 
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
@@ -41,7 +42,6 @@ public class Player extends BasePlayer {
     public Player() {
         super(220, ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT);
         mPos.y *= 2f/3f;
-        sprite = new SpriteMap(R.drawable.rubigo);
         width = 32 + 16;
         height = 64 + 32;
         jumpSnd.setPitch(2);

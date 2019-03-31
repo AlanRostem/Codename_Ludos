@@ -66,7 +66,7 @@ public class ArcadeMachine {
 
     public static void calibrateScreen() {
         SCREEN_WIDTH = rawScreenWidth;//(int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
-        SCREEN_HEIGHT = rawScreenHeight;// (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
+        SCREEN_HEIGHT = rawScreenHeight;//(int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
 
         SCREEN_OFFSET_X = rawScreenOffsetX;//(int)((float)rawScreenOffsetX * (SCREEN_WIDTH / rawScreenWidth));
         SCREEN_OFFSET_Y = rawScreenOffsetY;//(int)((float)rawScreenOffsetY * (SCREEN_HEIGHT / rawScreenHeight));

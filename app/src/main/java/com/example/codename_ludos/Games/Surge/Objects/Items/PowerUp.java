@@ -84,6 +84,7 @@ public class PowerUp extends SurgeEntity {
 
     @Override
     public void update() {
+        super.update();
         if (mUsing) {
             mDuration -= MainThread.getAverageDeltaTime();
             if (mDuration <= 0.0f) {

@@ -10,7 +10,7 @@ public class WallJump extends PowerUp {
 
     private boolean pressed = false;
 
-    private float acceleration = 200000;
+    private float acceleration = 100000;
     private float lowSpeed = 5000f;
 
     static {
