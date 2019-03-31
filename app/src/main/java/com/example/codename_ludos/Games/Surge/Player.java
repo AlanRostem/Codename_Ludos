@@ -111,16 +111,16 @@ public class Player extends BasePlayer {
     public int maxJumps = 1;
     public boolean djumping = false;
     private int gravity = 1700;
-    private float friction = 0.9f;
+    private float friction = 0.75f;
 
     private float yPos = mPos.y;
     private float ySpeed = 100;
     private float jumpSpeed = -900f;
 
 
-    private final float defaultSpeed = 3000f;
+    private final float defaultSpeed = 2800f;
     public final float airSpeed = 950f;
-    private float maxSpeed = 750f;
+    private float maxSpeed = 700f;
     public float speedX = defaultSpeed;
 
 
