@@ -48,6 +48,10 @@ public class PowerUp extends SurgeEntity {
         this.mDuration = mDuration;
     }
 
+    public void resetDuration() {
+        mDuration = maxDuration;
+    }
+
     public float getDuration() {
         return mDuration;
     }

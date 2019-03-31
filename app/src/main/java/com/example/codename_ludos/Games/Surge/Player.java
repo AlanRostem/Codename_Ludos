@@ -223,21 +223,21 @@ public class Player extends BasePlayer {
                     if (overlap(e)) {
                         if (e instanceof SurgeEntity) {
                             if (e instanceof PowerUp) {
-                                if (activePowerUps.size() < 4) {
+                                if (activePowerUps.size() < 3) {
                                     PowerUp p = (PowerUp) e;
                                     boolean remove = false;
                                     if (!p.isUsing()) {
                                         for (PowerUp a : activePowerUps) {
                                             if (a.getClass().equals(p.getClass())) {
-                                                a.setDuration(p.getDuration());
+                                                a.resetDuration();
+                                                p.remove();
                                                 remove = true;
+                                                break;
                                             }
                                         }
-                                        activePowerUps.add(p);
                                         if (!remove) {
+                                            activePowerUps.add(p);
                                             p.use();
-                                        } else {
-                                            p.remove();
                                         }
                                     }
                                 }
