@@ -20,6 +20,9 @@ public class OneWayPlatform extends Obstacle {
         super("none", x, y, width, height);
     }
 
+    static {
+        objects.bindSprite("oneWay", 80, 0, 96, 16);
+    }
 
     public OneWayPlatform(float x, float y) {
         super("oneWay", x, y, 96 + 96/2, 16 + 8);

@@ -11,6 +11,10 @@ public class DoubleJump extends PowerUp {
         super("doublejump", x, y, 0.7f, 6);
     }
 
+    static {
+        objects.bindSprite("doublejump", 0, 0, 20, 20);
+    }
+
     @Override
     public void buff(Player player) {
         if (!ArcadeMachine.getCurrentGame().getControls().isTouched("jump")) {

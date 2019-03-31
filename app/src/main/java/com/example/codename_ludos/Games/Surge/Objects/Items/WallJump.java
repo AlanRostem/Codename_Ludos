@@ -13,6 +13,10 @@ public class WallJump extends PowerUp {
     private float acceleration = 200000;
     private float lowSpeed = 5000f;
 
+    static {
+        objects.bindSprite("walljump", 0, 20, 20, 20);
+    }
+
     @Override
     public void buff(Player player) {
         if (!player.side.bottom && ArcadeMachine.getCurrentGame().getControls().isTouched("jump")) {

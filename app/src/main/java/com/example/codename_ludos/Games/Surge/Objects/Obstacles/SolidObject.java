@@ -20,6 +20,10 @@ public class SolidObject extends Obstacle {
         super("solidWall", x, y, 30, 40+80);
     }
 
+    static {
+        objects.bindSprite("solidWall", 180, 0, 20, 80);
+    }
+
     @Override
     public void draw() {
         if (!drawName.equals("none")) {

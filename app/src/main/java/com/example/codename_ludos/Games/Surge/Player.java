@@ -26,6 +26,10 @@ public class Player extends BasePlayer {
                     .getAsset("s_rubigo")
                     .asSpriteMap();
 
+    static {
+        sprite.bindSprite("a1", 0, 0, 48, 48);
+    }
+
     private ArrayList<PowerUp> activePowerUps = new ArrayList<>();
 
     private Audio jumpSnd = ArcadeMachine
@@ -38,7 +42,6 @@ public class Player extends BasePlayer {
         super(220, ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT);
         mPos.y *= 2f/3f;
         sprite = new SpriteMap(R.drawable.rubigo);
-        sprite.bindSprite("a1", 0, 0, 48, 48);
         width = 32 + 16;
         height = 64 + 32;
         jumpSnd.setPitch(2);
@@ -169,7 +172,7 @@ public class Player extends BasePlayer {
     @Override
     public void draw() {
         Shapes.setColor(Color.argb(0.5f, 0f,1f,1f));
-        
+
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isUsing() && !activePowerUps.get(i).isDone()) {
                 Shapes.drawRect(
