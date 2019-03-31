@@ -26,7 +26,7 @@ public class SolidObject extends Obstacle {
             objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
         } else {
             Shapes.setColor(Color.GRAY);
-            Shapes.drawRect((int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+            Shapes.drawRect((int)mPos.x + Surge.camera.x, (int)mPos.y + (int)Surge.camera.y, width, height);
         }
     }
 

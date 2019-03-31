@@ -67,7 +67,7 @@ public class OneWayPlatform extends Obstacle {
             objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
         } catch (Exception e) {
             Shapes.setColor(Color.YELLOW);
-            Shapes.drawRect((int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+            Shapes.drawRect((int)mPos.x + Surge.camera.x, (int)mPos.y + (int)Surge.camera.y, width, height);
         }
     }
 

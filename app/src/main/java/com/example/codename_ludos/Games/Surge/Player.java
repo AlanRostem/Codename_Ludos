@@ -7,6 +7,7 @@ import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Audio.Audio;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.Slope;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
@@ -56,10 +57,9 @@ public class Player extends BasePlayer {
         djumping = false;
         jumping = false;
         jumps = 0;
-        speedX = 5500f;
+        speedX = defaultSpeed;
     }
 
-    public float speedX = 5500f;
 
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
@@ -72,25 +72,35 @@ public class Player extends BasePlayer {
                 jumping = true;
                 if (djumping) {
                     if (mVel.y > 0) {
-                        mVel.y = (-750.f);
+                        mVel.y = jumpSpeed;
                     } else {
                         jumps = 0;
                     }
                 }
                 else {
-                    mVel.y = (-900.f);
+                    mVel.y = jumpSpeed;
                     jumpSnd.play();
                 }
             }
             //*/
         }
 
-        glideX(friction);
+        if (!side.bottom) {
+            speedX = airSpeed;
+        }
+
         if (controls.isTouched("right"))
             accelerateX(speedX);
-
-        if (controls.isTouched("left"))
+        else if (controls.isTouched("left"))
             accelerateX(-speedX);
+        else
+            glideX(friction);
+
+        if (mVel.x >= maxSpeed) {
+            mVel.x = maxSpeed;
+        } else if (mVel.x <= -maxSpeed) {
+            mVel.x = -maxSpeed;
+        }
     }
 
     public boolean jumping = false;
@@ -98,7 +108,18 @@ public class Player extends BasePlayer {
     public int maxJumps = 1;
     public boolean djumping = false;
     private int gravity = 1700;
-    private float friction = 0.6f;
+    private float friction = 0.9f;
+
+    private float yPos = mPos.y;
+    private float ySpeed = 100;
+    private float jumpSpeed = -900f;
+
+
+    private final float defaultSpeed = 3000f;
+    public final float airSpeed = 950f;
+    private float maxSpeed = 750f;
+    public float speedX = defaultSpeed;
+
 
     private void step() {
         if (!side.bottom) {
@@ -136,12 +157,8 @@ public class Player extends BasePlayer {
         ySpeed += .1f;
         yPos -= ySpeed * MainThread.getAverageDeltaTime();
         //Surge.camera.update(0, yPos, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
-        Surge.camera.update(0, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
+        Surge.camera.update(mPos.x, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
     }
-
-    private float yPos = mPos.y;
-    private float ySpeed = 100;
-
 
     @Override
     public void update() {
@@ -149,10 +166,13 @@ public class Player extends BasePlayer {
         step();
     }
 
-
     @Override
     public void draw() {
         Shapes.setColor(Color.argb(0.5f, 0f,1f,1f));
+        TextDrawer.draw("Speed = " + mVel.x,
+                Color.GREEN, 60,
+                mPos.x + Surge.camera.x,
+                mPos.y + Surge.camera.y);
 
         for (int i = 0; i < activePowerUps.size(); i++) {
             if (activePowerUps.get(i).isUsing() && !activePowerUps.get(i).isDone()) {
@@ -172,7 +192,7 @@ public class Player extends BasePlayer {
         }
 
         Shapes.setColor(Color.argb(1f, 1f,1f,1f));
-        sprite.drawAt("a1", (int) mPos.x, (int) mPos.y + (int) Surge.camera.y, width, height);
+        sprite.drawAt("a1", (int) mPos.x + Surge.camera.x, (int) mPos.y + (int) Surge.camera.y, width, height);
     }
 
     private void manageCollisionX() {
