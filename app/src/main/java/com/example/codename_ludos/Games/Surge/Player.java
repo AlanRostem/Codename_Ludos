@@ -61,6 +61,7 @@ public class Player extends BasePlayer {
         jumping = false;
         jumps = 0;
         speedX = defaultSpeed;
+        friction = groundFriction;
     }
 
 
@@ -90,6 +91,7 @@ public class Player extends BasePlayer {
 
         if (!side.bottom) {
             speedX = airSpeed;
+            friction = airFriction;
         }
 
         if (controls.isTouched("right"))
@@ -111,7 +113,10 @@ public class Player extends BasePlayer {
     public int maxJumps = 1;
     public boolean djumping = false;
     private int gravity = 1700;
-    private float friction = 0.75f;
+    private float airFriction = 0.9f;
+    private float groundFriction = 0.75f;
+    private float friction = groundFriction;
+
 
     private float yPos = mPos.y;
     private float ySpeed = 100;
