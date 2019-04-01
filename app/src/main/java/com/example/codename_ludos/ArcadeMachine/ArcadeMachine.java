@@ -10,6 +10,7 @@ import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.Games.MountainRun.MountainRun;
+import com.example.codename_ludos.Games.RubiGO.RubiGO;
 import com.example.codename_ludos.Games.Starbit.Starbit;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
@@ -31,7 +32,7 @@ public class ArcadeMachine {
 
     private static HashMap<String, ArcadeGame> games;
     private static ArrayList<String> gameIDList;
-    private static String currentGameID = "Eggrun";
+    private static String currentGameID = "Surge";
     private static ScrollList gameButtons;
 
     public static SpriteMap arcadeImage;
@@ -86,9 +87,8 @@ public class ArcadeMachine {
 
     public static void calibrateScreen() {
         SCREEN_WIDTH = rawScreenWidth;//(int)((float)Constants.SCREEN_WIDTH * relativeWidthFactor);
-        SCREEN_HEIGHT = rawScreenHeight;// (int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
+        SCREEN_HEIGHT = rawScreenHeight;//(int)((float)Constants.SCREEN_HEIGHT * relativeHeightFactor);
 
-        // Asså eg vet da faen
         SCREEN_OFFSET_X = rawScreenOffsetX;//(int)((float)rawScreenOffsetX * (SCREEN_WIDTH / rawScreenWidth));
         SCREEN_OFFSET_Y = rawScreenOffsetY;//(int)((float)rawScreenOffsetY * (SCREEN_HEIGHT / rawScreenHeight));
 
@@ -149,10 +149,12 @@ public class ArcadeMachine {
 
         createGame("Surge", new Surge());
         createGame("MountainRun", new MountainRun());
-        createGame("TestGame", new TestGame());
-        createGame("Eggrun", new Eggrun());
         createGame("Lodestone", new Lodestone());
+        createGame("Rubi-GO!", new RubiGO());
         createGame("Starbit", new Starbit());
+
+        //createGame("TestGame", new TestGame());
+        //createGame("Eggrun", new Eggrun());
 
         for (String n : getGameIDList()) {
             gameButtons.append(n, new GameButton(gameButtons, n, SCREEN_OFFSET_X,

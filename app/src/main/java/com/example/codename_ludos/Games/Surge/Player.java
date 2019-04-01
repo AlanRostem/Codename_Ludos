@@ -1,12 +1,14 @@
 package com.example.codename_ludos.Games.Surge;
 
 import android.graphics.Color;
+import android.util.Log;
 
 
 import com.example.codename_ludos.ArcadeMachine.ArcadeMachine;
 import com.example.codename_ludos.Assets.Audio.Audio;
 import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
+import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.Core.MainThread;
 import com.example.codename_ludos.Games.Surge.Objects.Obstacles.Slope;
 import com.example.codename_ludos.UserInterface.Controllers.Controls;
@@ -25,6 +27,10 @@ public class Player extends BasePlayer {
                     .getAsset("s_rubigo")
                     .asSpriteMap();
 
+    static {
+        sprite.bindSprite("a1", 0, 0, 48, 48);
+    }
+
     private ArrayList<PowerUp> activePowerUps = new ArrayList<>();
 
     private Audio jumpSnd = ArcadeMachine
@@ -36,8 +42,6 @@ public class Player extends BasePlayer {
     public Player() {
         super(220, ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT);
         mPos.y *= 2f/3f;
-        sprite = new SpriteMap(R.drawable.rubigo);
-        sprite.bindSprite("a1", 0, 0, 48, 48);
         width = 32 + 16;
         height = 64 + 32;
         jumpSnd.setPitch(2);
@@ -56,10 +60,10 @@ public class Player extends BasePlayer {
         djumping = false;
         jumping = false;
         jumps = 0;
-        speedX = 5500f;
+        speedX = defaultSpeed;
+        friction = groundFriction;
     }
 
-    public float speedX = 5500f;
 
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
@@ -72,25 +76,36 @@ public class Player extends BasePlayer {
                 jumping = true;
                 if (djumping) {
                     if (mVel.y > 0) {
-                        mVel.y = (-750.f);
+                        mVel.y = jumpSpeed;
                     } else {
                         jumps = 0;
                     }
                 }
                 else {
-                    mVel.y = (-900.f);
+                    mVel.y = jumpSpeed;
                     jumpSnd.play();
                 }
             }
             //*/
         }
 
-        glideX(friction);
+        if (!side.bottom) {
+            speedX = airSpeed;
+            friction = airFriction;
+        }
+
         if (controls.isTouched("right"))
             accelerateX(speedX);
-
-        if (controls.isTouched("left"))
+        else if (controls.isTouched("left"))
             accelerateX(-speedX);
+        else
+            glideX(friction);
+
+        if (mVel.x >= maxSpeed) {
+            mVel.x = maxSpeed;
+        } else if (mVel.x <= -maxSpeed) {
+            mVel.x = -maxSpeed;
+        }
     }
 
     public boolean jumping = false;
@@ -98,7 +113,21 @@ public class Player extends BasePlayer {
     public int maxJumps = 1;
     public boolean djumping = false;
     private int gravity = 1700;
-    private float friction = 0.6f;
+    private float airFriction = 0.9f;
+    private float groundFriction = 0.75f;
+    private float friction = groundFriction;
+
+
+    private float yPos = mPos.y;
+    private float ySpeed = 100;
+    private float jumpSpeed = -900f;
+
+
+    private final float defaultSpeed = 2800f;
+    public final float airSpeed = 950f;
+    private float maxSpeed = 700f;
+    public float speedX = defaultSpeed;
+
 
     private void step() {
         if (!side.bottom) {
@@ -136,19 +165,14 @@ public class Player extends BasePlayer {
         ySpeed += .1f;
         yPos -= ySpeed * MainThread.getAverageDeltaTime();
         //Surge.camera.update(0, yPos, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
-        Surge.camera.update(0, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
+        Surge.camera.update(mPos.x, mPos.y, 0, (ArcadeMachine.SCREEN_OFFSET_Y + ArcadeMachine.SCREEN_HEIGHT) / 3.f);
     }
-
-    private float yPos = mPos.y;
-    private float ySpeed = 100;
-
 
     @Override
     public void update() {
         controlling();
         step();
     }
-
 
     @Override
     public void draw() {
@@ -172,7 +196,7 @@ public class Player extends BasePlayer {
         }
 
         Shapes.setColor(Color.argb(1f, 1f,1f,1f));
-        sprite.drawAt("a1", (int) mPos.x, (int) mPos.y + (int) Surge.camera.y, width, height);
+        sprite.drawAt("a1", (int) mPos.x + Surge.camera.x, (int) mPos.y + (int) Surge.camera.y, width, height);
     }
 
     private void manageCollisionX() {
@@ -199,21 +223,21 @@ public class Player extends BasePlayer {
                     if (overlap(e)) {
                         if (e instanceof SurgeEntity) {
                             if (e instanceof PowerUp) {
-                                if (activePowerUps.size() < 4) {
+                                if (activePowerUps.size() < 3) {
                                     PowerUp p = (PowerUp) e;
                                     boolean remove = false;
                                     if (!p.isUsing()) {
                                         for (PowerUp a : activePowerUps) {
                                             if (a.getClass().equals(p.getClass())) {
-                                                a.setDuration(p.getDuration());
+                                                a.resetDuration();
+                                                p.remove();
                                                 remove = true;
+                                                break;
                                             }
                                         }
-                                        activePowerUps.add(p);
                                         if (!remove) {
+                                            activePowerUps.add(p);
                                             p.use();
-                                        } else {
-                                            p.remove();
                                         }
                                     }
                                 }

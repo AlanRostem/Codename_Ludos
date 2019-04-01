@@ -20,6 +20,9 @@ public class OneWayPlatform extends Obstacle {
         super("none", x, y, width, height);
     }
 
+    static {
+        objects.bindSprite("oneWay", 80, 0, 96, 16);
+    }
 
     public OneWayPlatform(float x, float y) {
         super("oneWay", x, y, 96 + 96/2, 16 + 8);
@@ -67,7 +70,7 @@ public class OneWayPlatform extends Obstacle {
             objects.drawAt(this.drawName, (int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
         } catch (Exception e) {
             Shapes.setColor(Color.YELLOW);
-            Shapes.drawRect((int)mPos.x, (int)mPos.y + (int)Surge.camera.y, width, height);
+            Shapes.drawRect((int)mPos.x + Surge.camera.x, (int)mPos.y + (int)Surge.camera.y, width, height);
         }
     }
 

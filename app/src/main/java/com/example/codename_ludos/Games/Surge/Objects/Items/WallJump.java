@@ -10,8 +10,12 @@ public class WallJump extends PowerUp {
 
     private boolean pressed = false;
 
-    private float acceleration = 200000;
+    private float acceleration = 100000;
     private float lowSpeed = 5000f;
+
+    static {
+        objects.bindSprite("walljump", 0, 20, 20, 20);
+    }
 
     @Override
     public void buff(Player player) {

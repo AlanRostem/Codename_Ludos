@@ -35,7 +35,6 @@ public class Surge extends ArcadeGame {
         assetLoader.createAllQueuedAssets();
 
         makeButtons();
-        SurgeEntity.initializeSpriteMap();
 
         spawnEntity(new SurgeGummyCash(600, 320));
         prefabManager = new PrefabManager(this);
