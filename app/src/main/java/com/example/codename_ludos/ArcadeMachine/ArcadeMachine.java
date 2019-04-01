@@ -48,7 +48,7 @@ public class ArcadeMachine {
 
     private static UIContainer uiElements = new UIContainer("uiElements", 0, 0, 0, 0);
     private static SpriteMap uiButtons = new SpriteMap(R.drawable.ui_buttons);
-    private static Button pause = new Button(uiElements, "pause", 10, 10, 40, 40) {
+    private static Button pause = new Button(uiElements, "pause", 20, 20, 68, 68) {
         @Override
         public void onClick(float eventX, float eventY) {
             ArcadeMachine.getCurrentGame().togglePause();
@@ -59,7 +59,7 @@ public class ArcadeMachine {
             uiButtons.drawAt(this.getID(), this.getOutPutPos().x, this.getOutPutPos().y, this.getWidth(), this.getHeight());
         }
     };
-    private static Button settings = new Button(uiElements, "settings", 10 + 5 + 40, 10, 40, 40) {
+    private static Button settings = new Button(uiElements, "settings", 20 + 10 + 80, 20, 68, 68) {
         @Override
         public void draw() {
             uiButtons.drawAt(this.getID(), this.getOutPutPos().x, this.getOutPutPos().y, this.getWidth(), this.getHeight());
@@ -144,8 +144,8 @@ public class ArcadeMachine {
             }
         };
 
-        uiButtons.bindSprite("pause", 0, 0, 10, 10);
-        uiButtons.bindSprite("settings", 10, 0, 10, 10);
+        uiButtons.bindSprite("pause", 0, 0, 10, 11);
+        uiButtons.bindSprite("settings", 10, 0, 10, 11);
 
         createGame("Surge", new Surge());
         createGame("MountainRun", new MountainRun());
