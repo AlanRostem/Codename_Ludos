@@ -19,6 +19,7 @@ import com.example.codename_ludos.Games.Lodestone.Lodestone;
 import com.example.codename_ludos.LibraryTools.Constants;
 import com.example.codename_ludos.R;
 import com.example.codename_ludos.UserInterface.Elements.ScrollList;
+import com.example.codename_ludos.UserInterface.UIContainer;
 import com.example.codename_ludos.UserInterface.UIElement;
 
 import java.util.ArrayList;
@@ -43,6 +44,26 @@ public class ArcadeMachine {
     }
 
     private static MachineState currentState = MachineState.in_game_select;
+
+    private static UIContainer uiElements = new UIContainer("uiElements", 0, 0, 0, 0);
+    private static SpriteMap uiButtons = new SpriteMap(R.drawable.ui_buttons);
+    private static Button pause = new Button(uiElements, "pause", 10, 10, 40, 40) {
+        @Override
+        public void onClick(float eventX, float eventY) {
+            ArcadeMachine.getCurrentGame().togglePause();
+        }
+
+        @Override
+        public void draw() {
+            uiButtons.drawAt(this.getID(), this.getOutPutPos().x, this.getOutPutPos().y, this.getWidth(), this.getHeight());
+        }
+    };
+    private static Button settings = new Button(uiElements, "settings", 10 + 5 + 40, 10, 40, 40) {
+        @Override
+        public void draw() {
+            uiButtons.drawAt(this.getID(), this.getOutPutPos().x, this.getOutPutPos().y, this.getWidth(), this.getHeight());
+        }
+    };
 
     public static int SCREEN_WIDTH;
     public static int SCREEN_HEIGHT;
@@ -123,6 +144,9 @@ public class ArcadeMachine {
             }
         };
 
+        uiButtons.bindSprite("pause", 0, 0, 10, 10);
+        uiButtons.bindSprite("settings", 10, 0, 10, 10);
+
         createGame("Surge", new Surge());
         createGame("MountainRun", new MountainRun());
         createGame("TestGame", new TestGame());
@@ -134,6 +158,9 @@ public class ArcadeMachine {
             gameButtons.append(n, new GameButton(gameButtons, n, SCREEN_OFFSET_X,
                     SCREEN_OFFSET_Y + getGameIDList().indexOf(n) * GameButton.HEIGHT, ArcadeMachine.SCREEN_WIDTH, GameButton.HEIGHT));
         }
+
+        uiElements.append("pause", pause);
+        uiElements.append("settings", settings);
 
         rawImageWidth = arcadeImage.getImageWidth();
         rawImageHeight = arcadeImage.getImageHeight();
@@ -163,6 +190,7 @@ public class ArcadeMachine {
             gameButtons.draw();
             arcadeImage.drawAt("all", 0, 0, ArcadeMachine.rawImageWidth, ArcadeMachine.rawImageHeight);
         }
+        uiElements.draw();
     }
 
     public static void update() {
@@ -172,6 +200,7 @@ public class ArcadeMachine {
         } else if (getCurrentState() == MachineState.in_game_select) {
             gameButtons.update();
         }
+        uiElements.update();
     }
 
     public static ArrayList<String> getGameIDList() {
