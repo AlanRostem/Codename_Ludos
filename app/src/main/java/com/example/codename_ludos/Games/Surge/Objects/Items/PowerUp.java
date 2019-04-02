@@ -21,6 +21,14 @@ public class PowerUp extends SurgeEntity {
     protected boolean mUsing = false;
     protected String mDrawName;
 
+    public enum PUType {
+        d_jump,
+        w_kick,
+        w_climb
+    }
+
+    public PUType type;
+
     protected SpriteMap.Animation iconAnim = new SpriteMap.
             Animation(0, 3, 4, 0.25f);
 
