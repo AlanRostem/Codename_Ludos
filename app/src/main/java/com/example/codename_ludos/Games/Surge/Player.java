@@ -68,6 +68,10 @@ public class Player extends BasePlayer {
     private void controlling() {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
 
+        if (mVel.y != 0) {
+            jumping = true;
+        }
+
         if (controls.isTouched("jump")) {
             if (!jumping) {
                 jumping = true;
