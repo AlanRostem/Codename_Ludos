@@ -19,7 +19,7 @@ public class WallJump extends PowerUp {
 
     @Override
     public void buff(Player player) {
-        if (!player.side.bottom && ArcadeMachine.getCurrentGame().getControls().isTouched("jump")) {
+        if (!player.side.bottom && player.mVel.y > 0 && ArcadeMachine.getCurrentGame().getControls().isTouched("jump")) {
             if (!pressed) {
                 pressed = true;
                 if (player.side.left) {

@@ -69,24 +69,16 @@ public class Player extends BasePlayer {
         Controls controls = ArcadeMachine.getCurrentGame().getControls();
 
         if (controls.isTouched("jump")) {
-            //mVel.y = (-900.f);
-
-            ///*
             if (!jumping) {
                 jumping = true;
                 if (djumping) {
-                    if (mVel.y > 0) {
-                        mVel.y = jumpSpeed;
-                    } else {
-                        jumps = 0;
-                    }
+                    mVel.y = jumpSpeed;
                 }
                 else {
                     mVel.y = jumpSpeed;
                     jumpSnd.play();
                 }
             }
-            //*/
         }
 
         if (!side.bottom) {
