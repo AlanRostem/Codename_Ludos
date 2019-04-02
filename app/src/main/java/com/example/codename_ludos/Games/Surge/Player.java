@@ -117,17 +117,14 @@ public class Player extends BasePlayer {
     private float groundFriction = 0.75f;
     private float friction = groundFriction;
 
-
     private float yPos = mPos.y;
     private float ySpeed = 100;
     private float jumpSpeed = -900f;
 
-
-    private final float defaultSpeed = 2800f;
+    private final float defaultSpeed = 3000f;
     public final float airSpeed = 950f;
-    private float maxSpeed = 700f;
+    private float maxSpeed = 500f;
     public float speedX = defaultSpeed;
-
 
     private void step() {
         if (!side.bottom) {
