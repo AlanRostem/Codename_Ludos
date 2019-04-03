@@ -73,24 +73,31 @@ public class Player extends BasePlayer {
         return false;
     }
 
+    private Controls controls = ArcadeMachine.getCurrentGame().getControls();
+    private boolean pressedJump = false;
+
     private void controlling() {
-        Controls controls = ArcadeMachine.getCurrentGame().getControls();
 
         if (mVel.y != 0) {
             jumping = true;
         }
 
         if (controls.isTouched("jump")) {
-            if (!jumping) {
-                mVel.y = jumpSpeed;
-                jumpSnd.play();
-                jumping = true;
+            if (!pressedJump) {
+                if (!jumping) {
+                    mVel.y = jumpSpeed;
+                    jumpSnd.play();
+                    jumping = true;
+                }
+                if (djumping) {
+                    mVel.y = jumpSpeed;
+                    jumpSnd.play();
+                    djumping = false;
+                }
             }
-            if (djumping) {
-                mVel.y = jumpSpeed;
-                jumpSnd.play();
-                djumping = false;
-            }
+            pressedJump = true;
+        } else {
+            pressedJump = false;
         }
 
         if (!side.bottom) {
