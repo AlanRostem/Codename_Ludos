@@ -123,7 +123,7 @@ public class WorldGeneration {
     {
         Vector2D vecTileSize = new Vector2D(chunkWidth*tileSize, (height/2f + elevation) * tileSize / (float)width - height/2f * tileSize / (float)width);
 
-        paint.setColor((Color.CYAN));
+        paint.setColor(Color.CYAN);
 
         for(int i = width; i>0; i--) {
             paint.setColor(Color.rgb(i*10, 0,i*15));
