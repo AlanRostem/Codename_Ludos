@@ -10,7 +10,6 @@ import com.example.codename_ludos.Assets.Graphics.Shapes;
 import com.example.codename_ludos.Assets.Graphics.SpriteMap;
 import com.example.codename_ludos.Assets.Graphics.TextDrawer;
 import com.example.codename_ludos.Games.MountainRun.MountainRun;
-import com.example.codename_ludos.Games.RubiGO.RubiGO;
 import com.example.codename_ludos.Games.Starbit.Starbit;
 import com.example.codename_ludos.UserInterface.Controllers.Button;
 import com.example.codename_ludos.Games.Eggrun.Eggrun;
@@ -150,10 +149,9 @@ public class ArcadeMachine {
         createGame("Surge", new Surge());
         createGame("MountainRun", new MountainRun());
         createGame("Lodestone", new Lodestone());
-        createGame("Rubi-GO!", new RubiGO());
         createGame("Starbit", new Starbit());
+        createGame("TestGame", new TestGame());
 
-        //createGame("TestGame", new TestGame());
         //createGame("Eggrun", new Eggrun());
 
         for (String n : getGameIDList()) {
