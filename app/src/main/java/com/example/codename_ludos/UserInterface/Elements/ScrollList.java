@@ -34,7 +34,6 @@ public class ScrollList extends UIContainer {
         div = new Divider(this, "container", x, y, width, height);
         scrollYLimit = scrollLimit;
         scrollYOffset = scrollOffset;
-        Log.i("LudosLog", "Helvetus " + scrollYLimit + "," + scrollYOffset);
     }
 
     public boolean oneFingerOverlap(Finger pos) {

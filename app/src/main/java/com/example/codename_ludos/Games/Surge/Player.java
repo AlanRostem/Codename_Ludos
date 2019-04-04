@@ -64,21 +64,40 @@ public class Player extends BasePlayer {
         friction = groundFriction;
     }
 
+    public boolean hasPowerUp(PowerUp.PUType type) {
+        for (PowerUp p : activePowerUps) {
+            if (p.type == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Controls controls = ArcadeMachine.getCurrentGame().getControls();
+    private boolean pressedJump = false;
 
     private void controlling() {
-        Controls controls = ArcadeMachine.getCurrentGame().getControls();
+
+        if (mVel.y != 0) {
+            jumping = true;
+        }
 
         if (controls.isTouched("jump")) {
-            if (!jumping) {
-                jumping = true;
-                if (djumping) {
-                    mVel.y = jumpSpeed;
-                }
-                else {
+            if (!pressedJump) {
+                if (!jumping) {
                     mVel.y = jumpSpeed;
                     jumpSnd.play();
+                    jumping = true;
+                }
+                if (djumping) {
+                    mVel.y = jumpSpeed;
+                    jumpSnd.play();
+                    djumping = false;
                 }
             }
+            pressedJump = true;
+        } else {
+            pressedJump = false;
         }
 
         if (!side.bottom) {
@@ -104,14 +123,14 @@ public class Player extends BasePlayer {
     public int jumps = 0;
     public int maxJumps = 1;
     public boolean djumping = false;
-    private int gravity = 1700;
+    public int gravity = 1700;
     private float airFriction = 0.9f;
     private float groundFriction = 0.75f;
     private float friction = groundFriction;
 
     private float yPos = mPos.y;
     private float ySpeed = 100;
-    private float jumpSpeed = -900f;
+    public float jumpSpeed = -900f;
 
     private final float defaultSpeed = 3000f;
     public final float airSpeed = 950f;

@@ -5,6 +5,7 @@ import com.example.codename_ludos.Games.Surge.Player;
 public class WallClimb extends PowerUp {
     public WallClimb(float x, float y) {
         super("wallclimb", x, y, 0, 5);
+        type = PUType.w_climb;
     }
 
     private final float climbSpeed = -500f;
