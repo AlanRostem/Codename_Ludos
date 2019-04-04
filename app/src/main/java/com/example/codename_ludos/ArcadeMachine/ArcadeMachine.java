@@ -150,8 +150,8 @@ public class ArcadeMachine {
         createGame("MountainRun", new MountainRun());
         createGame("Lodestone", new Lodestone());
         createGame("Starbit", new Starbit());
+        createGame("TestGame", new TestGame());
 
-        //createGame("TestGame", new TestGame());
         //createGame("Eggrun", new Eggrun());
 
         for (String n : getGameIDList()) {
