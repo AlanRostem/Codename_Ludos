@@ -1,4 +1,4 @@
-package com.example.codename_ludos;
+package com.vetche.codename_ludos;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

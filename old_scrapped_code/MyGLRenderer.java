@@ -1,4 +1,4 @@
-package com.example.codename_ludos;
+package com.vetche.codename_ludos;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
