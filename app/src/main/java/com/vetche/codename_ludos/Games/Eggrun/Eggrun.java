@@ -40,7 +40,7 @@ public class Eggrun extends ArcadeGame {
         spawnEntity(ali);
         birdSpawner.setSpawnOffset(ArcadeMachine.SCREEN_OFFSET_X + ArcadeMachine.SCREEN_WIDTH, ArcadeMachine.SCREEN_OFFSET_Y);
 
-        controls.createController("Jump", new Button(controls, "Jump",100, 1400, 200, 200){
+        controls.createController("Jump", new Button(controls, "Jump",100, 1000, 200, 200){
             private int color = Color.GRAY;
 
             public void onPressed(float x, float y) {

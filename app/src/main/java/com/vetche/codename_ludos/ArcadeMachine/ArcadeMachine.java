@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 
 import com.vetche.codename_ludos.ArcadeMachine.UI.GameButton;
 import com.vetche.codename_ludos.Assets.Graphics.SpriteMap;
+import com.vetche.codename_ludos.Games.Eggrun.Eggrun;
 import com.vetche.codename_ludos.Games.MountainRun.MountainRun;
 import com.vetche.codename_ludos.Games.Starbit.Starbit;
 import com.vetche.codename_ludos.UserInterface.Controllers.Button;
@@ -147,7 +148,7 @@ public class ArcadeMachine {
         createGame("Starbit", new Starbit());
         createGame("TestGame", new TestGame());
 
-        //createGame("Eggrun", new Eggrun());
+        createGame("Eggrun", new Eggrun());
 
         for (String n : getGameIDList()) {
             gameButtons.append(n, new GameButton(gameButtons, n, SCREEN_OFFSET_X,
